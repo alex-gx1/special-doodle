@@ -1,0 +1,48 @@
+# Swift Package Manager
+.build/
+*.xcodeproj/
+*.xcworkspace/
+Package.resolved
+
+# Xcode
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+*.xccheckout
+*.xcscheme
+*.swp
+*.swx
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swx
+*.swo
+
+# Thumbnails
+._*
+
+# Swift Playgrounds
+timeline.xctimeline
+playground.xcplayground
+
+# Carthage
+Carthage/Build/
+
+# Cocoapods
+Pods/
+*.lock
+*.xcworkspace
+
+# Fastlane
+fastlane/report.xml
+fastlane/screenshots
+fastlane/test_output
