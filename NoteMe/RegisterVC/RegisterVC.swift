@@ -1,19 +1,11 @@
-//
-//  Register.swift
-//  NoteMe
-//
-//  Created by LifeTech on 2.12.24.
-//
-
 import Foundation
 import UIKit
 import SnapKit
 
-class Register: UIViewController {
-    
+final class RegisterVC: UIViewController {
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
-        view.image = UIImage(named: "Image" )
+        view.image = Images.logo
         return view
     }()
     
@@ -21,37 +13,38 @@ class Register: UIViewController {
         let view = UILabel()
         view.text = "Nice to meet you!"
         view.textAlignment = .center
-        view.font = UIFont.boldSystemFont(ofSize: 25)
+        view.font = UIFont.appBoldFont25
         return view
     }()
+    
     //middle card and elements
     private lazy var cardView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .white
-            view.layer.cornerRadius = 5
-            view.layer.shadowColor = UIColor.black.cgColor
-            view.layer.shadowOpacity = 0.1
-            view.layer.shadowOffset = CGSize(width: 0, height: 4)
-            view.layer.shadowRadius = 8
-            return view
-        }()
-        
-        private lazy var emailField: AppTextField = {
-            return AppTextField(title: "E-mail", placeholder: "Enter E-mail")
-        }()
-        
-        private lazy var passwordField: AppTextField = {
-            return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
-        }()
-        
-        private lazy var repeatPassword: AppTextField = {
-            return AppTextField(title: "Repeat Password", placeholder: "Enter Password", isSecure: true)
-        }()
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 5
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 8
+        return view
+    }()
+    
+    private lazy var emailField: AppTextField = {
+        return AppTextField(title: "E-mail", placeholder: "Enter E-mail")
+    }()
+    
+    private lazy var passwordField: AppTextField = {
+        return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
+    }()
+    
+    private lazy var repeatPassword: AppTextField = {
+        return AppTextField(title: "Repeat Password", placeholder: "Enter Password",isSecure: true)
+    }()
     
     //bottom card and elements
     private lazy var bottomCard: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1.0)
+        view.backgroundColor = Colors.appBlackColor
         view.layer.cornerRadius = 5
         return view
     }()
@@ -60,48 +53,61 @@ class Register: UIViewController {
         let button = UIButton()
         
         button.layer.cornerRadius = 5
-        button.backgroundColor = .yellow
+        button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
         button.setTitle("Register", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        button.titleLabel?.font = UIFont.appBoldFont17
         return button
     }()
 
-
-    private lazy var newAccountLabel: UILabel = {
-        let label = UILabel()
-        
-        let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.yellow,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .font: UIFont.boldSystemFont(ofSize: 17)
-        ]
-        
-        let attributedText = NSAttributedString(string: "I have an Account", attributes: attributes)
-        label.attributedText = attributedText
-        return label
+    private lazy var haveAccountButton: UIButton = {
+        let button = UIButton()
+        let title = "I have an Account"
+        let attributedString = NSAttributedString(
+            string: title,
+            attributes: [
+                .underlineStyle: NSUnderlineStyle.single.rawValue,
+                .foregroundColor: Colors.appYellowColor!
+            ]
+        )
+        button.setAttributedTitle(attributedString, for: .normal)
+        button.layer.cornerRadius = 5
+        button.backgroundColor = Colors.appBlackColor
+        button.titleLabel?.font = .appBoldFont17
+        return button
     }()
-
-
+    
+    private lazy var globalCardView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupUI()
     }
     
-    
     private func setupUI() {
-        view.addSubview(logoImg)
+        view.backgroundColor = Colors.appBlackColor
+        view.addSubview(globalCardView)
+        
+        globalCardView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(60)
+            make.horizontalEdges.equalToSuperview().inset(0)
+            make.bottom.equalToSuperview().inset(60)
+        }
+        
+        globalCardView.addSubview(logoImg)
         
         logoImg.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(116)
+            make.top.equalToSuperview().offset(72)
             make.centerX.equalToSuperview()
             make.height.equalTo(96)
             make.width.equalTo(96)
         }
         
-        view.addSubview(textWelcomeBack)
+        globalCardView.addSubview(textWelcomeBack)
         
         textWelcomeBack.snp.makeConstraints {make in
             make.top.equalTo(logoImg.snp.bottom).offset(72)
@@ -111,7 +117,8 @@ class Register: UIViewController {
         }
         
         //контейнер-карточка
-        view.addSubview(cardView)
+        globalCardView.addSubview(cardView)
+        
         cardView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(textWelcomeBack.snp.bottom).offset(8)
@@ -137,21 +144,21 @@ class Register: UIViewController {
         }
         
         repeatPassword.snp.makeConstraints { make in
-            make.top.equalTo(emailField.snp.bottom).offset(16)
+            make.top.equalTo(passwordField.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(40)
             make.bottom.equalToSuperview().offset(16)
         }
         
-        view.addSubview(bottomCard)
-        bottomCard.snp.makeConstraints {make in
-            make.top.equalTo(cardView.snp.bottom).offset(206)
-            make.height.equalTo(73)
+        globalCardView.addSubview(bottomCard)
+        bottomCard.snp.makeConstraints { make in
+            make.top.equalTo(cardView.snp.bottom).offset(160)
+            make.height.equalTo(90)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
         bottomCard.addSubview(loginButton)
-        bottomCard.addSubview(newAccountLabel)
+        bottomCard.addSubview(haveAccountButton)
         
         loginButton.snp.makeConstraints{ make in
             make.top.equalToSuperview()
@@ -159,11 +166,10 @@ class Register: UIViewController {
             make.height.equalTo(45)
             
         }
-        
-        newAccountLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(loginButton.snp.bottom).offset(8)
+        haveAccountButton.snp.makeConstraints{ make in
+            make.horizontalEdges.equalToSuperview().inset(0)
+            make.top.equalTo(loginButton.snp.bottom).offset(0)
+            make.height.equalTo(45)
         }
-        
     }
 }

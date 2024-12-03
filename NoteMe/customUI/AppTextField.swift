@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-final class AppTextField: UIView {
+class AppTextField: UIView {
     
     // MARK: - UI Elements
     private let titleLabel: UILabel = {
