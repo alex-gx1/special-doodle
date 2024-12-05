@@ -20,12 +20,7 @@ final class RegisterVC: UIViewController {
     //middle card and elements
     private lazy var cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 5
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-        view.layer.shadowRadius = 8
+        view.applyCardStyle()
         return view
     }()
     
@@ -44,14 +39,12 @@ final class RegisterVC: UIViewController {
     //bottom card and elements
     private lazy var bottomCard: UIView = {
         let view = UIView()
-        view.backgroundColor = Colors.appBlackColor
-        view.layer.cornerRadius = 5
+        view.applyBottomCardStyle()
         return view
     }()
     
     private lazy var loginButton: UIButton = {
         let button = UIButton()
-        
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
@@ -59,7 +52,7 @@ final class RegisterVC: UIViewController {
         button.titleLabel?.font = UIFont.appBoldFont17
         return button
     }()
-
+    
     private lazy var haveAccountButton: UIButton = {
         let button = UIButton()
         let title = "I have an Account"
@@ -82,7 +75,7 @@ final class RegisterVC: UIViewController {
         view.backgroundColor = .white
         return view
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()

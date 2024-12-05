@@ -11,5 +11,5 @@ enum Colors {
     
     static let appGreyColor = UIColor(named: "appGreyColor")
     
-    static let appBlackColor = UIColor(named: "appBlackColor")
+    static let appBlackColor = UIColor(named: "appBlackColor") ?? .black
 }

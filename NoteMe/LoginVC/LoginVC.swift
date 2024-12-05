@@ -21,12 +21,7 @@ final class LoginVC: UIViewController {
     //middle card and elements
     private lazy var cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 5
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-        view.layer.shadowRadius = 8
+        view.applyCardStyle()
         return view
     }()
     
@@ -37,7 +32,7 @@ final class LoginVC: UIViewController {
     private lazy var passwordField: AppTextField = {
         return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
     }()
-        
+    
     private lazy var forgotPasswordButton: UIButton = {
         let button = UIButton()
         let attributes: [NSAttributedString.Key: Any] = [
@@ -55,8 +50,7 @@ final class LoginVC: UIViewController {
     //bottom card and elements
     private lazy var bottomCard: UIView = {
         let view = UIView()
-        view.backgroundColor = Colors.appBlackColor
-        view.layer.cornerRadius = 5
+        view.applyBottomCardStyle()
         return view
     }()
     
@@ -69,7 +63,7 @@ final class LoginVC: UIViewController {
         button.titleLabel?.font = .appBoldFont17
         return button
     }()
-
+    
     private lazy var newAccountButton: UIButton = {
         let button = UIButton()
         let title = "New Account"
@@ -191,6 +185,32 @@ final class LoginVC: UIViewController {
     @objc private func forgotTapped(sender: Any) {
         let vcReset = ResetVC()
         navigationController?.pushViewController(vcReset, animated: true)
+    }
+}
+
+extension UIView {
+    func applyCardStyle(
+        cornerRadius: CGFloat = 5,
+        shadowColor: UIColor = .black,
+        shadowOpacity: Float = 0.1,
+        shadowOffset: CGSize = CGSize(width: 0, height: 4),
+        shadowRadius: CGFloat = 8,
+        backgroundColor: UIColor = .white
+    ) {
+        self.backgroundColor = backgroundColor
+        self.layer.cornerRadius = cornerRadius
+        self.layer.shadowColor = shadowColor.cgColor
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.shadowOffset = shadowOffset
+        self.layer.shadowRadius = shadowRadius
+    }
+    
+    func applyBottomCardStyle(
+        cornerRadius: CGFloat = 5,
+        backgroundColor: UIColor = Colors.appBlackColor
+    ) {
+        self.layer.cornerRadius = cornerRadius
+        self.backgroundColor = backgroundColor
     }
 }
 

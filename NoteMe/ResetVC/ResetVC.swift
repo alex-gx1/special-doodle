@@ -20,19 +20,14 @@ final class ResetVC: UIViewController {
     //middle card and elements
     private lazy var cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 5
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-        view.layer.shadowRadius = 8
+        view.applyCardStyle()
         return view
     }()
-        
+    
     private lazy var emailField: AppTextField = {
         return AppTextField(title: "We will send you a reset password link.", placeholder:"Enter E-mail")
     }()
-        
+    
     //bottom card and elements
     private lazy var loginButton: UIButton = {
         let button = UIButton()
@@ -56,14 +51,14 @@ final class ResetVC: UIViewController {
         button.titleLabel?.font = UIFont.appBoldFont17
         return button
     }()
-
+    
     //white card
     private lazy var globalCardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
