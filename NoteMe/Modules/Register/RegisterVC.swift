@@ -1,27 +1,28 @@
+import Foundation
 import UIKit
 import SnapKit
 
-final class LoginVC: UIViewController {
-    //logo img
+final class RegisterVC: UIViewController {
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
         view.image = Images.logo
         return view
     }()
     
-    //label welcome back
     private lazy var textWelcomeBack: UILabel = {
         let view = UILabel()
-        view.text = "Welcome back!"
+        view.text = "Nice to meet you!"
         view.textAlignment = .center
-        view.font = .appBoldFont25
+        view.font = UIFont.appBoldFont25
         return view
     }()
     
     //middle card and elements
     private lazy var cardView: UIView = {
         let view = UIView()
-        view.applyCardStyle()
+        view.applyCardStyleShadow()
+        view.applyCardStyleCorner()
+        view.applyCardStyleBackgroundColor()
         return view
     }()
     
@@ -33,24 +34,15 @@ final class LoginVC: UIViewController {
         return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
     }()
     
-    private lazy var forgotPasswordButton: UIButton = {
-        let button = UIButton()
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.appBoldFont15,
-            .foregroundColor: Colors.appGreyColor!,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        let attributedTitle = NSAttributedString(string: "Forgot Password", attributes: attributes)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.addTarget(self, action: #selector(forgotTapped(sender:)), for: .touchUpInside)
-        return button
+    private lazy var repeatPassword: AppTextField = {
+        return AppTextField(title: "Repeat Password", placeholder: "Enter Password",isSecure: true)
     }()
     
     //bottom card and elements
     private lazy var bottomCard: UIView = {
         let view = UIView()
-        view.applyBottomCardStyle()
+        view.applyBottomCardStyleCorner()
+        view.applyBottomCardStyleBackgroundColor()
         return view
     }()
     
@@ -59,14 +51,14 @@ final class LoginVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Login", for: .normal)
-        button.titleLabel?.font = .appBoldFont17
+        button.setTitle("Register", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont17
         return button
     }()
     
-    private lazy var newAccountButton: UIButton = {
+    private lazy var haveAccountButton: UIButton = {
         let button = UIButton()
-        let title = "New Account"
+        let title = "I have an Account"
         let attributedString = NSAttributedString(
             string: title,
             attributes: [
@@ -78,20 +70,19 @@ final class LoginVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appBlackColor
         button.titleLabel?.font = .appBoldFont17
-        button.addTarget(self, action: #selector(newAccountTapped(sender:)), for: .touchUpInside)
         return button
+    }()
+    
+    private lazy var globalCardView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-    //white card
-    private lazy var globalCardView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
     
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
@@ -106,9 +97,10 @@ final class LoginVC: UIViewController {
         globalCardView.addSubview(logoImg)
         
         logoImg.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(72)
+            make.top.equalToSuperview().offset(72)
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 96, height: 96))
+            make.height.equalTo(96)
+            make.width.equalTo(96)
         }
         
         globalCardView.addSubview(textWelcomeBack)
@@ -117,6 +109,7 @@ final class LoginVC: UIViewController {
             make.top.equalTo(logoImg.snp.bottom).offset(72)
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(97)
+            make.height.equalTo(29)
         }
         
         //контейнер-карточка
@@ -126,13 +119,13 @@ final class LoginVC: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(textWelcomeBack.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(165)
+            make.height.equalTo(188)
         }
         
         //элементы внутри карточки
         cardView.addSubview(emailField)
         cardView.addSubview(passwordField)
-        cardView.addSubview(forgotPasswordButton)
+        cardView.addSubview(repeatPassword)
         
         emailField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
@@ -146,71 +139,33 @@ final class LoginVC: UIViewController {
             make.height.equalTo(40)
         }
         
-        forgotPasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordField.snp.bottom).offset(20)
-            make.leading.equalTo(passwordField)
-            make.height.equalTo(17)
-            make.bottom.equalToSuperview().offset(-16)
+        repeatPassword.snp.makeConstraints { make in
+            make.top.equalTo(passwordField.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(16)
         }
         
         globalCardView.addSubview(bottomCard)
-        
-        bottomCard.snp.makeConstraints {make in
-            make.top.equalTo(cardView.snp.bottom).offset(180)
+        bottomCard.snp.makeConstraints { make in
+            make.top.equalTo(cardView.snp.bottom).offset(160)
             make.height.equalTo(90)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
         bottomCard.addSubview(loginButton)
-        bottomCard.addSubview(newAccountButton)
+        bottomCard.addSubview(haveAccountButton)
         
         loginButton.snp.makeConstraints{ make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(0)
             make.height.equalTo(45)
+            
         }
-        
-        newAccountButton.snp.makeConstraints{ make in
+        haveAccountButton.snp.makeConstraints{ make in
             make.horizontalEdges.equalToSuperview().inset(0)
             make.top.equalTo(loginButton.snp.bottom).offset(0)
             make.height.equalTo(45)
         }
     }
-    
-    @objc private func newAccountTapped(sender: Any) {
-        let vc = RegisterVC()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc private func forgotTapped(sender: Any) {
-        let vcReset = ResetVC()
-        navigationController?.pushViewController(vcReset, animated: true)
-    }
 }
-
-extension UIView {
-    func applyCardStyle(
-        cornerRadius: CGFloat = 5,
-        shadowColor: UIColor = .black,
-        shadowOpacity: Float = 0.1,
-        shadowOffset: CGSize = CGSize(width: 0, height: 4),
-        shadowRadius: CGFloat = 8,
-        backgroundColor: UIColor = .white
-    ) {
-        self.backgroundColor = backgroundColor
-        self.layer.cornerRadius = cornerRadius
-        self.layer.shadowColor = shadowColor.cgColor
-        self.layer.shadowOpacity = shadowOpacity
-        self.layer.shadowOffset = shadowOffset
-        self.layer.shadowRadius = shadowRadius
-    }
-    
-    func applyBottomCardStyle(
-        cornerRadius: CGFloat = 5,
-        backgroundColor: UIColor = Colors.appBlackColor
-    ) {
-        self.layer.cornerRadius = cornerRadius
-        self.backgroundColor = backgroundColor
-    }
-}
-

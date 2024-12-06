@@ -20,7 +20,9 @@ final class ResetVC: UIViewController {
     //middle card and elements
     private lazy var cardView: UIView = {
         let view = UIView()
-        view.applyCardStyle()
+        view.applyCardStyleShadow()
+        view.applyCardStyleCorner()
+        view.applyCardStyleBackgroundColor()
         return view
     }()
     
@@ -31,7 +33,6 @@ final class ResetVC: UIViewController {
     //bottom card and elements
     private lazy var loginButton: UIButton = {
         let button = UIButton()
-        
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
