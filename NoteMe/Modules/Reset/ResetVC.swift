@@ -3,6 +3,9 @@ import UIKit
 import SnapKit
 
 final class ResetVC: UIViewController {
+    
+    private let service = AuthService()
+    
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
         view.image = Images.logo
@@ -31,13 +34,14 @@ final class ResetVC: UIViewController {
     }()
     
     //bottom card and elements
-    private lazy var loginButton: UIButton = {
+    private lazy var resetButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.setTitle("Reset", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
+        button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -112,19 +116,34 @@ final class ResetVC: UIViewController {
             make.height.equalTo(40)
         }
         
-        globalCardView.addSubview(loginButton)
+        globalCardView.addSubview(resetButton)
         globalCardView.addSubview(cancelButton)
         
-        loginButton.snp.makeConstraints{ make in
+        resetButton.snp.makeConstraints{ make in
             make.top.equalTo(cardView.snp.bottom).offset(200)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }
         
         cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(8)
+            make.top.equalTo(resetButton.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }
     }
+    
+    @objc private func resetButtonTapped() {
+        let email = emailField.text ?? ""
+        service.resetPassword(email: email) { result in
+            switch result {
+            case .success:
+                print("good")
+            case .failure(let error):
+                print("failed \(error.localizedDescription)")
+            }
+        }
+        
+        
+    }
+    
 }

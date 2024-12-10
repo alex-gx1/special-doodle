@@ -26,6 +26,16 @@ class AppTextField: UIView {
         return textField
     }()
     
+    var text: String? {
+        get { textField.text }
+        set { textField.text = newValue }
+    }
+    
+    var placeholder: String? {
+        get { textField.placeholder }
+        set { textField.placeholder = newValue }
+    }
+    
     // MARK: - Initializer
     init(title: String, placeholder: String, isSecure: Bool = false) {
         super.init(frame: .zero)

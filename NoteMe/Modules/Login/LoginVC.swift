@@ -1,7 +1,12 @@
 import UIKit
 import SnapKit
+import FirebaseAuth
+
 
 final class LoginVC: UIViewController {
+    
+    private let service = AuthService()
+    
     //logo img
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
@@ -64,6 +69,7 @@ final class LoginVC: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = .appBoldFont17
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -188,5 +194,21 @@ final class LoginVC: UIViewController {
     @objc private func forgotTapped(sender: Any) {
         let vcReset = ResetVC()
         navigationController?.pushViewController(vcReset, animated: true)
+    }
+    
+    @objc private func loginButtonTapped(sender: Any) {
+        let email = emailField.text
+        let password = passwordField.text
+        let user = UserData(email: email ?? "", password: password ?? "")
+        
+        service.signIn(user: user) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+        
     }
 }

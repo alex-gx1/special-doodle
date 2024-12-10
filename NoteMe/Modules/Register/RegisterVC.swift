@@ -3,6 +3,9 @@ import UIKit
 import SnapKit
 
 final class RegisterVC: UIViewController {
+    
+    private let service = AuthService()
+    
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
         view.image = Images.logo
@@ -28,7 +31,7 @@ final class RegisterVC: UIViewController {
     
     private lazy var emailField: AppTextField = {
         return AppTextField(title: "E-mail", placeholder: "Enter E-mail")
-    }()
+    }()    
     
     private lazy var passwordField: AppTextField = {
         return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
@@ -46,13 +49,14 @@ final class RegisterVC: UIViewController {
         return view
     }()
     
-    private lazy var loginButton: UIButton = {
+    private lazy var registerButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
         button.setTitle("Register", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
+        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -153,10 +157,10 @@ final class RegisterVC: UIViewController {
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        bottomCard.addSubview(loginButton)
+        bottomCard.addSubview(registerButton)
         bottomCard.addSubview(haveAccountButton)
         
-        loginButton.snp.makeConstraints{ make in
+        registerButton.snp.makeConstraints{ make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(0)
             make.height.equalTo(45)
@@ -164,8 +168,24 @@ final class RegisterVC: UIViewController {
         }
         haveAccountButton.snp.makeConstraints{ make in
             make.horizontalEdges.equalToSuperview().inset(0)
-            make.top.equalTo(loginButton.snp.bottom).offset(0)
+            make.top.equalTo(registerButton.snp.bottom).offset(0)
             make.height.equalTo(45)
+        }
+    }
+    
+    @objc private func registerButtonTapped() {
+        let email = emailField.text
+        
+        let password = passwordField.text
+        
+        let user = UserData(email: email ?? "", password: password ?? "")
+        service.createNewUser(user: user) { result in
+            switch result {
+            case .success(let succes):
+                print(succes)
+            case .failure(let failure):
+                print(failure)
+            }
         }
     }
 }

@@ -9,5 +9,4 @@ extension UIFont {
     static var appBoldFont15: UIFont = .boldSystemFont(ofSize: 15.0)
     
     static var appFont17: UIFont = .systemFont(ofSize: 17.0)
-    
 }
