@@ -1,10 +1,12 @@
 import Foundation
 import UIKit
 import SnapKit
+import FirebaseAuth
+import Firebase
 
 final class RegisterVC: UIViewController {
     
-    private let service = AuthService()
+    private let viewModel = RegisterViewModel()
     
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
@@ -175,17 +177,39 @@ final class RegisterVC: UIViewController {
     
     @objc private func registerButtonTapped() {
         let email = emailField.text
-        
         let password = passwordField.text
+        let repeatPassword = repeatPassword.text
         
-        let user = UserData(email: email ?? "", password: password ?? "")
-        service.createNewUser(user: user) { result in
-            switch result {
-            case .success(let succes):
-                print(succes)
-            case .failure(let failure):
-                print(failure)
+        guard viewModel.validateEmail(email) else {
+            showAlert(title: "Error", message: "Invalid email format.")
+            return
+        }
+        
+        guard viewModel.validatePasswords(password: password, repeatPassword: repeatPassword) else {
+            showAlert(title: "Error", message: "Passwords do not match.")
+            return
+        }
+        
+        guard viewModel.validatePasswordStrength(password) else {
+            showAlert(title: "Error", message: "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.")
+            return
+        }
+        
+        viewModel.registerUser(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let successMessage):
+                    self?.showAlert(title: "Success", message: successMessage)
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                }
             }
         }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

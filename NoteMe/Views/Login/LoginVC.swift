@@ -5,6 +5,7 @@ import FirebaseAuth
 
 final class LoginVC: UIViewController {
     
+    private let viewModel = LoginViewModel()
     private let service = AuthService()
     
     //logo img
@@ -197,18 +198,29 @@ final class LoginVC: UIViewController {
     }
     
     @objc private func loginButtonTapped(sender: Any) {
-        let email = emailField.text
-        let password = passwordField.text
-        let user = UserData(email: email ?? "", password: password ?? "")
+            let email = emailField.text
+            let password = passwordField.text
         
-        service.signIn(user: user) { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
+            guard viewModel.validateEmail(email) else {
+                showAlert(title: "Error", message: "Invalid email format.")
+                return
+            }
+            
+            viewModel.loginUser(email: email, password: password) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let successMessage):
+                        self?.showAlert(title: "Success", message: successMessage)
+                    case .failure(let error):
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
+                    }
+                }
             }
         }
-        
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
