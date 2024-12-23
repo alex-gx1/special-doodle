@@ -2,9 +2,15 @@ import Foundation
 import UIKit
 import SnapKit
 
+
+protocol ResetViewModelProtocol: AnyObject {
+    func reset(email: String)
+    var shouldShowAlert: Closure<String>? {get set}
+}
+
 final class ResetVC: UIViewController {
+    private let viewModel: ResetViewModelProtocol
     
-    private let service = AuthService()
     
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
@@ -64,9 +70,25 @@ final class ResetVC: UIViewController {
         return view
     }()
     
+    init(viewModel: ResetViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    private func bind(){
+        viewModel.shouldShowAlert = { [weak self] message in
+            self?.showAlert(title: "Error", message: message)
+        }
     }
     
     private func setupUI() {
@@ -133,17 +155,16 @@ final class ResetVC: UIViewController {
     }
     
     @objc private func resetButtonTapped() {
-        let email = emailField.text ?? ""
-        service.resetPassword(email: email) { result in
-            switch result {
-            case .success:
-                print("good")
-            case .failure(let error):
-                print("failed \(error.localizedDescription)")
-            }
-        }
+        guard
+            let email = emailField.text
+        else { return }
         
-        
+        viewModel.reset(email: email)
     }
     
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }

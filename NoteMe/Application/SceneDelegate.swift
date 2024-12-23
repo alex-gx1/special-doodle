@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         //3 MainController into NavigationController
-        let viewController = LoginVC()
+        let viewController = LoginAssembler.make()
         
         let navigationController = UINavigationController(rootViewController: viewController)
         

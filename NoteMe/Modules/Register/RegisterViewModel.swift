@@ -3,10 +3,13 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-final class RegisterViewModel {
+final class RegisterViewModel: RegisterViewModelProtocol {
     private let service: AuthService
+    private let validationService: ValidationService
+    var shouldShowAlert: Closure<String>?
     
-    init(service: AuthService = AuthService()) {
+    init(service: AuthService = AuthService(), validationService: ValidationService = ValidationService()) {
+        self.validationService = validationService
         self.service = service
     }
     
@@ -28,21 +31,32 @@ final class RegisterViewModel {
         }
     }
     
-    func validateEmail(_ email: String?) -> Bool {
-        guard let email = email else { return false }
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
-        return emailPredicate.evaluate(with: email)
-    }
-    
     func validatePasswords(password: String?, repeatPassword: String?) -> Bool {
         guard let password = password, let repeatPassword = repeatPassword else { return false }
         return password == repeatPassword
     }
     
-    func validatePasswordStrength(_ password: String?) -> Bool {
-        guard let password = password else { return false }
-        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
-        return passwordPredicate.evaluate(with: password)
+    func register(email: String, password: String) {
+        guard validationService.validateEmail(email) else {
+            shouldShowAlert?("Invalid email format.")
+            return
+        }
+        
+        guard validationService.validatePasswordStrength(password) else {
+            shouldShowAlert?("Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.")
+            return
+        }
+        
+        registerUser(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self?.shouldShowAlert?("Success")
+                case .failure(let error):
+                    self?.shouldShowAlert?(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 

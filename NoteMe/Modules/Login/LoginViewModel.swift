@@ -1,16 +1,13 @@
 import Foundation
 import FirebaseAuth
-final class LoginViewModel {
+final class LoginViewModel: LoginViewModelProtocol {
     private let service: AuthService
+    private let validationService: ValidationService
+    var shouldShowAlert: Closure<String>?
     
-    init(service: AuthService = AuthService()) {
+    init(service: AuthService = AuthService(), validationService: ValidationService = ValidationService()) {
         self.service = service
-    }
-    
-    func validateEmail(_ email: String?) -> Bool {
-        guard let email = email else { return false }
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
-        return emailPredicate.evaluate(with: email)
+        self.validationService = validationService
     }
     
     func loginUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
@@ -32,6 +29,24 @@ final class LoginViewModel {
                 completion(.success("Successfully logged in!"))
             case .failure(let error):
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    func login(email: String, password: String) {
+        guard validationService.validateEmail(email) else {
+            shouldShowAlert?("Invalid email  format.")
+            return
+        }
+        
+        loginUser(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    print("Succes go to next screen")
+                case .failure(let error):
+                    self?.shouldShowAlert?(error.localizedDescription)
+                }
             }
         }
     }

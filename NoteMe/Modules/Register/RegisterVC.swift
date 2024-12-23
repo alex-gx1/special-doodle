@@ -1,26 +1,30 @@
+import Foundation
 import UIKit
 import SnapKit
 import FirebaseAuth
+import Firebase
 
 
-final class LoginVC: UIViewController {
+protocol RegisterViewModelProtocol: AnyObject {
+    func validatePasswords(password: String?, repeatPassword: String?) -> Bool
+    func register(email: String, password: String)
+    var shouldShowAlert: Closure<String>? {get set}
+}
+
+final class RegisterVC: UIViewController {
+    private let viewModel: RegisterViewModelProtocol
     
-    private let viewModel = LoginViewModel()
-    private let service = AuthService()
-    
-    //logo img
     private lazy var logoImg: UIImageView =  {
         let view = UIImageView()
         view.image = Images.logo
         return view
     }()
     
-    //label welcome back
     private lazy var textWelcomeBack: UILabel = {
         let view = UILabel()
-        view.text = "Welcome back!"
+        view.text = "Nice to meet you!"
         view.textAlignment = .center
-        view.font = .appBoldFont25
+        view.font = UIFont.appBoldFont25
         return view
     }()
     
@@ -41,18 +45,8 @@ final class LoginVC: UIViewController {
         return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
     }()
     
-    private lazy var forgotPasswordButton: UIButton = {
-        let button = UIButton()
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.appBoldFont15,
-            .foregroundColor: Colors.appGreyColor!,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        let attributedTitle = NSAttributedString(string: "Forgot Password", attributes: attributes)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.addTarget(self, action: #selector(forgotTapped(sender:)), for: .touchUpInside)
-        return button
+    private lazy var repeatPassword: AppTextField = {
+        return AppTextField(title: "Repeat Password", placeholder: "Enter Password",isSecure: true)
     }()
     
     //bottom card and elements
@@ -63,20 +57,20 @@ final class LoginVC: UIViewController {
         return view
     }()
     
-    private lazy var loginButton: UIButton = {
+    private lazy var registerButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Login", for: .normal)
-        button.titleLabel?.font = .appBoldFont17
-        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        button.setTitle("Register", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont17
+        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private lazy var newAccountButton: UIButton = {
+    private lazy var haveAccountButton: UIButton = {
         let button = UIButton()
-        let title = "New Account"
+        let title = "I have an Account"
         let attributedString = NSAttributedString(
             string: title,
             attributes: [
@@ -88,20 +82,35 @@ final class LoginVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appBlackColor
         button.titleLabel?.font = .appBoldFont17
-        button.addTarget(self, action: #selector(newAccountTapped(sender:)), for: .touchUpInside)
         return button
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-    //white card
     private lazy var globalCardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
+    
+    init(viewModel: RegisterViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    
+    private func bind(){
+        viewModel.shouldShowAlert = { [weak self] message in
+            self?.showAlert(title: "Error", message: message)
+        }
+    }
     
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
@@ -116,9 +125,10 @@ final class LoginVC: UIViewController {
         globalCardView.addSubview(logoImg)
         
         logoImg.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(72)
+            make.top.equalToSuperview().offset(72)
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 96, height: 96))
+            make.height.equalTo(96)
+            make.width.equalTo(96)
         }
         
         globalCardView.addSubview(textWelcomeBack)
@@ -127,6 +137,7 @@ final class LoginVC: UIViewController {
             make.top.equalTo(logoImg.snp.bottom).offset(72)
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(97)
+            make.height.equalTo(29)
         }
         
         //контейнер-карточка
@@ -136,13 +147,13 @@ final class LoginVC: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(textWelcomeBack.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(165)
+            make.height.equalTo(188)
         }
         
         //элементы внутри карточки
         cardView.addSubview(emailField)
         cardView.addSubview(passwordField)
-        cardView.addSubview(forgotPasswordButton)
+        cardView.addSubview(repeatPassword)
         
         emailField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
@@ -156,67 +167,53 @@ final class LoginVC: UIViewController {
             make.height.equalTo(40)
         }
         
-        forgotPasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordField.snp.bottom).offset(20)
-            make.leading.equalTo(passwordField)
-            make.height.equalTo(17)
-            make.bottom.equalToSuperview().offset(-16)
+        repeatPassword.snp.makeConstraints { make in
+            make.top.equalTo(passwordField.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(16)
         }
         
         globalCardView.addSubview(bottomCard)
-        
-        bottomCard.snp.makeConstraints {make in
-            make.top.equalTo(cardView.snp.bottom).offset(180)
+        bottomCard.snp.makeConstraints { make in
+            make.top.equalTo(cardView.snp.bottom).offset(160)
             make.height.equalTo(90)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        bottomCard.addSubview(loginButton)
-        bottomCard.addSubview(newAccountButton)
+        bottomCard.addSubview(registerButton)
+        bottomCard.addSubview(haveAccountButton)
         
-        loginButton.snp.makeConstraints{ make in
+        registerButton.snp.makeConstraints{ make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(0)
             make.height.equalTo(45)
+            
         }
-        
-        newAccountButton.snp.makeConstraints{ make in
+        haveAccountButton.snp.makeConstraints{ make in
             make.horizontalEdges.equalToSuperview().inset(0)
-            make.top.equalTo(loginButton.snp.bottom).offset(0)
+            make.top.equalTo(registerButton.snp.bottom).offset(0)
             make.height.equalTo(45)
         }
     }
     
-    @objc private func newAccountTapped(sender: Any) {
-        let vc = RegisterVC()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc private func forgotTapped(sender: Any) {
-        let vcReset = ResetVC()
-        navigationController?.pushViewController(vcReset, animated: true)
-    }
-    
-    @objc private func loginButtonTapped(sender: Any) {
-            let email = emailField.text
-            let password = passwordField.text
+    @objc private func registerButtonTapped() {
         
-            guard viewModel.validateEmail(email) else {
-                showAlert(title: "Error", message: "Invalid email format.")
-                return
-            }
-            
-            viewModel.loginUser(email: email, password: password) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let successMessage):
-                        self?.showAlert(title: "Success", message: successMessage)
-                    case .failure(let error):
-                        self?.showAlert(title: "Error", message: error.localizedDescription)
-                    }
-                }
-            }
+        guard
+            let email = emailField.text,
+            let password = passwordField.text,
+            let repeatPassword = repeatPassword.text
+        else { return }
+        
+        viewModel.register(email: email, password: password)
+        
+        guard viewModel.validatePasswords(password: password, repeatPassword: repeatPassword) else {
+            showAlert(title: "Error", message: "Passwords do not match.")
+            return
         }
+        
+        
+    }
     
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
