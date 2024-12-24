@@ -3,24 +3,26 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
+protocol ResetAuthServiceProtocol {
+    func resetPassword(
+        email: String,
+        completion: @escaping (Result<Bool, Error>) -> Void)
+}
+
 final class ResetViewModel: ResetViewModelProtocol {
-    private let service: AuthService
+    private let service: ResetAuthServiceProtocol
     private let validationService: ValidationService
     
     var shouldShowAlert: Closure<String>?
     
-    init(service: AuthService = AuthService(), validationService: ValidationService = ValidationService()) {
+    init(service: ResetAuthServiceProtocol, validationService: ValidationService = ValidationService()) {
         self.service = service
         self.validationService = validationService
     }
     
     func resetPasswordForUser(email: String?, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let email = email, !email.isEmpty else {
-            completion(.failure(SignError.invalidUser))
-            return
-        }
         
-        service.resetPassword(email: email) { result in
+        service.resetPassword(email: email ?? "") { result in
             switch result {
             case .success:
                 completion(.success("Password reset email sent successfully."))

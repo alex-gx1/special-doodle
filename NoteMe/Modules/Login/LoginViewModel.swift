@@ -1,29 +1,28 @@
 import Foundation
 import FirebaseAuth
+
+protocol LoginAuthServiceProtocol {
+    func signIn(
+        email: String?,
+        password: String?,
+        completion: @escaping (Result<Bool, Error>) -> Void)
+}
+
 final class LoginViewModel: LoginViewModelProtocol {
-    private let service: AuthService
+    
+    private let authService: LoginAuthServiceProtocol
     private let validationService: ValidationService
+    
     var shouldShowAlert: Closure<String>?
     
-    init(service: AuthService = AuthService(), validationService: ValidationService = ValidationService()) {
-        self.service = service
+    init(service: LoginAuthServiceProtocol, validationService: ValidationService = ValidationService()) {
+        self.authService = service
         self.validationService = validationService
     }
     
     func loginUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let email = email, !email.isEmpty else {
-            completion(.failure(LoginError.invalidEmail))
-            return
-        }
         
-        guard let password = password, !password.isEmpty else {
-            completion(.failure(LoginError.invalidPassword))
-            return
-        }
-        
-        let user = UserData(email: email, password: password)
-        
-        service.signIn(user: user) { result in
+        authService.signIn(email: email, password: password) { result in
             switch result {
             case .success:
                 completion(.success("Successfully logged in!"))
@@ -31,6 +30,7 @@ final class LoginViewModel: LoginViewModelProtocol {
                 completion(.failure(error))
             }
         }
+        
     }
     
     func login(email: String, password: String) {

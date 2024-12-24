@@ -3,25 +3,27 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
+protocol RegisterAuthServiceProtocol {
+    func createNewUser(
+        email: String?,
+        password: String?,
+        completion: @escaping (Result<Bool, Error>) -> Void)
+}
+
 final class RegisterViewModel: RegisterViewModelProtocol {
-    private let service: AuthService
+    
+    private let authService: RegisterAuthServiceProtocol
     private let validationService: ValidationService
+    
     var shouldShowAlert: Closure<String>?
     
-    init(service: AuthService = AuthService(), validationService: ValidationService = ValidationService()) {
+    init(authService: RegisterAuthServiceProtocol, validationService: ValidationService = ValidationService()) {
         self.validationService = validationService
-        self.service = service
+        self.authService = authService
     }
     
     func registerUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let email = email, !email.isEmpty,
-              let password = password, !password.isEmpty else {
-            completion(.failure(ValidationError.emptyFields))
-            return
-        }
-        
-        let user = UserData(email: email, password: password)
-        service.createNewUser(user: user) { result in
+        authService.createNewUser(email: email, password: password) { result in
             switch result {
             case .success:
                 completion(.success("User registered successfully"))

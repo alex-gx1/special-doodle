@@ -1,6 +1,6 @@
 import UIKit
 
-class ValidationService {
+final class ValidationService {
     
     func validateEmail(_ email: String?) -> Bool {
         guard let email = email else { return false }
