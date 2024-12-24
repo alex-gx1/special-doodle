@@ -12,16 +12,25 @@ protocol LoginValidateServiceProtocol {
     func validateEmail(_ email: String?) -> Bool
 }
 
+protocol LoginRouterProtocol {
+    func openRegisterModule()
+    func openResetModule()
+}
+
 final class LoginViewModel: LoginViewModelProtocol {
     
     private let authService: LoginAuthServiceProtocol
+    
     private let validationService: LoginValidateServiceProtocol
+    
+    private let router: LoginRouterProtocol
     
     var shouldShowAlert: Closure<String>?
     
-    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol) {
+    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol, router: LoginRouterProtocol) {
         self.authService = service
         self.validationService = validationService
+        self.router = router
     }
     
     func loginUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
@@ -53,6 +62,14 @@ final class LoginViewModel: LoginViewModelProtocol {
                 }
             }
         }
+    }
+    
+    func openResetModule() {
+        router.openResetModule()
+    }
+    
+    func openRegisterModule() {
+        router.openRegisterModule()
     }
 }
 

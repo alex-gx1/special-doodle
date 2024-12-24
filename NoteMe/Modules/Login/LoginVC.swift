@@ -5,6 +5,10 @@ import FirebaseAuth
 protocol LoginViewModelProtocol: AnyObject {
     var shouldShowAlert: Closure<String>? {get set}
     func login(email: String, password: String)
+    
+    //navigation
+    func openResetModule()
+    func openRegisterModule()
 }
 
 final class LoginVC: UIViewController {
@@ -207,13 +211,11 @@ final class LoginVC: UIViewController {
     }
     
     @objc private func newAccountTapped(sender: Any) {
-        let vc = RegisterAssembler.make()
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.openRegisterModule()
     }
     
     @objc private func forgotTapped(sender: Any) {
-        let vcReset = ResetAssembler.make()
-        navigationController?.pushViewController(vcReset, animated: true)
+        viewModel.openResetModule()
     }
     
     @objc private func loginButtonTapped(sender: Any) {
