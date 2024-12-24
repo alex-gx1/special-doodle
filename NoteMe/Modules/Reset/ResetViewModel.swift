@@ -13,15 +13,24 @@ protocol ResetValidateServiceProtocol {
     func validateEmail(_ email: String?) -> Bool
 }
 
+protocol ResetRouterProtocol  {
+    func back()
+}
+
 final class ResetViewModel: ResetViewModelProtocol {
+    
     private let service: ResetAuthServiceProtocol
+    
     private let validationService: ResetValidateServiceProtocol
+    
+    private let router: ResetRouterProtocol
     
     var shouldShowAlert: Closure<String>?
     
-    init(service: ResetAuthServiceProtocol, validationService: ResetValidateServiceProtocol) {
+    init(service: ResetAuthServiceProtocol, validationService: ResetValidateServiceProtocol, router: ResetRouterProtocol) {
         self.service = service
         self.validationService = validationService
+        self.router = router
     }
     
     func resetPasswordForUser(email: String?, completion: @escaping (Result<String, Error>) -> Void) {
@@ -52,5 +61,9 @@ final class ResetViewModel: ResetViewModelProtocol {
                 }
             }
         }
+    }
+    
+    func back() {
+        router.back()
     }
 }

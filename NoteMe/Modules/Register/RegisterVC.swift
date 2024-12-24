@@ -9,6 +9,9 @@ protocol RegisterViewModelProtocol: AnyObject {
     func validatePasswords(password: String?, repeatPassword: String?) -> Bool
     func register(email: String, password: String)
     var shouldShowAlert: Closure<String>? {get set}
+    
+    //navigation
+    func back()
 }
 
 final class RegisterVC: UIViewController {
@@ -82,6 +85,7 @@ final class RegisterVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appBlackColor
         button.titleLabel?.font = .appBoldFont17
+        button.addTarget(self, action: #selector(haveAccountButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -213,6 +217,10 @@ final class RegisterVC: UIViewController {
         }
         
         
+    }
+    
+    @objc private func haveAccountButtonTapped() {
+        viewModel.back()
     }
     
     private func showAlert(title: String, message: String) {

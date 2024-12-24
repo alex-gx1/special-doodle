@@ -15,16 +15,24 @@ protocol RegisterValidationServiceProtocol {
     func validatePasswordStrength(_ password: String?) -> Bool
 }
 
+protocol RegisterRouterProtocol {
+    func back()
+}
+
 final class RegisterViewModel: RegisterViewModelProtocol {
     
     private let authService: RegisterAuthServiceProtocol
+    
     private let validationService: RegisterValidationServiceProtocol
+    
+    private let router: RegisterRouterProtocol
     
     var shouldShowAlert: Closure<String>?
     
-    init(authService: RegisterAuthServiceProtocol, validationService: RegisterValidationServiceProtocol) {
+    init(authService: RegisterAuthServiceProtocol, validationService: RegisterValidationServiceProtocol, router: RegisterRouterProtocol) {
         self.validationService = validationService
         self.authService = authService
+        self.router = router
     }
     
     func registerUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
@@ -64,6 +72,10 @@ final class RegisterViewModel: RegisterViewModelProtocol {
                 }
             }
         }
+    }
+    
+    func back() {
+        router.back()
     }
 }
 

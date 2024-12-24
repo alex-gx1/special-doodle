@@ -6,6 +6,9 @@ import SnapKit
 protocol ResetViewModelProtocol: AnyObject {
     func reset(email: String)
     var shouldShowAlert: Closure<String>? {get set}
+    
+    //navigation
+    func back()
 }
 
 final class ResetVC: UIViewController {
@@ -60,6 +63,7 @@ final class ResetVC: UIViewController {
         button.setTitleColor(Colors.appYellowColor, for: .normal)
         button.setTitle("Cancel", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -160,6 +164,10 @@ final class ResetVC: UIViewController {
         else { return }
         
         viewModel.reset(email: email)
+    }
+    
+    @objc private func cancelButtonTapped() {
+        viewModel.back()
     }
     
     private func showAlert(title: String, message: String) {
