@@ -10,14 +10,19 @@ protocol RegisterAuthServiceProtocol {
         completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
+protocol RegisterValidationServiceProtocol {
+    func validateEmail(_ email: String?) -> Bool
+    func validatePasswordStrength(_ password: String?) -> Bool
+}
+
 final class RegisterViewModel: RegisterViewModelProtocol {
     
     private let authService: RegisterAuthServiceProtocol
-    private let validationService: ValidationService
+    private let validationService: RegisterValidationServiceProtocol
     
     var shouldShowAlert: Closure<String>?
     
-    init(authService: RegisterAuthServiceProtocol, validationService: ValidationService = ValidationService()) {
+    init(authService: RegisterAuthServiceProtocol, validationService: RegisterValidationServiceProtocol) {
         self.validationService = validationService
         self.authService = authService
     }

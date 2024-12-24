@@ -8,14 +8,18 @@ protocol LoginAuthServiceProtocol {
         completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
+protocol LoginValidateServiceProtocol {
+    func validateEmail(_ email: String?) -> Bool
+}
+
 final class LoginViewModel: LoginViewModelProtocol {
     
     private let authService: LoginAuthServiceProtocol
-    private let validationService: ValidationService
+    private let validationService: LoginValidateServiceProtocol
     
     var shouldShowAlert: Closure<String>?
     
-    init(service: LoginAuthServiceProtocol, validationService: ValidationService = ValidationService()) {
+    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol) {
         self.authService = service
         self.validationService = validationService
     }

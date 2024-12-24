@@ -1,6 +1,6 @@
 import UIKit
 
-final class ValidationService {
+final class ValidationService: RegisterValidationServiceProtocol, LoginValidateServiceProtocol, ResetValidateServiceProtocol {
     
     func validateEmail(_ email: String?) -> Bool {
         guard let email = email else { return false }

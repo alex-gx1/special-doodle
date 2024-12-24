@@ -9,13 +9,17 @@ protocol ResetAuthServiceProtocol {
         completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
+protocol ResetValidateServiceProtocol {
+    func validateEmail(_ email: String?) -> Bool
+}
+
 final class ResetViewModel: ResetViewModelProtocol {
     private let service: ResetAuthServiceProtocol
-    private let validationService: ValidationService
+    private let validationService: ResetValidateServiceProtocol
     
     var shouldShowAlert: Closure<String>?
     
-    init(service: ResetAuthServiceProtocol, validationService: ValidationService = ValidationService()) {
+    init(service: ResetAuthServiceProtocol, validationService: ResetValidateServiceProtocol) {
         self.service = service
         self.validationService = validationService
     }
