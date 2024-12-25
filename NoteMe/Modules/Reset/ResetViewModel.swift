@@ -14,7 +14,10 @@ protocol ResetValidateServiceProtocol {
 }
 
 protocol ResetRouterProtocol  {
+    //navigation
     func back()
+    //alert
+    func showAlert(title: String, message: String?)
 }
 
 final class ResetViewModel: ResetViewModelProtocol {
@@ -47,7 +50,7 @@ final class ResetViewModel: ResetViewModelProtocol {
     
     func reset(email: String)  {
         guard validationService.validateEmail(email) else {
-            shouldShowAlert?("Invalid email format.")
+            router.showAlert(title: "Error", message: "Invalid email format.")
             return
         }
         
@@ -55,9 +58,9 @@ final class ResetViewModel: ResetViewModelProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    self?.shouldShowAlert?("Password reset email sent successfully!")
+                    self?.router.showAlert(title: "Succes", message: "Password reset email sent successfully!")
                 case .failure(let error):
-                    self?.shouldShowAlert?(error.localizedDescription)
+                    self?.router.showAlert(title: "Error", message: error.localizedDescription)
                 }
             }
         }

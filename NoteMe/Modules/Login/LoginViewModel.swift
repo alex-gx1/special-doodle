@@ -13,8 +13,11 @@ protocol LoginValidateServiceProtocol {
 }
 
 protocol LoginRouterProtocol {
+    //navigation
     func openRegisterModule()
     func openResetModule()
+    //alert
+    func showAlert(title: String, message: String?)
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
@@ -48,17 +51,17 @@ final class LoginViewModel: LoginViewModelProtocol {
     
     func login(email: String, password: String) {
         guard validationService.validateEmail(email) else {
-            shouldShowAlert?("Invalid email  format.")
+            router.showAlert(title: "Error", message: "Invalid email  format.")
             return
         }
         
         loginUser(email: email, password: password) { [weak self] result in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 switch result {
-                case .success(_):
-                    print("Succes go to next screen")
+                case .success(let succesMessage):
+                    self?.router.showAlert(title: "Success", message: succesMessage)
                 case .failure(let error):
-                    self?.shouldShowAlert?(error.localizedDescription)
+                    self?.router.showAlert(title: "Error", message: error.localizedDescription)
                 }
             }
         }

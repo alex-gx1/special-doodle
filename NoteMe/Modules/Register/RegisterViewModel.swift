@@ -17,6 +17,8 @@ protocol RegisterValidationServiceProtocol {
 
 protocol RegisterRouterProtocol {
     func back()
+    
+    func showAlert(title: String, message: String?)
 }
 
 final class RegisterViewModel: RegisterViewModelProtocol {
@@ -47,18 +49,23 @@ final class RegisterViewModel: RegisterViewModelProtocol {
     }
     
     func validatePasswords(password: String?, repeatPassword: String?) -> Bool {
-        guard let password = password, let repeatPassword = repeatPassword else { return false }
+        guard
+            let password = password,
+            let repeatPassword = repeatPassword
+        else { return false }
+        
         return password == repeatPassword
     }
     
     func register(email: String, password: String) {
         guard validationService.validateEmail(email) else {
-            shouldShowAlert?("Invalid email format.")
+            router.showAlert(title: "Error", message: "Invalid email format!")
+            
             return
         }
         
         guard validationService.validatePasswordStrength(password) else {
-            shouldShowAlert?("Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.")
+            router.showAlert(title: "Error", message: "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.")
             return
         }
         
@@ -66,9 +73,9 @@ final class RegisterViewModel: RegisterViewModelProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    self?.shouldShowAlert?("Success")
+                    self?.router.showAlert(title: "Success", message: "You have been successfuly registrated!")
                 case .failure(let error):
-                    self?.shouldShowAlert?(error.localizedDescription)
+                    self?.router.showAlert(title: "Error", message: error.localizedDescription)
                 }
             }
         }

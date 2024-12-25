@@ -15,4 +15,13 @@ final class LoginRouter: LoginRouterProtocol {
         let vc = ResetAssembler.make()
         root?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func showAlert(
+        title: String,
+        message: String?
+    ) {
+        let alert = AlertBuilder.buildOkAlert(title: title, message: message)
+        root?.present(alert, animated: true)
+    }
+    
 }
