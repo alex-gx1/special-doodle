@@ -8,11 +8,15 @@ final class LoginRouter: LoginRouterProtocol {
     func openRegisterModule() {
         let vc = RegisterAssembler.make()
         root?.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     func openResetModule() {
         let vc = ResetAssembler.make()
+        root?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func openOnboardingModule() {
+        let vc = OnboardingAssembler.make()
         root?.navigationController?.pushViewController(vc, animated: true)
     }
     

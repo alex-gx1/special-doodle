@@ -16,6 +16,7 @@ protocol LoginRouterProtocol {
     //navigation
     func openRegisterModule()
     func openResetModule()
+    func openOnboardingModule()
     //alert
     func showAlert(title: String, message: String?)
 }
@@ -58,13 +59,19 @@ final class LoginViewModel: LoginViewModelProtocol {
         loginUser(email: email, password: password) { [weak self] result in
             DispatchQueue.main.async { [self] in
                 switch result {
-                case .success(let succesMessage):
-                    self?.router.showAlert(title: "Success", message: succesMessage)
+                case .success(_):
+                    //                case .success(let succesMessage):
+                    //                    self?.router.showAlert(title: "Success", message: succesMessage)
+                    self?.openOnboardingModule()
                 case .failure(let error):
                     self?.router.showAlert(title: "Error", message: error.localizedDescription)
                 }
             }
         }
+    }
+    
+    func openOnboardingModule() {
+        router.openOnboardingModule()
     }
     
     func openResetModule() {

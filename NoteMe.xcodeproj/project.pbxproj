@@ -18,7 +18,18 @@
 		9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2835EE2D1B3F99009A66DA /* LoginRouter.swift */; };
 		9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2835F02D1B48E0009A66DA /* ResetRouter.swift */; };
 		9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2835F22D1B507E009A66DA /* RegisterRouter.swift */; };
+		9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28AFCB2D220193005DB31F /* MainScreenVC.swift */; };
+		9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28AFCD2D220366005DB31F /* MainScreenViewModel.swift */; };
+		9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28AFCF2D22051C005DB31F /* MainScreenAssembler.swift */; };
 		9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */; };
+		9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68092D1DD7B70036D9A3 /* OnboardingVC.swift */; };
+		9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A680B2D1DD7D70036D9A3 /* OnboardingViewModel.swift */; };
+		9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A680D2D1DD7EA0036D9A3 /* OnboardingAssembler.swift */; };
+		9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A680F2D1DD8110036D9A3 /* OnboardingRouter.swift */; };
+		9D6A68132D1E05CD0036D9A3 /* OnboardingSecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68122D1E05CD0036D9A3 /* OnboardingSecondVC.swift */; };
+		9D6A68152D1E05E90036D9A3 /* OnboardingSecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68142D1E05E90036D9A3 /* OnboardingSecondViewModel.swift */; };
+		9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68162D1E060A0036D9A3 /* OnboardingSecondAssembler.swift */; };
+		9D6A68192D1E06300036D9A3 /* OnboardingSecondRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68182D1E06300036D9A3 /* OnboardingSecondRouter.swift */; };
 		9D6F25782CFDDC8F00BFA561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25772CFDDC8F00BFA561 /* AppDelegate.swift */; };
 		9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25792CFDDC8F00BFA561 /* SceneDelegate.swift */; };
 		9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F257B2CFDDC8F00BFA561 /* LoginVC.swift */; };
@@ -73,7 +84,18 @@
 		9D2835EE2D1B3F99009A66DA /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		9D2835F02D1B48E0009A66DA /* ResetRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetRouter.swift; sourceTree = "<group>"; };
 		9D2835F22D1B507E009A66DA /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
+		9D28AFCB2D220193005DB31F /* MainScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVC.swift; sourceTree = "<group>"; };
+		9D28AFCD2D220366005DB31F /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
+		9D28AFCF2D22051C005DB31F /* MainScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAssembler.swift; sourceTree = "<group>"; };
 		9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
+		9D6A68092D1DD7B70036D9A3 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		9D6A680B2D1DD7D70036D9A3 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		9D6A680D2D1DD7EA0036D9A3 /* OnboardingAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAssembler.swift; sourceTree = "<group>"; };
+		9D6A680F2D1DD8110036D9A3 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
+		9D6A68122D1E05CD0036D9A3 /* OnboardingSecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSecondVC.swift; sourceTree = "<group>"; };
+		9D6A68142D1E05E90036D9A3 /* OnboardingSecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSecondViewModel.swift; sourceTree = "<group>"; };
+		9D6A68162D1E060A0036D9A3 /* OnboardingSecondAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSecondAssembler.swift; sourceTree = "<group>"; };
+		9D6A68182D1E06300036D9A3 /* OnboardingSecondRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSecondRouter.swift; sourceTree = "<group>"; };
 		9D6F25742CFDDC8F00BFA561 /* NoteMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6F25772CFDDC8F00BFA561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D6F25792CFDDC8F00BFA561 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,6 +215,38 @@
 			path = Reset;
 			sourceTree = "<group>";
 		};
+		9D28AFCA2D21FE54005DB31F /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D28AFCB2D220193005DB31F /* MainScreenVC.swift */,
+				9D28AFCD2D220366005DB31F /* MainScreenViewModel.swift */,
+				9D28AFCF2D22051C005DB31F /* MainScreenAssembler.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		9D6A68082D1DD7890036D9A3 /* OnboardingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D6A68092D1DD7B70036D9A3 /* OnboardingVC.swift */,
+				9D6A680B2D1DD7D70036D9A3 /* OnboardingViewModel.swift */,
+				9D6A680D2D1DD7EA0036D9A3 /* OnboardingAssembler.swift */,
+				9D6A680F2D1DD8110036D9A3 /* OnboardingRouter.swift */,
+			);
+			path = OnboardingScreen;
+			sourceTree = "<group>";
+		};
+		9D6A68112D1E059A0036D9A3 /* OnboardingScreenSecond */ = {
+			isa = PBXGroup;
+			children = (
+				9D6A68122D1E05CD0036D9A3 /* OnboardingSecondVC.swift */,
+				9D6A68142D1E05E90036D9A3 /* OnboardingSecondViewModel.swift */,
+				9D6A68162D1E060A0036D9A3 /* OnboardingSecondAssembler.swift */,
+				9D6A68182D1E06300036D9A3 /* OnboardingSecondRouter.swift */,
+			);
+			path = OnboardingScreenSecond;
+			sourceTree = "<group>";
+		};
 		9D6F256B2CFDDC8F00BFA561 = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +341,9 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9D28AFCA2D21FE54005DB31F /* MainScreen */,
+				9D6A68112D1E059A0036D9A3 /* OnboardingScreenSecond */,
+				9D6A68082D1DD7890036D9A3 /* OnboardingScreen */,
 				9D17E8A52CFF42920060E5B0 /* Register */,
 				9D17E8A62CFF42AF0060E5B0 /* Login */,
 				9D17E8A72CFF42BF0060E5B0 /* Reset */,
@@ -480,9 +537,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D6A68132D1E05CD0036D9A3 /* OnboardingSecondVC.swift in Sources */,
+				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
+				9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */,
 				9D17E8A92CFF42EA0060E5B0 /* Images.swift in Sources */,
 				9DF57C902D03718600B73BCF /* Colors.swift in Sources */,
 				9D6F25B02CFE1EE500BFA561 /* RegisterVC.swift in Sources */,
+				9D6A68152D1E05E90036D9A3 /* OnboardingSecondViewModel.swift in Sources */,
+				9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */,
+				9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */,
 				9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */,
 				9DC2EC262D073FF7005A21F3 /* AuthService.swift in Sources */,
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
@@ -492,18 +555,23 @@
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
+				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
 				9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */,
 				9DAA627B2D16121B008FA250 /* ResetAssembler.swift in Sources */,
+				9D6A68192D1E06300036D9A3 /* OnboardingSecondRouter.swift in Sources */,
 				9D6F25782CFDDC8F00BFA561 /* AppDelegate.swift in Sources */,
 				9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */,
 				9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
+				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
 				9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */,
+				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
+				9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */,
 				9DC9992C2D1A24ED0090B8F3 /* RegisterAuthUseCase.swift in Sources */,
 				9D17E8AB2CFF4BEE0060E5B0 /* Fonts.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,
