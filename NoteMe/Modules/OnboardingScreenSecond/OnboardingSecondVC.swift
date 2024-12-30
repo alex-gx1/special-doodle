@@ -68,7 +68,13 @@ final class OnboardingSecondVC: UIViewController {
         view.font = .appFont13
         return view
     }()
-
+    
+    private lazy var plusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Images.plusButton, for: .normal)
+        button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var doneButton: UIButton = {
         let button = UIButton()
@@ -81,6 +87,42 @@ final class OnboardingSecondVC: UIViewController {
         return button
     }()
     
+    private lazy var popUpView: PopUpView = {
+        let popUpView = PopUpView()
+        popUpView.alpha = 0
+        popUpView.onCalendarTap = { [weak self] in
+            self?.handleCalendarTap()
+        }
+        popUpView.onLocationTap = { [weak self] in
+            self?.handleLocationTap()
+        }
+        popUpView.onTimerTap = { [weak self] in
+            self?.handleTimerTap()
+        }
+        return popUpView
+    }()
+    
+    private func handleCalendarTap() {
+        print("Calendar tapped")
+        hidePopupView()
+    }
+
+    private func handleLocationTap() {
+        print("Location tapped")
+        hidePopupView()
+    }
+
+    private func handleTimerTap() {
+        print("Timer tapped")
+        hidePopupView()
+    }
+
+    private func hidePopupView() {
+        UIView.animate(withDuration: 0.3) {
+            self.popUpView.alpha = 0
+        }
+    }
+
     
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
@@ -124,10 +166,23 @@ final class OnboardingSecondVC: UIViewController {
             make.horizontalEdges.equalToSuperview().inset(16)
         }
         
+        globalCardView.addSubview(plusButton)
+        
+        plusButton.snp.makeConstraints{ make in
+            make.top.equalTo(cardView.snp.bottom).offset(40)
+            make.horizontalEdges.equalToSuperview().inset(162)
+        }
+        
+        globalCardView.addSubview(popUpView)
+        
+        popUpView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         globalCardView.addSubview(doneButton)
         
         doneButton.snp.makeConstraints { make in
-            make.top.equalTo(cardView.snp.bottom).offset(220)
+            make.top.equalTo(plusButton.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }
@@ -136,5 +191,11 @@ final class OnboardingSecondVC: UIViewController {
     
     @objc private func doneButtonTapped(sender: Any) {
         viewModel.openMainScreenModule()
+    }
+    
+    @objc private func plusButtonTapped(sender: Any) {
+        UIView.animate(withDuration: 0.3) {
+            self.popUpView.alpha = 1
+        }
     }
 }
