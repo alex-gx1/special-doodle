@@ -21,6 +21,21 @@
 		9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28AFCB2D220193005DB31F /* MainScreenVC.swift */; };
 		9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28AFCD2D220366005DB31F /* MainScreenViewModel.swift */; };
 		9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28AFCF2D22051C005DB31F /* MainScreenAssembler.swift */; };
+		9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20B32D384E4500B475EE /* ParametrsService.swift */; };
+		9D2E20B72D385F6A00B475EE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20B62D385F6A00B475EE /* Container.swift */; };
+		9D2E20B92D39598400B475EE /* ContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20B82D39598400B475EE /* ContainerConfigurator.swift */; };
+		9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20BA2D39667700B475EE /* AppRouter.swift */; };
+		9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20BD2D3996A900B475EE /* AuthScreen.swift */; };
+		9D2E20C02D399B3400B475EE /* MainScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20BF2D399B3400B475EE /* MainScreenRouter.swift */; };
+		9D2E20C22D399C1D00B475EE /* OnboardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20C12D399C1D00B475EE /* OnboardingScreens.swift */; };
+		9D2E20C52D39A9F400B475EE /* ProfileScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20C42D39A9F400B475EE /* ProfileScreenVC.swift */; };
+		9D2E20C72D39AA3400B475EE /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20C62D39AA3400B475EE /* ProfileScreenViewModel.swift */; };
+		9D2E20C92D39AA6200B475EE /* ProfileScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20C82D39AA6200B475EE /* ProfileScreenAssembler.swift */; };
+		9D2E20CB2D39AB9600B475EE /* ProfileScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20CA2D39AB9600B475EE /* ProfileScreenRouter.swift */; };
+		9D2E20CE2D39ACC900B475EE /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20CD2D39ACC900B475EE /* TabBarVC.swift */; };
+		9D2E20D02D39ACDE00B475EE /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20CF2D39ACDE00B475EE /* TabBarViewModel.swift */; };
+		9D2E20D22D39AE3300B475EE /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20D12D39AE3300B475EE /* TabBarRouter.swift */; };
+		9D2E20D42D39AE4200B475EE /* TabBarAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2E20D32D39AE4200B475EE /* TabBarAssembler.swift */; };
 		9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */; };
 		9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A68092D1DD7B70036D9A3 /* OnboardingVC.swift */; };
 		9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6A680B2D1DD7D70036D9A3 /* OnboardingViewModel.swift */; };
@@ -88,6 +103,21 @@
 		9D28AFCB2D220193005DB31F /* MainScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVC.swift; sourceTree = "<group>"; };
 		9D28AFCD2D220366005DB31F /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		9D28AFCF2D22051C005DB31F /* MainScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAssembler.swift; sourceTree = "<group>"; };
+		9D2E20B32D384E4500B475EE /* ParametrsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametrsService.swift; sourceTree = "<group>"; };
+		9D2E20B62D385F6A00B475EE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		9D2E20B82D39598400B475EE /* ContainerConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerConfigurator.swift; sourceTree = "<group>"; };
+		9D2E20BA2D39667700B475EE /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		9D2E20BD2D3996A900B475EE /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
+		9D2E20BF2D399B3400B475EE /* MainScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenRouter.swift; sourceTree = "<group>"; };
+		9D2E20C12D399C1D00B475EE /* OnboardingScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreens.swift; sourceTree = "<group>"; };
+		9D2E20C42D39A9F400B475EE /* ProfileScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenVC.swift; sourceTree = "<group>"; };
+		9D2E20C62D39AA3400B475EE /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
+		9D2E20C82D39AA6200B475EE /* ProfileScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenAssembler.swift; sourceTree = "<group>"; };
+		9D2E20CA2D39AB9600B475EE /* ProfileScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenRouter.swift; sourceTree = "<group>"; };
+		9D2E20CD2D39ACC900B475EE /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		9D2E20CF2D39ACDE00B475EE /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		9D2E20D12D39AE3300B475EE /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
+		9D2E20D32D39AE4200B475EE /* TabBarAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembler.swift; sourceTree = "<group>"; };
 		9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		9D6A68092D1DD7B70036D9A3 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		9D6A680B2D1DD7D70036D9A3 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -224,8 +254,49 @@
 				9D28AFCB2D220193005DB31F /* MainScreenVC.swift */,
 				9D28AFCD2D220366005DB31F /* MainScreenViewModel.swift */,
 				9D28AFCF2D22051C005DB31F /* MainScreenAssembler.swift */,
+				9D2E20BF2D399B3400B475EE /* MainScreenRouter.swift */,
 			);
 			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		9D2E20B52D385F4F00B475EE /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				9D2E20B62D385F6A00B475EE /* Container.swift */,
+				9D2E20B82D39598400B475EE /* ContainerConfigurator.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		9D2E20BC2D39967100B475EE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9D2E20BD2D3996A900B475EE /* AuthScreen.swift */,
+				9D2E20C12D399C1D00B475EE /* OnboardingScreens.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		9D2E20C32D39A9CB00B475EE /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D2E20C42D39A9F400B475EE /* ProfileScreenVC.swift */,
+				9D2E20C62D39AA3400B475EE /* ProfileScreenViewModel.swift */,
+				9D2E20C82D39AA6200B475EE /* ProfileScreenAssembler.swift */,
+				9D2E20CA2D39AB9600B475EE /* ProfileScreenRouter.swift */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		9D2E20CC2D39ABF500B475EE /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				9D2E20CD2D39ACC900B475EE /* TabBarVC.swift */,
+				9D2E20CF2D39ACDE00B475EE /* TabBarViewModel.swift */,
+				9D2E20D32D39AE4200B475EE /* TabBarAssembler.swift */,
+				9D2E20D12D39AE3300B475EE /* TabBarRouter.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		9D6A68082D1DD7890036D9A3 /* OnboardingScreen */ = {
@@ -273,6 +344,7 @@
 		9D6F25762CFDDC8F00BFA561 /* NoteMe */ = {
 			isa = PBXGroup;
 			children = (
+				9D2E20BC2D39967100B475EE /* Protocols */,
 				9DFEDF7D2D10621E00CE02C3 /* Models */,
 				9DF57C912D03726900B73BCF /* Modules */,
 				9DFEDF7C2D105EB300CE02C3 /* Application */,
@@ -308,9 +380,11 @@
 		9DC2EC242D073FCF005A21F3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9D2E20B52D385F4F00B475EE /* Container */,
 				9DC2EC252D073FF7005A21F3 /* AuthService.swift */,
 				9DF336022D19C1F40048C928 /* ValidationService.swift */,
 				9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */,
+				9D2E20B32D384E4500B475EE /* ParametrsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -344,6 +418,8 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9D2E20CC2D39ABF500B475EE /* TabBarController */,
+				9D2E20C32D39A9CB00B475EE /* ProfileScreen */,
 				9D28AFCA2D21FE54005DB31F /* MainScreen */,
 				9D6A68112D1E059A0036D9A3 /* OnboardingScreenSecond */,
 				9D6A68082D1DD7890036D9A3 /* OnboardingScreen */,
@@ -384,6 +460,7 @@
 			children = (
 				9D6F25792CFDDC8F00BFA561 /* SceneDelegate.swift */,
 				9D6F25772CFDDC8F00BFA561 /* AppDelegate.swift */,
+				9D2E20BA2D39667700B475EE /* AppRouter.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -540,6 +617,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D2E20D22D39AE3300B475EE /* TabBarRouter.swift in Sources */,
+				9D2E20D02D39ACDE00B475EE /* TabBarViewModel.swift in Sources */,
 				9D6A68132D1E05CD0036D9A3 /* OnboardingSecondVC.swift in Sources */,
 				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
 				9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */,
@@ -549,37 +628,50 @@
 				9D6A68152D1E05E90036D9A3 /* OnboardingSecondViewModel.swift in Sources */,
 				9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */,
 				9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */,
+				9D2E20C22D399C1D00B475EE /* OnboardingScreens.swift in Sources */,
 				9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */,
 				9DC2EC262D073FF7005A21F3 /* AuthService.swift in Sources */,
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
 				9DC999292D1A24C10090B8F3 /* ResetAuthServiceUseCase.swift in Sources */,
 				9D6F25AE2CFDFEF200BFA561 /* AppTextField.swift in Sources */,
+				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
+				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
 				9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */,
+				9D2E20B72D385F6A00B475EE /* Container.swift in Sources */,
 				9DAA627B2D16121B008FA250 /* ResetAssembler.swift in Sources */,
 				9D6A68192D1E06300036D9A3 /* OnboardingSecondRouter.swift in Sources */,
 				9D6F25782CFDDC8F00BFA561 /* AppDelegate.swift in Sources */,
+				9D2E20C52D39A9F400B475EE /* ProfileScreenVC.swift in Sources */,
 				9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */,
 				9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */,
+				9D2E20CE2D39ACC900B475EE /* TabBarVC.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
 				9DDBECCB2D22F06B00356855 /* PopUpView.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
+				9D2E20CB2D39AB9600B475EE /* ProfileScreenRouter.swift in Sources */,
+				9D2E20C72D39AA3400B475EE /* ProfileScreenViewModel.swift in Sources */,
 				9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */,
 				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
 				9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */,
+				9D2E20B92D39598400B475EE /* ContainerConfigurator.swift in Sources */,
 				9DC9992C2D1A24ED0090B8F3 /* RegisterAuthUseCase.swift in Sources */,
+				9D2E20C92D39AA6200B475EE /* ProfileScreenAssembler.swift in Sources */,
+				9D2E20D42D39AE4200B475EE /* TabBarAssembler.swift in Sources */,
+				9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */,
 				9D17E8AB2CFF4BEE0060E5B0 /* Fonts.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,
 				9D6F25B22CFE2EBF00BFA561 /* ResetVC.swift in Sources */,
+				9D2E20C02D399B3400B475EE /* MainScreenRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

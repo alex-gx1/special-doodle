@@ -3,10 +3,16 @@ import UIKit
 
 final class LoginRouter: LoginRouterProtocol {
     
+    private let container: Container
+    
     weak var root: UIViewController?
     
+    init(container: Container) {
+        self.container = container
+    }
+    
     func openRegisterModule() {
-        let vc = RegisterAssembler.make()
+        let vc = RegisterAssembler.make(container: container)
         root?.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -3,10 +3,13 @@ import SnapKit
 import Foundation
 
 protocol OnboardingViewModelProtocol {
+    
+    func viewDidAppear()
+    
     func openOnboardingSecondModule()
 }
 
-final class OnboardingVC: UIViewController {
+final class OnboardingVC: UIViewController, OnboardingScreens {
     
     private let viewModel: OnboardingViewModelProtocol
     
@@ -71,6 +74,12 @@ final class OnboardingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.viewDidAppear()
     }
     
     private func setupUI() {

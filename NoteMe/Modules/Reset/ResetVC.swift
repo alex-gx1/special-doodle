@@ -11,7 +11,7 @@ protocol ResetViewModelProtocol: AnyObject {
     func back()
 }
 
-final class ResetVC: UIViewController {
+final class ResetVC: UIViewController, AuthScreen {
     private let viewModel: ResetViewModelProtocol
     
     

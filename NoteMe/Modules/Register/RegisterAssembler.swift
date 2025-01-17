@@ -3,10 +3,11 @@ import UIKit
 final class RegisterAssembler {
     private init() {}
     
-    static func make() -> UIViewController {
+    static func make(
+        container: Container
+    ) -> UIViewController {
         let router = RegisterRouter()
-        let authService = AuthService()
-        let authServiceUseCase = RegisterAuthServiceUseCase(service: authService)
+        let authServiceUseCase = RegisterAuthServiceUseCase(service: container.resolve())
         let validationService = ValidationService() 
         
         let vm = RegisterViewModel(

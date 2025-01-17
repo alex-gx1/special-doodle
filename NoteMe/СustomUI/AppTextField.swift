@@ -23,6 +23,8 @@ class AppTextField: UIView {
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.textColor = .black
         textField.borderStyle = .none
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
         return textField
     }()
     

@@ -5,7 +5,7 @@ protocol OnboardingSecondViewModelProtocol {
     func openMainScreenModule()
 }
 
-final class OnboardingSecondVC: UIViewController {
+final class OnboardingSecondVC: UIViewController, OnboardingScreens {
     
     private let viewModel: OnboardingSecondViewModelProtocol
     
@@ -86,44 +86,7 @@ final class OnboardingSecondVC: UIViewController {
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var popUpView: PopUpView = {
-        let popUpView = PopUpView()
-        popUpView.alpha = 0
-        popUpView.onCalendarTap = { [weak self] in
-            self?.handleCalendarTap()
-        }
-        popUpView.onLocationTap = { [weak self] in
-            self?.handleLocationTap()
-        }
-        popUpView.onTimerTap = { [weak self] in
-            self?.handleTimerTap()
-        }
-        return popUpView
-    }()
-    
-    private func handleCalendarTap() {
-        print("Calendar tapped")
-        hidePopupView()
-    }
-
-    private func handleLocationTap() {
-        print("Location tapped")
-        hidePopupView()
-    }
-
-    private func handleTimerTap() {
-        print("Timer tapped")
-        hidePopupView()
-    }
-
-    private func hidePopupView() {
-        UIView.animate(withDuration: 0.3) {
-            self.popUpView.alpha = 0
-        }
-    }
-
-    
+     
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
         view.addSubview(globalCardView)
@@ -173,12 +136,6 @@ final class OnboardingSecondVC: UIViewController {
             make.horizontalEdges.equalToSuperview().inset(162)
         }
         
-        globalCardView.addSubview(popUpView)
-        
-        popUpView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
         globalCardView.addSubview(doneButton)
         
         doneButton.snp.makeConstraints { make in
@@ -193,9 +150,7 @@ final class OnboardingSecondVC: UIViewController {
         viewModel.openMainScreenModule()
     }
     
-    @objc private func plusButtonTapped(sender: Any) {
-        UIView.animate(withDuration: 0.3) {
-            self.popUpView.alpha = 1
-        }
+    @objc private func plusButtonTapped(_ sender: UIButton) {
+
     }
 }

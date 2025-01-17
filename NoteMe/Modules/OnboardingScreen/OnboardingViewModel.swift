@@ -2,7 +2,10 @@ import UIKit
 
 
 protocol OnboardingRouterProtocol {
+    
    func openOnboardingSecondModule()
+    
+    func removeAuthScreens()
 }
 
 final class OnboardingViewModel: OnboardingViewModelProtocol {
@@ -15,5 +18,9 @@ final class OnboardingViewModel: OnboardingViewModelProtocol {
     
     func openOnboardingSecondModule() {
         router.openOnboardingSecondModule()
+    }
+    
+    func viewDidAppear() {
+        router.removeAuthScreens()
     }
 }

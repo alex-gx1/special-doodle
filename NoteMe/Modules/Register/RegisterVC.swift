@@ -14,7 +14,7 @@ protocol RegisterViewModelProtocol: AnyObject {
     func back()
 }
 
-final class RegisterVC: UIViewController {
+final class RegisterVC: UIViewController, AuthScreen {
     private let viewModel: RegisterViewModelProtocol
     
     private lazy var logoImg: UIImageView =  {

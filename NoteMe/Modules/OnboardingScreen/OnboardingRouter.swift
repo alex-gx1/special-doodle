@@ -8,4 +8,8 @@ final class OnboardingRouter: OnboardingRouterProtocol  {
         let vc = OnboardingSecondAssembler.make()
         root?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func removeAuthScreens() {
+        root?.navigationController?.viewControllers.removeAll(where: { $0 is AuthScreen })
+    }
 }

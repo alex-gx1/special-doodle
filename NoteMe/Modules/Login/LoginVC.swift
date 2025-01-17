@@ -11,7 +11,7 @@ protocol LoginViewModelProtocol: AnyObject {
     func openRegisterModule()
 }
 
-final class LoginVC: UIViewController {
+final class LoginVC: UIViewController, AuthScreen {
     
     private let viewModel: LoginViewModelProtocol
     
