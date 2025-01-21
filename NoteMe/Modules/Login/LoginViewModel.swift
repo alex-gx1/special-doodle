@@ -8,6 +8,8 @@ protocol LoginAuthServiceProtocol {
         completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
+//сохранять после успешного логина в parametrsService что юзер залогинился
+
 protocol LoginValidateServiceProtocol {
     func validateEmail(_ email: String?) -> Bool
 }
@@ -29,12 +31,15 @@ final class LoginViewModel: LoginViewModelProtocol {
     
     private let router: LoginRouterProtocol
     
+    private let parametersService: ParametersService
+    
     var shouldShowAlert: Closure<String>?
     
-    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol, router: LoginRouterProtocol) {
+    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol, router: LoginRouterProtocol, parametersService: ParametersService) {
         self.authService = service
         self.validationService = validationService
         self.router = router
+        self.parametersService = parametersService
     }
     
     func loginUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
@@ -42,6 +47,7 @@ final class LoginViewModel: LoginViewModelProtocol {
         authService.signIn(email: email, password: password) { result in
             switch result {
             case .success:
+                self.parametersService.set(value: true, for: .isUserLogin)
                 completion(.success("Successfully logged in!"))
             case .failure(let error):
                 completion(.failure(error))
@@ -60,8 +66,6 @@ final class LoginViewModel: LoginViewModelProtocol {
             DispatchQueue.main.async { [self] in
                 switch result {
                 case .success(_):
-                    //                case .success(let succesMessage):
-                    //                    self?.router.showAlert(title: "Success", message: succesMessage)
                     self?.openOnboardingModule()
                 case .failure(let error):
                     self?.router.showAlert(title: "Error", message: error.localizedDescription)

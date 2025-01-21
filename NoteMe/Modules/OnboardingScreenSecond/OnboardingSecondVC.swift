@@ -69,11 +69,10 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
         return view
     }()
     
-    private lazy var plusButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Images.plusButton, for: .normal)
-        button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-        return button
+    private lazy var plusImg: UIImageView =  {
+        let view = UIImageView()
+        view.image = Images.plusOnboarding
+        return view
     }()
     
     private lazy var doneButton: UIButton = {
@@ -129,17 +128,17 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
             make.horizontalEdges.equalToSuperview().inset(16)
         }
         
-        globalCardView.addSubview(plusButton)
+        globalCardView.addSubview(plusImg)
         
-        plusButton.snp.makeConstraints{ make in
-            make.top.equalTo(cardView.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(162)
+        plusImg.snp.makeConstraints{ make in
+            make.top.equalTo(cardView.snp.bottom).offset(22)
+            make.centerX.equalToSuperview()
         }
         
         globalCardView.addSubview(doneButton)
         
         doneButton.snp.makeConstraints { make in
-            make.top.equalTo(plusButton.snp.bottom).offset(50)
+            make.top.equalTo(plusImg.snp.bottom).offset(30)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }

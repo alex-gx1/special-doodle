@@ -8,7 +8,7 @@ final class AppRouter  {
     
     private let container: Container = ContainerConfigurator.make()
     
-    private lazy var parametrService: ParametersService = container.resolve()
+    private lazy var parameterService: ParametersService = container.resolve()
     
     init(windowScene: UIWindowScene) {
         self.windowScene = windowScene
@@ -19,18 +19,30 @@ final class AppRouter  {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        if parametrService.getBool(for: .isUserLogin) {
-            if parametrService.getBool(for: .isFinishedOnBoarding) {
+        if parameterService.getBool(for: .isUserLogin) {
+            if parameterService.getBool(for: .isFinishedOnBoarding) {
                 //open MainScreen
+                let tabBar = TabBarAssembler.make()
+                
+                let navigationController = UINavigationController(rootViewController: tabBar)
+                
+                //                let navigationController = UINavigationController(rootViewController: OnboardingAssembler.make())
+                
+                window.rootViewController = navigationController
             } else {
                 //open Onboarding
+                let Onboarding = OnboardingAssembler.make()
+                
+                let navigationController = UINavigationController(rootViewController: Onboarding)
+                
+                window.rootViewController = navigationController
             }
         } else {
             
             let viewController = LoginAssembler.make(container: container)
             
             let navigationController = UINavigationController(rootViewController: viewController)
- 
+            
             window.rootViewController = navigationController
         }
         

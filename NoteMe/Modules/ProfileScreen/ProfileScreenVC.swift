@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 protocol ProfileScreenViewModelProtocol {}
 
@@ -17,6 +18,25 @@ final class ProfileScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
     }
     
+    private lazy var globalCardView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private func setupUI() {
+        view.backgroundColor = Colors.appBlackColor
+
+        view.addSubview(globalCardView)
+        globalCardView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview() 
+        }
+
+    }
 }

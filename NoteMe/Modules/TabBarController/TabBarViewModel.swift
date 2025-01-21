@@ -1,11 +1,10 @@
-import Foundation
+import UIKit
 
-protocol TabBarViewModelProtocol: AnyObject {
-    func switchToTab(index: Int)
-    func openModuleAtTab(index: Int)
+protocol TabBarRouterProtocol {
+    func removeOnboardingScreens()
 }
 
-final class TabBarViewModel: TabBarViewModelProtocol {
+final class TabBarViewModel {
     
     private let router: TabBarRouterProtocol
     
@@ -13,11 +12,7 @@ final class TabBarViewModel: TabBarViewModelProtocol {
         self.router = router
     }
     
-    func switchToTab(index: Int) {
-        router.switchToTab(index: index)
-    }
-    
-    func openModuleAtTab(index: Int) {
-        router.openModule(at: index)
+    func viewDidAppear() {
+        router.removeOnboardingScreens()
     }
 }

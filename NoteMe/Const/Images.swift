@@ -12,4 +12,10 @@ enum Images {
     static let calendarButton = UIImage(named: "calendarButton")
     
     static let locationButton = UIImage(named: "locationButton")
+    
+    static let plusOnboarding = UIImage(named: "plusOnboarding")
+    
+    static let profileTabBar = UIImage(named: "profileTabBar")
+    
+    static let homeTabBar = UIImage(named: "homeTabBar")
 }

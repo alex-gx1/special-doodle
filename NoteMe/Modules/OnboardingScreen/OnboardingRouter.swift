@@ -1,6 +1,6 @@
 import UIKit
 
-final class OnboardingRouter: OnboardingRouterProtocol  {
+final class OnboardingRouter: OnboardingRouterProtocol {
     
     weak var root: UIViewController?
     

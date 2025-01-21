@@ -5,7 +5,9 @@ final class OnboardingSecondRouter: OnboardingSecondRouterProtocol {
     weak var root: UIViewController?
     
     func openMainScreenModule() {
-        let vc = MainScreenAssembler.make()
+        let vc = TabBarAssembler.make()
         root?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
 }

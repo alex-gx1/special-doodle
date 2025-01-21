@@ -3,36 +3,29 @@ import SnapKit
 
 final class TabBarVC: UITabBarController {
     
-    private let viewModel: TabBarViewModelProtocol
-    
-    init(viewModel: TabBarViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupUI() {
-        view.backgroundColor = .systemBackground
-        tabBar.tintColor = .systemBlue
-        tabBar.unselectedItemTintColor = .gray
-    }
+    private lazy var plusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Images.plusButton, for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabs()
+        setupUI()
     }
     
-    private func setupTabs() {
-        let mainScreen = MainScreenAssembler.make()
-        let profileScreen = ProfileScreenAssembler.make()
+    private func setupUI() {
         
-        mainScreen.tabBarItem = UITabBarItem(title: "Main", image: UIImage(systemName: "house"), tag: 0)
-        profileScreen.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 2)
+        tabBar.tintColor = Colors.appYellowColor
+        tabBar.unselectedItemTintColor = Colors.appTabBarIconsColor
         
-        viewControllers = [mainScreen, profileScreen]
+        tabBar.addSubview(plusButton)
+        
+        plusButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-40)
+            make.width.height.equalTo(50)
+        }
+        
     }
 }

@@ -5,7 +5,12 @@ final class OnboardingSecondAssembler {
     
     static func make() -> UIViewController {
         let router = OnboardingSecondRouter()
-        let vm = OnboardingSecondViewModel(router: router)
+        let parametersService =  ParametersService()
+        
+        let vm = OnboardingSecondViewModel(
+            router: router,
+            parametersService: parametersService
+        )
         let vc = OnboardingSecondVC(viewModel: vm)
         router.root = vc
         return vc

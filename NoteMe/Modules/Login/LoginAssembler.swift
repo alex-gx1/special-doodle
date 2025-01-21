@@ -10,11 +10,13 @@ final class LoginAssembler {
         let router = LoginRouter(container: container)
         let authService = LoginAuthServiceUseCase(service: container.resolve())
         let validationService: ValidationService = container.resolve()
+        let parametersService = ParametersService()
         
         let vm = LoginViewModel(
             service: authService,
             validationService: validationService,
-            router: router
+            router: router,
+            parametersService: parametersService 
         )
     
         let vc = LoginVC(viewModel: vm)

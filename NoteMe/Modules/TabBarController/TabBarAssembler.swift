@@ -4,13 +4,18 @@ final class TabBarAssembler {
     private init() {}
     
     static func make() -> UITabBarController {
-        let tabBarController = TabBarVC(viewModel: TabBarViewModel(router: TabBarRouter(root: UITabBarController())))
+        let tabBar = TabBarVC()
         
-        let router = TabBarRouter(root: tabBarController)
+        let mainScreen = MainScreenAssembler.make()
         
-        let viewModel = TabBarViewModel(router: router)
-        let vc = TabBarVC(viewModel: viewModel)
+        let profileScreen = ProfileScreenAssembler.make()
         
-        return vc
+        mainScreen.tabBarItem = UITabBarItem(title: "Main", image: Images.homeTabBar, tag: 0)
+        
+        profileScreen.tabBarItem = UITabBarItem(title: "Profile", image: Images.profileTabBar, tag: 2)
+        
+        tabBar.viewControllers = [mainScreen, profileScreen]
+        
+        return tabBar
     }
 }
