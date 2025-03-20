@@ -19,32 +19,38 @@ final class AppRouter  {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        if parameterService.getBool(for: .isUserLogin) {
-            if parameterService.getBool(for: .isFinishedOnBoarding) {
-                //open MainScreen
-                let tabBar = TabBarAssembler.make()
-                
-                let navigationController = UINavigationController(rootViewController: tabBar)
-                
-                //                let navigationController = UINavigationController(rootViewController: OnboardingAssembler.make())
-                
-                window.rootViewController = navigationController
-            } else {
-                //open Onboarding
-                let Onboarding = OnboardingAssembler.make()
-                
-                let navigationController = UINavigationController(rootViewController: Onboarding)
-                
-                window.rootViewController = navigationController
-            }
-        } else {
-            
-            let viewController = LoginAssembler.make(container: container)
-            
-            let navigationController = UINavigationController(rootViewController: viewController)
-            
-            window.rootViewController = navigationController
-        }
+        let viewController = LoginAssembler.make(container: container)
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+
+        window.rootViewController = navigationController
+
+//        if parameterService.getBool(for: .isUserLogin) {
+//            if parameterService.getBool(for: .isFinishedOnBoarding) {
+//                //open MainScreen
+//                let tabBar = TabBarAssembler.make()
+//
+//                let navigationController = UINavigationController(rootViewController: tabBar)
+//
+//                //                let navigationController = UINavigationController(rootViewController: OnboardingAssembler.make())
+//
+//                window.rootViewController = navigationController
+//            } else {
+//                //open Onboarding
+//                let Onboarding = OnboardingAssembler.make()
+//
+//                let navigationController = UINavigationController(rootViewController: Onboarding)
+//
+//                window.rootViewController = navigationController
+//            }
+//        } else {
+//
+//            let viewController = LoginAssembler.make(container: container)
+//
+//            let navigationController = UINavigationController(rootViewController: viewController)
+//
+//            window.rootViewController = navigationController
+//        }
         
         window.makeKeyAndVisible()
     }
