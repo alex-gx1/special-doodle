@@ -10,7 +10,11 @@ final class ValidationService: RegisterValidationServiceProtocol, LoginValidateS
     
     func validatePasswordStrength(_ password: String?) -> Bool {
         guard let password = password else { return false }
-        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+        let passwordPredicate = NSPredicate(
+            format: "SELF MATCHES %@",
+            "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        )
         return passwordPredicate.evaluate(with: password)
     }
+
 }

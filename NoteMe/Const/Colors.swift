@@ -10,4 +10,6 @@ enum Colors {
     static let appBlackColor = UIColor(named: "appBlackColor") ?? .black
     
     static let appTabBarIconsColor = UIColor(named: "appTabBarIconsColor")
+    
+    static let appRedColor = UIColor(named: "appRedColor")
 }

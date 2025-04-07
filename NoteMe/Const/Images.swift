@@ -18,4 +18,10 @@ enum Images {
     static let profileTabBar = UIImage(named: "profileTabBar")
     
     static let homeTabBar = UIImage(named: "homeTabBar")
+    
+    static let notification = UIImage(named: "notification")
+    
+    static let export = UIImage(named: "export")
+    
+    static let logout = UIImage(named: "logout")
 }

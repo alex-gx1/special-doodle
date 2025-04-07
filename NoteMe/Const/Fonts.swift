@@ -10,5 +10,7 @@ extension UIFont {
     
     static var appFont17: UIFont = .systemFont(ofSize: 17.0)
     
-    static var appFont13: UIFont = .systemFont(ofSize: 13)
+    static var appFont15: UIFont = .systemFont(ofSize: 15.0)
+    
+    static var appFont13: UIFont = .systemFont(ofSize: 13.0)
 }
