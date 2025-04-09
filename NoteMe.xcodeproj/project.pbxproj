@@ -74,6 +74,14 @@
 		9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFEDF7F2D10626400CE02C3 /* RegisterViewModel.swift */; };
 		9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFEDF832D1071D000CE02C3 /* LoginViewModel.swift */; };
 		9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFEDF852D107A7D00CE02C3 /* ResetViewModel.swift */; };
+		F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */; };
+		F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */; };
+		F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */; };
+		F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */; };
+		F6E1F1D22DA59E4500C1CAD2 /* TimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1D12DA59E4500C1CAD2 /* TimerVC.swift */; };
+		F6E1F1D42DA59E5400C1CAD2 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1D32DA59E5400C1CAD2 /* TimerViewModel.swift */; };
+		F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1D52DA59E6800C1CAD2 /* TimerAssembler.swift */; };
+		F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1D72DA59E7600C1CAD2 /* TimerRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +166,14 @@
 		9DFEDF7F2D10626400CE02C3 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9DFEDF832D1071D000CE02C3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9DFEDF852D107A7D00CE02C3 /* ResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetViewModel.swift; sourceTree = "<group>"; };
+		F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
+		F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverViewModel.swift; sourceTree = "<group>"; };
+		F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverAssembler.swift; sourceTree = "<group>"; };
+		F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverRouter.swift; sourceTree = "<group>"; };
+		F6E1F1D12DA59E4500C1CAD2 /* TimerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerVC.swift; sourceTree = "<group>"; };
+		F6E1F1D32DA59E5400C1CAD2 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		F6E1F1D52DA59E6800C1CAD2 /* TimerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssembler.swift; sourceTree = "<group>"; };
+		F6E1F1D72DA59E7600C1CAD2 /* TimerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +431,8 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */,
+				F605B1B42DA45B7800B330E6 /* PopOverScreen */,
 				9D2E20CC2D39ABF500B475EE /* TabBarController */,
 				9D2E20C32D39A9CB00B475EE /* ProfileScreen */,
 				9D28AFCA2D21FE54005DB31F /* MainScreen */,
@@ -468,6 +486,28 @@
 				9DC2EC272D0741FB005A21F3 /* Model.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F605B1B42DA45B7800B330E6 /* PopOverScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */,
+				F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */,
+				F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */,
+				F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */,
+			);
+			path = PopOverScreen;
+			sourceTree = "<group>";
+		};
+		F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F6E1F1D12DA59E4500C1CAD2 /* TimerVC.swift */,
+				F6E1F1D32DA59E5400C1CAD2 /* TimerViewModel.swift */,
+				F6E1F1D52DA59E6800C1CAD2 /* TimerAssembler.swift */,
+				F6E1F1D72DA59E7600C1CAD2 /* TimerRouter.swift */,
+			);
+			path = TimerScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -622,9 +662,12 @@
 				9D6F25B02CFE1EE500BFA561 /* RegisterVC.swift in Sources */,
 				9D6A68152D1E05E90036D9A3 /* OnboardingSecondViewModel.swift in Sources */,
 				9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */,
+				F6E1F1D22DA59E4500C1CAD2 /* TimerVC.swift in Sources */,
 				9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */,
+				F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */,
 				9D2E20C22D399C1D00B475EE /* OnboardingScreens.swift in Sources */,
 				9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */,
+				F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */,
 				9DC2EC262D073FF7005A21F3 /* AuthService.swift in Sources */,
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
 				9DC999292D1A24C10090B8F3 /* ResetAuthServiceUseCase.swift in Sources */,
@@ -635,11 +678,13 @@
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
 				9D2E20D82D3A7D0900B475EE /* TabBarViewModel.swift in Sources */,
+				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
+				F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
 				9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */,
 				9D2E20B72D385F6A00B475EE /* Container.swift in Sources */,
@@ -651,6 +696,7 @@
 				9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */,
 				9D2E20D62D3A7CBF00B475EE /* TabBarRouter.swift in Sources */,
 				9D2E20CE2D39ACC900B475EE /* TabBarVC.swift in Sources */,
+				F6E1F1D42DA59E5400C1CAD2 /* TimerViewModel.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
@@ -664,10 +710,12 @@
 				9D2E20C92D39AA6200B475EE /* ProfileScreenAssembler.swift in Sources */,
 				9D2E20D42D39AE4200B475EE /* TabBarAssembler.swift in Sources */,
 				9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */,
+				F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */,
 				9D17E8AB2CFF4BEE0060E5B0 /* Fonts.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,
 				9D6F25B22CFE2EBF00BFA561 /* ResetVC.swift in Sources */,
 				9D2E20C02D399B3400B475EE /* MainScreenRouter.swift in Sources */,
+				F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

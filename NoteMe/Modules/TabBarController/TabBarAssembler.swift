@@ -4,7 +4,12 @@ final class TabBarAssembler {
     private init() {}
     
     static func make() -> UITabBarController {
-        let tabBar = TabBarVC()
+        
+        let router = TabBarRouter()
+        let viewModel = TabBarViewModel(router: router)
+        let tabBar = TabBarVC(viewModel: viewModel)
+        
+        router.root = tabBar
         
         let mainScreen = MainScreenAssembler.make()
         

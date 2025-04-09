@@ -2,6 +2,7 @@ import UIKit
 
 protocol TabBarRouterProtocol {
     func removeOnboardingScreens()
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
 }
 
 final class TabBarViewModel {
@@ -14,5 +15,9 @@ final class TabBarViewModel {
     
     func viewDidAppear() {
         router.removeOnboardingScreens()
+    }
+    
+    func plusButtonTapped(from source: UIView, sourceRect: CGRect) {
+        router.presentMenuPopover(from: source, sourceRect: sourceRect)
     }
 }
