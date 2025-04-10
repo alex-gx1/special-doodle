@@ -1,5 +1,11 @@
 import UIKit
 
+enum MenuItem {
+    case timer
+    case location
+    case calendar
+}
+
 final class TabBarRouter: TabBarRouterProtocol {
     
     weak var root: UIViewController?
@@ -9,7 +15,22 @@ final class TabBarRouter: TabBarRouterProtocol {
     }
     
     func presentMenuPopover(from source: UIView, sourceRect: CGRect) {
-        let menuVC = MenuPopOverAssembler.make()
+        let menuVC = MenuPopOverAssembler.make { [weak self] (item: MenuItem) in
+            switch item {
+            case .timer:
+                let vc = TimerAssembler.make()
+                self?.root?.navigationController?.pushViewController(vc, animated: true)
+            case .location:
+                let vc = LocationAssembler.make()
+                self?.root?.navigationController?.pushViewController(vc, animated: true)
+                break
+            case .calendar:
+                let vc = CalendarAssembler.make()
+                self?.root?.navigationController?.pushViewController(vc, animated: true)
+                break
+            }
+        }
+        
         menuVC.modalPresentationStyle = .popover
         menuVC.preferredContentSize = CGSize(width: 200, height: 150)
         
@@ -22,4 +43,5 @@ final class TabBarRouter: TabBarRouterProtocol {
         
         root?.present(menuVC, animated: true)
     }
+    
 }

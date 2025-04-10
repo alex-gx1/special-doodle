@@ -74,6 +74,18 @@
 		9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFEDF7F2D10626400CE02C3 /* RegisterViewModel.swift */; };
 		9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFEDF832D1071D000CE02C3 /* LoginViewModel.swift */; };
 		9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFEDF852D107A7D00CE02C3 /* ResetViewModel.swift */; };
+		F60232F72DA6F91600F2D0E8 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60232F62DA6F91600F2D0E8 /* CalendarVC.swift */; };
+		F60232F92DA6F92700F2D0E8 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60232F82DA6F92700F2D0E8 /* CalendarViewModel.swift */; };
+		F60232FB2DA6F93400F2D0E8 /* CalendarAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60232FA2DA6F93400F2D0E8 /* CalendarAssembler.swift */; };
+		F60232FD2DA6F94100F2D0E8 /* CalendarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60232FC2DA6F94100F2D0E8 /* CalendarRouter.swift */; };
+		F60232FF2DA6F95200F2D0E8 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60232FE2DA6F95200F2D0E8 /* LocationVC.swift */; };
+		F60233012DA6F95C00F2D0E8 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233002DA6F95C00F2D0E8 /* LocationViewModel.swift */; };
+		F60233032DA6F96600F2D0E8 /* LocationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */; };
+		F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233042DA6F97100F2D0E8 /* LocationRouter.swift */; };
+		F60233082DA81EA200F2D0E8 /* TimerPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233072DA81EA200F2D0E8 /* TimerPickerVC.swift */; };
+		F602330A2DA81EF600F2D0E8 /* TimerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233092DA81EF600F2D0E8 /* TimerPickerViewModel.swift */; };
+		F602330C2DA81F2300F2D0E8 /* TimerPickerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */; };
+		F602330E2DA81F3200F2D0E8 /* TimerPickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */; };
 		F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */; };
 		F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */; };
 		F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */; };
@@ -166,6 +178,18 @@
 		9DFEDF7F2D10626400CE02C3 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9DFEDF832D1071D000CE02C3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9DFEDF852D107A7D00CE02C3 /* ResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetViewModel.swift; sourceTree = "<group>"; };
+		F60232F62DA6F91600F2D0E8 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
+		F60232F82DA6F92700F2D0E8 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		F60232FA2DA6F93400F2D0E8 /* CalendarAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAssembler.swift; sourceTree = "<group>"; };
+		F60232FC2DA6F94100F2D0E8 /* CalendarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRouter.swift; sourceTree = "<group>"; };
+		F60232FE2DA6F95200F2D0E8 /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
+		F60233002DA6F95C00F2D0E8 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAssembler.swift; sourceTree = "<group>"; };
+		F60233042DA6F97100F2D0E8 /* LocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRouter.swift; sourceTree = "<group>"; };
+		F60233072DA81EA200F2D0E8 /* TimerPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerVC.swift; sourceTree = "<group>"; };
+		F60233092DA81EF600F2D0E8 /* TimerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerViewModel.swift; sourceTree = "<group>"; };
+		F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerAssembler.swift; sourceTree = "<group>"; };
+		F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerRouter.swift; sourceTree = "<group>"; };
 		F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
 		F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverViewModel.swift; sourceTree = "<group>"; };
 		F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverAssembler.swift; sourceTree = "<group>"; };
@@ -431,6 +455,9 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F60232F52DA6F8FF00F2D0E8 /* LocationScreen */,
+				F60232F42DA6F8E900F2D0E8 /* CalendarScreen */,
+				F60233062DA81E7100F2D0E8 /* TimerPickerVC */,
 				F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */,
 				F605B1B42DA45B7800B330E6 /* PopOverScreen */,
 				9D2E20CC2D39ABF500B475EE /* TabBarController */,
@@ -486,6 +513,39 @@
 				9DC2EC272D0741FB005A21F3 /* Model.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F60232F42DA6F8E900F2D0E8 /* CalendarScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F60232F62DA6F91600F2D0E8 /* CalendarVC.swift */,
+				F60232F82DA6F92700F2D0E8 /* CalendarViewModel.swift */,
+				F60232FA2DA6F93400F2D0E8 /* CalendarAssembler.swift */,
+				F60232FC2DA6F94100F2D0E8 /* CalendarRouter.swift */,
+			);
+			path = CalendarScreen;
+			sourceTree = "<group>";
+		};
+		F60232F52DA6F8FF00F2D0E8 /* LocationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F60232FE2DA6F95200F2D0E8 /* LocationVC.swift */,
+				F60233002DA6F95C00F2D0E8 /* LocationViewModel.swift */,
+				F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */,
+				F60233042DA6F97100F2D0E8 /* LocationRouter.swift */,
+			);
+			path = LocationScreen;
+			sourceTree = "<group>";
+		};
+		F60233062DA81E7100F2D0E8 /* TimerPickerVC */ = {
+			isa = PBXGroup;
+			children = (
+				F60233072DA81EA200F2D0E8 /* TimerPickerVC.swift */,
+				F60233092DA81EF600F2D0E8 /* TimerPickerViewModel.swift */,
+				F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */,
+				F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */,
+			);
+			path = TimerPickerVC;
 			sourceTree = "<group>";
 		};
 		F605B1B42DA45B7800B330E6 /* PopOverScreen */ = {
@@ -658,10 +718,13 @@
 				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
 				9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */,
 				9D17E8A92CFF42EA0060E5B0 /* Images.swift in Sources */,
+				F602330C2DA81F2300F2D0E8 /* TimerPickerAssembler.swift in Sources */,
 				9DF57C902D03718600B73BCF /* Colors.swift in Sources */,
 				9D6F25B02CFE1EE500BFA561 /* RegisterVC.swift in Sources */,
+				F60232FD2DA6F94100F2D0E8 /* CalendarRouter.swift in Sources */,
 				9D6A68152D1E05E90036D9A3 /* OnboardingSecondViewModel.swift in Sources */,
 				9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */,
+				F60233032DA6F96600F2D0E8 /* LocationAssembler.swift in Sources */,
 				F6E1F1D22DA59E4500C1CAD2 /* TimerVC.swift in Sources */,
 				9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */,
 				F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */,
@@ -669,23 +732,29 @@
 				9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */,
 				F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */,
 				9DC2EC262D073FF7005A21F3 /* AuthService.swift in Sources */,
+				F602330E2DA81F3200F2D0E8 /* TimerPickerRouter.swift in Sources */,
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
 				9DC999292D1A24C10090B8F3 /* ResetAuthServiceUseCase.swift in Sources */,
 				9D6F25AE2CFDFEF200BFA561 /* AppTextField.swift in Sources */,
 				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
+				F60233082DA81EA200F2D0E8 /* TimerPickerVC.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
 				9D2E20D82D3A7D0900B475EE /* TabBarViewModel.swift in Sources */,
+				F60232F92DA6F92700F2D0E8 /* CalendarViewModel.swift in Sources */,
+				F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */,
 				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
+				F602330A2DA81EF600F2D0E8 /* TimerPickerViewModel.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
 				F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
+				F60232F72DA6F91600F2D0E8 /* CalendarVC.swift in Sources */,
 				9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */,
 				9D2E20B72D385F6A00B475EE /* Container.swift in Sources */,
 				9DAA627B2D16121B008FA250 /* ResetAssembler.swift in Sources */,
@@ -705,9 +774,12 @@
 				9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */,
 				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
 				9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */,
+				F60232FF2DA6F95200F2D0E8 /* LocationVC.swift in Sources */,
 				9D2E20B92D39598400B475EE /* ContainerConfigurator.swift in Sources */,
 				9DC9992C2D1A24ED0090B8F3 /* RegisterAuthUseCase.swift in Sources */,
+				F60232FB2DA6F93400F2D0E8 /* CalendarAssembler.swift in Sources */,
 				9D2E20C92D39AA6200B475EE /* ProfileScreenAssembler.swift in Sources */,
+				F60233012DA6F95C00F2D0E8 /* LocationViewModel.swift in Sources */,
 				9D2E20D42D39AE4200B475EE /* TabBarAssembler.swift in Sources */,
 				9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */,
 				F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */,
