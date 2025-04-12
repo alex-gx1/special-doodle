@@ -87,6 +87,10 @@
 		F602330C2DA81F2300F2D0E8 /* TimerPickerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */; };
 		F602330E2DA81F3200F2D0E8 /* TimerPickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */; };
 		F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */; };
+		F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */; };
+		F69039912DAABF8600800BB4 /* TimerValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039902DAABF8600800BB4 /* TimerValue.swift */; };
+		F69039932DAAC76000800BB4 /* TimerServcie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039922DAAC76000800BB4 /* TimerServcie.swift */; };
+		F69039952DAACEFC00800BB4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039942DAACEFC00800BB4 /* Observable.swift */; };
 		F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */; };
 		F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */; };
 		F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */; };
@@ -191,6 +195,10 @@
 		F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerAssembler.swift; sourceTree = "<group>"; };
 		F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerRouter.swift; sourceTree = "<group>"; };
 		F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
+		F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
+		F69039902DAABF8600800BB4 /* TimerValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerValue.swift; sourceTree = "<group>"; };
+		F69039922DAAC76000800BB4 /* TimerServcie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServcie.swift; sourceTree = "<group>"; };
+		F69039942DAACEFC00800BB4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverViewModel.swift; sourceTree = "<group>"; };
 		F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverAssembler.swift; sourceTree = "<group>"; };
 		F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverRouter.swift; sourceTree = "<group>"; };
@@ -245,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6F25AD2CFDFEF200BFA561 /* AppTextField.swift */,
+				F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */,
 			);
 			path = "СustomUI";
 			sourceTree = "<group>";
@@ -422,6 +431,8 @@
 				9DF336022D19C1F40048C928 /* ValidationService.swift */,
 				9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */,
 				9D2E20B32D384E4500B475EE /* ParametrsService.swift */,
+				F69039922DAAC76000800BB4 /* TimerServcie.swift */,
+				F69039942DAACEFC00800BB4 /* Observable.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -511,6 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				9DC2EC272D0741FB005A21F3 /* Model.swift */,
+				F69039902DAABF8600800BB4 /* TimerValue.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -736,6 +748,7 @@
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
 				9DC999292D1A24C10090B8F3 /* ResetAuthServiceUseCase.swift in Sources */,
 				9D6F25AE2CFDFEF200BFA561 /* AppTextField.swift in Sources */,
+				F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */,
 				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
 				F60233082DA81EA200F2D0E8 /* TimerPickerVC.swift in Sources */,
@@ -747,6 +760,7 @@
 				F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */,
 				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
+				F69039932DAAC76000800BB4 /* TimerServcie.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
 				F602330A2DA81EF600F2D0E8 /* TimerPickerViewModel.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
@@ -764,8 +778,10 @@
 				9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */,
 				9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */,
 				9D2E20D62D3A7CBF00B475EE /* TabBarRouter.swift in Sources */,
+				F69039952DAACEFC00800BB4 /* Observable.swift in Sources */,
 				9D2E20CE2D39ACC900B475EE /* TabBarVC.swift in Sources */,
 				F6E1F1D42DA59E5400C1CAD2 /* TimerViewModel.swift in Sources */,
+				F69039912DAABF8600800BB4 /* TimerValue.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,

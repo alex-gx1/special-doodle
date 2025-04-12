@@ -1,11 +1,12 @@
 import UIKit
 
 final class TimerPickerAssembler {
-    static func make(delegate: TimerPickerDelegate?) -> UIViewController {
+    private init() {}
+    
+    static func make(timerService: TimerServiceProtocol, onTimeUpdated: ((String) -> Void)? = nil) -> UIViewController {
         let router = TimerPickerRouter()
-        router.delegate = delegate
-        let vm = TimerPickerViewModel(router: router)
-        let vc = TimerPickerVC(viewModel: vm)
+        let viewModel = TimerPickerViewModel(router: router, timerService: timerService, onTimeUpdated: onTimeUpdated)
+        let vc = TimerPickerVC(viewModel: viewModel)
         router.root = vc
         return vc
     }

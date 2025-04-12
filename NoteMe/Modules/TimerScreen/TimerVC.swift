@@ -2,12 +2,13 @@ import UIKit
 import SnapKit
 
 protocol TimerViewModelProtocol {
-    
+    var timerString: Observable<String> { get }
+    func openTimerKeyboard()
 }
 
 final class TimerVC: UIViewController {
     
-    private let viewModel: TimerViewModelProtocol
+    private var viewModel: TimerViewModelProtocol
     
     init(viewModel: TimerViewModelProtocol) {
         self.viewModel = viewModel
@@ -21,6 +22,9 @@ final class TimerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        viewModel.timerString.bind { [weak self] newTime in
+            self?.timerTextField.text = newTime
+        }
     }
     
     private lazy var globalCardView: UIView = {
@@ -45,58 +49,72 @@ final class TimerVC: UIViewController {
         return label
     }()
     
-    private func makeInputContainer(
-        labelText: String,
-        placeholder: String? = nil,
-        keyboardType: UIKeyboardType = .default,
-        customTextField: UITextField? = nil
-    ) -> UIView {
-        let container = UIView()
-
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = labelText
+        label.text = "Title"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
-
-        let textField = customTextField ?? {
-            let tf = UITextField()
-            tf.placeholder = placeholder
-            tf.borderStyle = .none
-            tf.font = UIFont.appFont15
-            tf.keyboardType = keyboardType
-            tf.autocorrectionType = .no
-            tf.autocapitalizationType = .none
-            return tf
-        }()
-
+        return label
+    }()
+    
+    private lazy var titleTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Enter your Title"
+        tf.borderStyle = .none
+        tf.font = UIFont.appFont15
+        tf.keyboardType = .default
+        tf.autocorrectionType = .no
+        tf.autocapitalizationType = .none
+        return tf
+    }()
+    
+    private lazy var titleSeparator: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor.separator
-
-        container.addSubview(label)
-        container.addSubview(textField)
-        container.addSubview(separator)
-
-        label.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
+        return separator
+    }()
+    
+    private lazy var timerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Timer"
+        label.font = UIFont.appBoldFont15
+        label.textColor = Colors.appBlackColor
+        return label
+    }()
+    
+    private lazy var timerTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Enter your Time"
+        tf.borderStyle = .none
+        tf.font = UIFont.appFont15
+        tf.autocorrectionType = .no
+        tf.autocapitalizationType = .none
+        tf.isUserInteractionEnabled = false
+        return tf
+    }()
+    
+    private lazy var timerWrapperView: UIView = {
+        let view = UIView()
+        view.addSubview(timerTextField)
+        timerTextField.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(4)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(20)
-        }
-
-        separator.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(4)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(0.5)
-            make.bottom.equalToSuperview()
-        }
-
-        return container
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(timerTextFieldTapped))
+        view.addGestureRecognizer(tap)
+        
+        return view
+    }()
+    
+    @objc func timerTextFieldTapped() {
+        viewModel.openTimerKeyboard()
     }
-
+    
+    private lazy var timerSeparator: UIView = {
+        let separator = UIView()
+        separator.backgroundColor = UIColor.separator
+        return separator
+    }()
     
     private lazy var commentLabel: UILabel = {
         let label = UILabel()
@@ -105,7 +123,7 @@ final class TimerVC: UIViewController {
         label.text = "Comment"
         return label
     }()
-
+    
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.textColor = Colors.appBlackColor
@@ -147,24 +165,19 @@ final class TimerVC: UIViewController {
     
     private func setupUI() {
         
-       let titleInput = makeInputContainer(
-            labelText: "Title",
-            placeholder: "Enter your Title",
-            keyboardType: .default
-        )
-        
-        let timerInput = makeInputContainer(
-            labelText: "Timer",
-            placeholder: "Enter your Time",
-            keyboardType: .default
-        )
-        
         view.backgroundColor = Colors.appBlackColor
         view.addSubview(globalCardView)
         globalCardView.addSubview(middleCardView)
         globalCardView.addSubview(topLabel)
-        middleCardView.addSubview(titleInput)
-        middleCardView.addSubview(timerInput)
+        
+        middleCardView.addSubview(titleLabel)
+        middleCardView.addSubview(titleTextField)
+        middleCardView.addSubview(titleSeparator)
+        
+        middleCardView.addSubview(timerLabel)
+        middleCardView.addSubview(timerWrapperView)
+        middleCardView.addSubview(timerSeparator)
+        
         middleCardView.addSubview(commentLabel)
         middleCardView.addSubview(textView)
         
@@ -190,18 +203,42 @@ final class TimerVC: UIViewController {
             make.height.equalTo(250)
         }
         
-        titleInput.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.left.right.equalToSuperview().inset(16)
         }
         
-        timerInput.snp.makeConstraints { make in
-            make.top.equalTo(titleInput.snp.bottom).offset(16)
+        titleTextField.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+        
+        titleSeparator.snp.makeConstraints { make in
+            make.top.equalTo(titleTextField.snp.bottom).offset(4)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(0.5)
+        }
+        
+        timerLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleTextField.snp.bottom).offset(16)
+            make.left.equalToSuperview().inset(16)
+        }
+        
+        timerWrapperView.snp.makeConstraints { make in
+            make.top.equalTo(timerLabel.snp.bottom).offset(4)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+        
+        timerSeparator.snp.makeConstraints { make in
+            make.top.equalTo(timerWrapperView.snp.bottom).offset(4)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(0.5)
         }
         
         commentLabel.snp.makeConstraints { make in
-            make.top.equalTo(timerInput.snp.bottom).offset(16)
+            make.top.equalTo(timerWrapperView.snp.bottom).offset(16)
             make.left.equalToSuperview().inset(16)
         }
         
@@ -227,6 +264,7 @@ final class TimerVC: UIViewController {
     @objc func createButtonTap() {
         print("createButtonTap")
     }
+    
     @objc func cancelButtonTap() {
         print("cancelButtonTap")
     }
