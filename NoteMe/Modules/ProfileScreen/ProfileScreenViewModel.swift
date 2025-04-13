@@ -4,7 +4,7 @@ import Firebase
 
 protocol ProfileScreenServiceProtocol {
     func signOut()
-    
+    func getUserMail() -> String
 }
 
 protocol ProfileScreenRouterProtocol {
@@ -29,6 +29,10 @@ final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
         self.parametersService = parametersService
     }
     
+    func getUserMail() -> String {
+        return authService.getUserMail()
+    }
+
     func showAlert(Title: String, Message: String?) {
         router.showAlert(
             title: Title,

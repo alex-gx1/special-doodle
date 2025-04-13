@@ -6,6 +6,7 @@ import Firebase
 
 protocol ProfileScreenViewModelProtocol {
     func showAlert(Title: String, Message: String?)
+    func getUserMail() -> String
 }
 
 final class ProfileScreenVC: UIViewController {
@@ -26,6 +27,7 @@ final class ProfileScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        labelForUserMail.text = viewModel.getUserMail()
     }
     
     private lazy var globalCardView: UIView = {
@@ -63,9 +65,6 @@ final class ProfileScreenVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appFont15
-        // изменить
-        let email = Auth.auth().currentUser?.email
-        label.text = email
         return label
     }()
     

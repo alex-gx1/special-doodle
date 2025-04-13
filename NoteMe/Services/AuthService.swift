@@ -54,6 +54,10 @@ final class AuthService {
         }
     }
     
+    func getUserMail() -> String? {
+        return Auth.auth().currentUser?.email
+    }
+    
 }
 
 enum SignError: Error {

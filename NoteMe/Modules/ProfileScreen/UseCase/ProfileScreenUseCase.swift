@@ -13,4 +13,8 @@ struct ProfileScreenServiceUseCase: ProfileScreenServiceProtocol {
     func signOut() {
         service.signOut()
     }
+    
+    func getUserMail() -> String {
+        return service.getUserMail() ?? "Error"
+    }
 }
