@@ -118,6 +118,8 @@ final class LoginVC: UIViewController, AuthScreen {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     private func bind(){
@@ -225,6 +227,10 @@ final class LoginVC: UIViewController, AuthScreen {
         else { return }
         
         viewModel.login(email: email, password: password)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func showAlert(title: String, message: String) {

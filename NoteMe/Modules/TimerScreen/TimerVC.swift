@@ -4,6 +4,7 @@ import SnapKit
 protocol TimerViewModelProtocol {
     var timerString: Observable<String> { get }
     func openTimerKeyboard()
+    func closeVC()
 }
 
 final class TimerVC: UIViewController {
@@ -263,10 +264,11 @@ final class TimerVC: UIViewController {
     
     @objc func createButtonTap() {
         print("createButtonTap")
+        viewModel.closeVC()
     }
     
     @objc func cancelButtonTap() {
-        print("cancelButtonTap")
+        viewModel.closeVC()
     }
 }
 

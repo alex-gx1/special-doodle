@@ -1,11 +1,16 @@
 import UIKit
 import SnapKit
 
+protocol TabBarViewModelProtocol {
+    func plusButtonTapped(from source: UIView, sourceRect: CGRect)
+    func viewDidAppear()
+}
+
 final class TabBarVC: UITabBarController {
     
-    private let viewModel: TabBarViewModel
+    private let viewModel: TabBarViewModelProtocol
     
-    init(viewModel: TabBarViewModel) {
+    init(viewModel: TabBarViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -24,7 +29,13 @@ final class TabBarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
+    }
+
     
     private func setupUI() {
         
@@ -42,9 +53,7 @@ final class TabBarVC: UITabBarController {
             make.width.height.equalTo(50)
         }
     }
-    
-
-    
+        
     @objc private func PlusButtonTap(sender: UIButton) {
         print("PlusButtonTap")
         viewModel.plusButtonTapped(from: sender, sourceRect: sender.bounds)

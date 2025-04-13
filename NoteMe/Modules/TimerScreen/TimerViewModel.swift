@@ -2,6 +2,7 @@ import UIKit
 
 protocol TimerRouterProtocol {
     func openTimerKeyboard(timerService: TimerServiceProtocol, onTimeUpdated: ((String) -> Void)?)
+    func closeVC ()
 }
 
 
@@ -21,6 +22,9 @@ final class TimerViewModel: TimerViewModelProtocol {
         router.openTimerKeyboard(timerService: timerService) { [weak self] time in
             self?.timerString.value = time
         }
+    }
+    func closeVC() {
+        router.closeVC()
     }
 }
 

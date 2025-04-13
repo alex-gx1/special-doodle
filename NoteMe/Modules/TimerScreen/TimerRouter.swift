@@ -10,6 +10,10 @@ final class TimerRouter: NSObject, TimerRouterProtocol {
         root?.present(vc, animated: true)
     }
     
+    func closeVC () {
+        root?.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension TimerRouter: UIViewControllerTransitioningDelegate {

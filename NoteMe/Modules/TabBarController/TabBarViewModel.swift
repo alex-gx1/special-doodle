@@ -5,7 +5,7 @@ protocol TabBarRouterProtocol {
     func presentMenuPopover(from source: UIView, sourceRect: CGRect)
 }
 
-final class TabBarViewModel {
+final class TabBarViewModel: TabBarViewModelProtocol {
     
     private let router: TabBarRouterProtocol
     
@@ -15,6 +15,7 @@ final class TabBarViewModel {
     
     func viewDidAppear() {
         router.removeOnboardingScreens()
+        print("экран удален")
     }
     
     func plusButtonTapped(from source: UIView, sourceRect: CGRect) {

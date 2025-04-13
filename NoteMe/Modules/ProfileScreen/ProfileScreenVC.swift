@@ -1,7 +1,12 @@
 import UIKit
 import SnapKit
+import FirebaseAuth
+import Firebase
 
-protocol ProfileScreenViewModelProtocol {}
+
+protocol ProfileScreenViewModelProtocol {
+    func showAlert(Title: String, Message: String?)
+}
 
 final class ProfileScreenVC: UIViewController {
     
@@ -58,7 +63,9 @@ final class ProfileScreenVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appFont15
-        label.text = "user@mail.com"
+        // изменить
+        let email = Auth.auth().currentUser?.email
+        label.text = email
         return label
     }()
     
@@ -140,6 +147,7 @@ final class ProfileScreenVC: UIViewController {
         button.contentHorizontalAlignment = .left
         button.setTitleColor(Colors.appRedColor, for: .normal)
         button.titleLabel?.font = UIFont.appFont15
+        button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
         return button
     }()
     
@@ -246,5 +254,7 @@ final class ProfileScreenVC: UIViewController {
         }
     }
     
-    
+    @objc func handleLogout() {
+        viewModel.showAlert(Title: "Are you shure about that ?", Message: "You will be sent to the login page")
+    }
 }

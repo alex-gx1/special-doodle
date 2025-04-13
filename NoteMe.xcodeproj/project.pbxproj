@@ -91,6 +91,7 @@
 		F69039912DAABF8600800BB4 /* TimerValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039902DAABF8600800BB4 /* TimerValue.swift */; };
 		F69039932DAAC76000800BB4 /* TimerServcie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039922DAAC76000800BB4 /* TimerServcie.swift */; };
 		F69039952DAACEFC00800BB4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039942DAACEFC00800BB4 /* Observable.swift */; };
+		F69039982DAB016400800BB4 /* ProfileScreenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */; };
 		F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */; };
 		F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */; };
 		F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */; };
@@ -199,6 +200,7 @@
 		F69039902DAABF8600800BB4 /* TimerValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerValue.swift; sourceTree = "<group>"; };
 		F69039922DAAC76000800BB4 /* TimerServcie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServcie.swift; sourceTree = "<group>"; };
 		F69039942DAACEFC00800BB4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUseCase.swift; sourceTree = "<group>"; };
 		F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverViewModel.swift; sourceTree = "<group>"; };
 		F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverAssembler.swift; sourceTree = "<group>"; };
 		F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverRouter.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 		9D2E20C32D39A9CB00B475EE /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				F69039962DAB014A00800BB4 /* UseCase */,
 				9D2E20C42D39A9F400B475EE /* ProfileScreenVC.swift */,
 				9D2E20C62D39AA3400B475EE /* ProfileScreenViewModel.swift */,
 				9D2E20C82D39AA6200B475EE /* ProfileScreenAssembler.swift */,
@@ -571,6 +574,14 @@
 			path = PopOverScreen;
 			sourceTree = "<group>";
 		};
+		F69039962DAB014A00800BB4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 		F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +806,7 @@
 				9DC9992C2D1A24ED0090B8F3 /* RegisterAuthUseCase.swift in Sources */,
 				F60232FB2DA6F93400F2D0E8 /* CalendarAssembler.swift in Sources */,
 				9D2E20C92D39AA6200B475EE /* ProfileScreenAssembler.swift in Sources */,
+				F69039982DAB016400800BB4 /* ProfileScreenUseCase.swift in Sources */,
 				F60233012DA6F95C00F2D0E8 /* LocationViewModel.swift in Sources */,
 				9D2E20D42D39AE4200B475EE /* TabBarAssembler.swift in Sources */,
 				9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */,
@@ -972,6 +984,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 488XTBCFQP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoteMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -983,7 +996,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = NoteMe.NoteMe;
+				PRODUCT_BUNDLE_IDENTIFIER = "NoteMe.AKNoteMe-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -998,6 +1011,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 488XTBCFQP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoteMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1009,7 +1023,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = NoteMe.NoteMe;
+				PRODUCT_BUNDLE_IDENTIFIER = "NoteMe.AKNoteMe-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
