@@ -40,3 +40,24 @@ extension UIView {
         self.backgroundColor = backgroundColor
     }
 }
+
+extension UIButton {
+    func setBackgroundColor(_ color: UIColor?, for state: UIControl.State) {
+        guard let color = color else { return }
+        let image = UIImage(color: color)
+        setBackgroundImage(image, for: state)
+    }
+}
+
+extension UIImage {
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        UIGraphicsBeginImageContext(size)
+        color.setFill()
+        UIRectFill(CGRect(origin: .zero, size: size))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
+}
+

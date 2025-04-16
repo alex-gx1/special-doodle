@@ -1,7 +1,6 @@
 import UIKit
 
-final class TimerPickerRouter: TimerPickerRouterProtocol {
-    
+final class CalendarPickerRouter: CalendarPickerRouterProtocol {
     weak var root: UIViewController?
     
     func dismiss() {
