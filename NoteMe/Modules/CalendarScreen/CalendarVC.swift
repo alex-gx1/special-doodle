@@ -4,6 +4,7 @@ import SnapKit
 protocol CalendarViewModelProtocol {
     func openCalendarKeyboard()
     var dateString: Observable<String> { get }
+    func closeVC ()
 }
 
 final class CalendarVC: UIViewController {
@@ -23,9 +24,10 @@ final class CalendarVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         viewModel.dateString.bind { [weak self] newDate in
-            self?.timerTextField.text = newDate
+            self?.dateTextField.text = newDate
         }
     }
+    
     private lazy var globalCardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -73,7 +75,7 @@ final class CalendarVC: UIViewController {
         return separator
     }()
     
-    private lazy var timerLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "Date"
         label.font = UIFont.appBoldFont15
@@ -81,7 +83,7 @@ final class CalendarVC: UIViewController {
         return label
     }()
     
-    private lazy var timerTextField: UITextField = {
+    private lazy var dateTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Enter your Date"
         tf.borderStyle = .none
@@ -92,27 +94,24 @@ final class CalendarVC: UIViewController {
         return tf
     }()
     
-    private lazy var timerWrapperView: UIView = {
+    private lazy var dateWrapperView: UIView = {
         let view = UIView()
-        view.addSubview(timerTextField)
-        timerTextField.snp.makeConstraints { make in
+        view.addSubview(dateTextField)
+        dateTextField.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(timerTextFieldTapped))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dateTextFieldTapped))
         view.addGestureRecognizer(tap)
         
         return view
     }()
     
-    @objc func timerTextFieldTapped() {
-        
-        //открытие клавы
+    @objc func dateTextFieldTapped() {
         viewModel.openCalendarKeyboard()
-        print("timerTextFieldTapped")
     }
     
-    private lazy var timerSeparator: UIView = {
+    private lazy var dateSeparator: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor.separator
         return separator
@@ -176,9 +175,9 @@ final class CalendarVC: UIViewController {
         middleCardView.addSubview(titleTextField)
         middleCardView.addSubview(titleSeparator)
         
-        middleCardView.addSubview(timerLabel)
-        middleCardView.addSubview(timerWrapperView)
-        middleCardView.addSubview(timerSeparator)
+        middleCardView.addSubview(dateLabel)
+        middleCardView.addSubview(dateWrapperView)
+        middleCardView.addSubview(dateSeparator)
         
         middleCardView.addSubview(commentLabel)
         middleCardView.addSubview(textView)
@@ -222,25 +221,25 @@ final class CalendarVC: UIViewController {
             make.height.equalTo(0.5)
         }
         
-        timerLabel.snp.makeConstraints { make in
+        dateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleTextField.snp.bottom).offset(16)
             make.left.equalToSuperview().inset(16)
         }
         
-        timerWrapperView.snp.makeConstraints { make in
-            make.top.equalTo(timerLabel.snp.bottom).offset(4)
+        dateWrapperView.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(4)
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(20)
         }
         
-        timerSeparator.snp.makeConstraints { make in
-            make.top.equalTo(timerWrapperView.snp.bottom).offset(4)
+        dateSeparator.snp.makeConstraints { make in
+            make.top.equalTo(dateWrapperView.snp.bottom).offset(4)
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(0.5)
         }
         
         commentLabel.snp.makeConstraints { make in
-            make.top.equalTo(timerWrapperView.snp.bottom).offset(16)
+            make.top.equalTo(dateWrapperView.snp.bottom).offset(16)
             make.left.equalToSuperview().inset(16)
         }
         
@@ -264,14 +263,12 @@ final class CalendarVC: UIViewController {
     }
     
     @objc func createButtonTap() {
+        viewModel.closeVC ()
         print("createButtonTap")
-        
     }
     
     @objc func cancelButtonTap() {
+        viewModel.closeVC ()
         print("createButtonTap")
     }
 }
-
-
-

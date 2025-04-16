@@ -1,6 +1,8 @@
 import UIKit
 
-protocol LocationRouterProtocol {}
+protocol LocationRouterProtocol {
+    func closeVC()
+}
 
 final class LocationViewModel: LocationViewModelProtocol {
     
@@ -10,4 +12,7 @@ final class LocationViewModel: LocationViewModelProtocol {
         self.router = router
     }
     
+    func closeVC() {
+        router.closeVC()
+    }
 }

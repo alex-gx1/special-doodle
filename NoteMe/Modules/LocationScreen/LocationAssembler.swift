@@ -5,6 +5,7 @@ final class LocationAssembler {
     
     static func make() -> UIViewController {
         let router = LocationRouter()
+        
         let vm = LocationViewModel(
             router: router
         )

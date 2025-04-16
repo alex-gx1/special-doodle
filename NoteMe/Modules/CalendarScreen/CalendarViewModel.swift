@@ -2,6 +2,7 @@ import UIKit
 
 protocol CalendarRouterProtocol {
     func openCalendarKeyboard(dateService: DateServiceProtocol, onDateUpdated: ((String) -> Void)?)
+    func closeVC ()
 }
 
 final class CalendarViewModel: CalendarViewModelProtocol {
@@ -20,6 +21,10 @@ final class CalendarViewModel: CalendarViewModelProtocol {
         router.openCalendarKeyboard(dateService: dateService) { [weak self] date in
             self?.dateString.value = date
         }
+    }
+    
+    func closeVC() {
+        router.closeVC()
     }
     
 }

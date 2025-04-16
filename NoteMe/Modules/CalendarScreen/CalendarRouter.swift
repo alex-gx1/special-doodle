@@ -17,4 +17,8 @@ extension CalendarRouter: UIViewControllerTransitioningDelegate {
                                 source: UIViewController) -> UIPresentationController? {
         return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
     }
+    
+    func closeVC () {
+        root?.navigationController?.popViewController(animated: true)
+    }
 }
