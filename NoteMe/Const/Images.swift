@@ -24,4 +24,6 @@ enum Images {
     static let export = UIImage(named: "export")
     
     static let logout = UIImage(named: "logout")
+    
+    static let search = UIImage(named: "search")
 }

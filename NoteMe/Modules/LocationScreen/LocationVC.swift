@@ -1,8 +1,11 @@
 import UIKit
 import SnapKit
+import MapKit
 
 protocol LocationViewModelProtocol {
     func closeVC()
+    func askPermission()
+    func openFullMap()
 }
 
 final class LocationVC: UIViewController {
@@ -21,6 +24,7 @@ final class LocationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        viewModel.askPermission()
     }
     
     private lazy var globalCardView: UIView = {
@@ -89,6 +93,32 @@ final class LocationVC: UIViewController {
         return textView
     }()
     
+    private lazy var locationLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Colors.appBlackColor
+        label.font = UIFont.appBoldFont15
+        label.text = "Location"
+        return label
+    }()
+    
+    private lazy var mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.showsUserLocation = false
+        mapView.isZoomEnabled = false
+        mapView.isScrollEnabled = false
+        mapView.isRotateEnabled = false
+        return mapView
+    }()
+    
+    private lazy var mapTapView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap))
+        view.addGestureRecognizer(tap)
+        return view
+    }()
+
+    
     private lazy var createButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 5
@@ -129,6 +159,10 @@ final class LocationVC: UIViewController {
         middleCardView.addSubview(textView)
         middleCardView.addSubview(commentLabel)
         middleCardView.addSubview(textView)
+        middleCardView.addSubview(locationLabel)
+        middleCardView.addSubview(mapView)
+        middleCardView.addSubview(mapTapView)
+
         
         globalCardView.addSubview(createButton)
         globalCardView.addSubview(cancelButton)
@@ -180,6 +214,21 @@ final class LocationVC: UIViewController {
             make.height.equalTo(68)
         }
         
+        locationLabel.snp.makeConstraints { make in
+            make.top.equalTo(textView.snp.bottom).offset(16)
+            make.left.right.equalToSuperview().inset(16)
+        }
+        
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(locationLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(8)
+        }
+        
+        mapTapView.snp.makeConstraints { make in
+            make.edges.equalTo(mapView)
+        }
+        
         cancelButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
             make.horizontalEdges.equalToSuperview().inset(20)
@@ -193,13 +242,17 @@ final class LocationVC: UIViewController {
         }
     }
     
-    @objc func createButtonTap() {
+    @objc private func createButtonTap() {
         print("createButtonTap")
         viewModel.closeVC()
     }
     
-    @objc func cancelButtonTap() {
+    @objc private func cancelButtonTap() {
         print("createButtonTap")
         viewModel.closeVC()
     }
+    @objc private func handleMapTap() {
+        viewModel.openFullMap()
+    }
+
 }

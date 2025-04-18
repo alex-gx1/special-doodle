@@ -82,19 +82,18 @@
 		F60233012DA6F95C00F2D0E8 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233002DA6F95C00F2D0E8 /* LocationViewModel.swift */; };
 		F60233032DA6F96600F2D0E8 /* LocationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */; };
 		F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233042DA6F97100F2D0E8 /* LocationRouter.swift */; };
-		F60233082DA81EA200F2D0E8 /* TimerPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233072DA81EA200F2D0E8 /* TimerPickerVC.swift */; };
-		F602330A2DA81EF600F2D0E8 /* TimerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233092DA81EF600F2D0E8 /* TimerPickerViewModel.swift */; };
-		F602330C2DA81F2300F2D0E8 /* TimerPickerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */; };
-		F602330E2DA81F3200F2D0E8 /* TimerPickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */; };
 		F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */; };
 		F65477E62DB0111B0073B5A0 /* CalendarPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65477E52DB0111B0073B5A0 /* CalendarPickerVC.swift */; };
 		F65477E82DB0112A0073B5A0 /* CalendarPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65477E72DB0112A0073B5A0 /* CalendarPickerViewModel.swift */; };
 		F65477EA2DB011370073B5A0 /* CalendarPickerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65477E92DB011370073B5A0 /* CalendarPickerAssembler.swift */; };
 		F65477EC2DB011950073B5A0 /* CalendarPickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65477EB2DB011950073B5A0 /* CalendarPickerRouter.swift */; };
 		F65477EE2DB0139C0073B5A0 /* DateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65477ED2DB0139C0073B5A0 /* DateService.swift */; };
+		F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */; };
+		F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */; };
+		F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */; };
+		F65B5B3C2DB1B23A007D2ED6 /* FullMapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */; };
+		F67A5FE62DB25C30001F63D5 /* CustomTimeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE52DB25C30001F63D5 /* CustomTimeVC.swift */; };
 		F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */; };
-		F69039912DAABF8600800BB4 /* TimerValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039902DAABF8600800BB4 /* TimerValue.swift */; };
-		F69039932DAAC76000800BB4 /* TimerServcie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039922DAAC76000800BB4 /* TimerServcie.swift */; };
 		F69039952DAACEFC00800BB4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039942DAACEFC00800BB4 /* Observable.swift */; };
 		F69039982DAB016400800BB4 /* ProfileScreenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */; };
 		F690399A2DABDA0300800BB4 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039992DABDA0300800BB4 /* DateValue.swift */; };
@@ -197,19 +196,18 @@
 		F60233002DA6F95C00F2D0E8 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAssembler.swift; sourceTree = "<group>"; };
 		F60233042DA6F97100F2D0E8 /* LocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRouter.swift; sourceTree = "<group>"; };
-		F60233072DA81EA200F2D0E8 /* TimerPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerVC.swift; sourceTree = "<group>"; };
-		F60233092DA81EF600F2D0E8 /* TimerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerViewModel.swift; sourceTree = "<group>"; };
-		F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerAssembler.swift; sourceTree = "<group>"; };
-		F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPickerRouter.swift; sourceTree = "<group>"; };
 		F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
 		F65477E52DB0111B0073B5A0 /* CalendarPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerVC.swift; sourceTree = "<group>"; };
 		F65477E72DB0112A0073B5A0 /* CalendarPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerViewModel.swift; sourceTree = "<group>"; };
 		F65477E92DB011370073B5A0 /* CalendarPickerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerAssembler.swift; sourceTree = "<group>"; };
 		F65477EB2DB011950073B5A0 /* CalendarPickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerRouter.swift; sourceTree = "<group>"; };
 		F65477ED2DB0139C0073B5A0 /* DateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateService.swift; sourceTree = "<group>"; };
+		F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapVC.swift; sourceTree = "<group>"; };
+		F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapViewModel.swift; sourceTree = "<group>"; };
+		F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapAssembler.swift; sourceTree = "<group>"; };
+		F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapRouter.swift; sourceTree = "<group>"; };
+		F67A5FE52DB25C30001F63D5 /* CustomTimeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeVC.swift; sourceTree = "<group>"; };
 		F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
-		F69039902DAABF8600800BB4 /* TimerValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerValue.swift; sourceTree = "<group>"; };
-		F69039922DAAC76000800BB4 /* TimerServcie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServcie.swift; sourceTree = "<group>"; };
 		F69039942DAACEFC00800BB4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUseCase.swift; sourceTree = "<group>"; };
 		F69039992DABDA0300800BB4 /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
@@ -446,7 +444,6 @@
 				9DF336022D19C1F40048C928 /* ValidationService.swift */,
 				9D6A68062D1C83B60036D9A3 /* AlertBuilder.swift */,
 				9D2E20B32D384E4500B475EE /* ParametrsService.swift */,
-				F69039922DAAC76000800BB4 /* TimerServcie.swift */,
 				F69039942DAACEFC00800BB4 /* Observable.swift */,
 				F65477ED2DB0139C0073B5A0 /* DateService.swift */,
 			);
@@ -482,10 +479,11 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F67A5FE42DB25BF5001F63D5 /* CustomKeyBoards */,
+				F65B5B342DB1B201007D2ED6 /* FullMapVC */,
 				F65477E42DB010F60073B5A0 /* CalendarPickerVC */,
 				F60232F52DA6F8FF00F2D0E8 /* LocationScreen */,
 				F60232F42DA6F8E900F2D0E8 /* CalendarScreen */,
-				F60233062DA81E7100F2D0E8 /* TimerPickerVC */,
 				F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */,
 				F605B1B42DA45B7800B330E6 /* PopOverScreen */,
 				9D2E20CC2D39ABF500B475EE /* TabBarController */,
@@ -539,7 +537,6 @@
 			isa = PBXGroup;
 			children = (
 				9DC2EC272D0741FB005A21F3 /* Model.swift */,
-				F69039902DAABF8600800BB4 /* TimerValue.swift */,
 				F69039992DABDA0300800BB4 /* DateValue.swift */,
 			);
 			path = Models;
@@ -567,17 +564,6 @@
 			path = LocationScreen;
 			sourceTree = "<group>";
 		};
-		F60233062DA81E7100F2D0E8 /* TimerPickerVC */ = {
-			isa = PBXGroup;
-			children = (
-				F60233072DA81EA200F2D0E8 /* TimerPickerVC.swift */,
-				F60233092DA81EF600F2D0E8 /* TimerPickerViewModel.swift */,
-				F602330B2DA81F2300F2D0E8 /* TimerPickerAssembler.swift */,
-				F602330D2DA81F3200F2D0E8 /* TimerPickerRouter.swift */,
-			);
-			path = TimerPickerVC;
-			sourceTree = "<group>";
-		};
 		F605B1B42DA45B7800B330E6 /* PopOverScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +584,25 @@
 				F65477EB2DB011950073B5A0 /* CalendarPickerRouter.swift */,
 			);
 			path = CalendarPickerVC;
+			sourceTree = "<group>";
+		};
+		F65B5B342DB1B201007D2ED6 /* FullMapVC */ = {
+			isa = PBXGroup;
+			children = (
+				F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */,
+				F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */,
+				F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */,
+				F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */,
+			);
+			path = FullMapVC;
+			sourceTree = "<group>";
+		};
+		F67A5FE42DB25BF5001F63D5 /* CustomKeyBoards */ = {
+			isa = PBXGroup;
+			children = (
+				F67A5FE52DB25C30001F63D5 /* CustomTimeVC.swift */,
+			);
+			path = CustomKeyBoards;
 			sourceTree = "<group>";
 		};
 		F69039962DAB014A00800BB4 /* UseCase */ = {
@@ -768,7 +773,6 @@
 				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
 				9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */,
 				9D17E8A92CFF42EA0060E5B0 /* Images.swift in Sources */,
-				F602330C2DA81F2300F2D0E8 /* TimerPickerAssembler.swift in Sources */,
 				9DF57C902D03718600B73BCF /* Colors.swift in Sources */,
 				9D6F25B02CFE1EE500BFA561 /* RegisterVC.swift in Sources */,
 				F60232FD2DA6F94100F2D0E8 /* CalendarRouter.swift in Sources */,
@@ -782,27 +786,25 @@
 				9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */,
 				F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */,
 				9DC2EC262D073FF7005A21F3 /* AuthService.swift in Sources */,
-				F602330E2DA81F3200F2D0E8 /* TimerPickerRouter.swift in Sources */,
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
 				9DC999292D1A24C10090B8F3 /* ResetAuthServiceUseCase.swift in Sources */,
 				9D6F25AE2CFDFEF200BFA561 /* AppTextField.swift in Sources */,
 				F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */,
 				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
-				F60233082DA81EA200F2D0E8 /* TimerPickerVC.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
 				9D2E20D82D3A7D0900B475EE /* TabBarViewModel.swift in Sources */,
 				F60232F92DA6F92700F2D0E8 /* CalendarViewModel.swift in Sources */,
+				F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */,
 				F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */,
 				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
-				F69039932DAAC76000800BB4 /* TimerServcie.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
-				F602330A2DA81EF600F2D0E8 /* TimerPickerViewModel.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
+				F65B5B3C2DB1B23A007D2ED6 /* FullMapRouter.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
 				F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
@@ -820,12 +822,12 @@
 				F69039952DAACEFC00800BB4 /* Observable.swift in Sources */,
 				9D2E20CE2D39ACC900B475EE /* TabBarVC.swift in Sources */,
 				F6E1F1D42DA59E5400C1CAD2 /* TimerViewModel.swift in Sources */,
-				F69039912DAABF8600800BB4 /* TimerValue.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
 				F65477EC2DB011950073B5A0 /* CalendarPickerRouter.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
 				9D2E20CB2D39AB9600B475EE /* ProfileScreenRouter.swift in Sources */,
+				F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */,
 				9D2E20C72D39AA3400B475EE /* ProfileScreenViewModel.swift in Sources */,
 				9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */,
 				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
@@ -844,7 +846,9 @@
 				F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */,
 				F65477E62DB0111B0073B5A0 /* CalendarPickerVC.swift in Sources */,
 				9D17E8AB2CFF4BEE0060E5B0 /* Fonts.swift in Sources */,
+				F67A5FE62DB25C30001F63D5 /* CustomTimeVC.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,
+				F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */,
 				9D6F25B22CFE2EBF00BFA561 /* ResetVC.swift in Sources */,
 				9D2E20C02D399B3400B475EE /* MainScreenRouter.swift in Sources */,
 				F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */,
@@ -1019,6 +1023,8 @@
 				DEVELOPMENT_TEAM = 488XTBCFQP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoteMe/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "For notification";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "for notification";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1046,6 +1052,8 @@
 				DEVELOPMENT_TEAM = 488XTBCFQP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NoteMe/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "For notification";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "for notification";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

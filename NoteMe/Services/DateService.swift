@@ -1,7 +1,7 @@
 import Foundation
 
 protocol DateServiceProtocol {
-    func saveSelectedDate(_ time: DateValue)
+    func saveSelectedDate(_ date: DateValue)
     func getSelectedDate() -> DateValue
 }
 

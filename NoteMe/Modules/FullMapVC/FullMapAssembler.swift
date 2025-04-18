@@ -1,16 +1,15 @@
 import UIKit
 
-final class TimerAssembler {
+final class FullMapAssembler {
     private init() {}
     
     static func make() -> UIViewController {
-        let router = TimerRouter()
+        let router = FullMapRouter()
         
-        let vm = TimerViewModel(
+        let vm = FullMapViewModel(
             router: router
         )
-        
-        let vc = TimerVC(viewModel: vm)
+        let vc = FullMapVC(viewModel: vm)
         router.root = vc
         return vc
     }

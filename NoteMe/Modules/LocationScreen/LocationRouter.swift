@@ -6,4 +6,9 @@ final class LocationRouter: LocationRouterProtocol {
     func closeVC() {
         root?.navigationController?.popViewController(animated: true)
     }
+    
+    func openFullMap() {
+        let vc = FullMapAssembler.make()
+        root?.navigationController?.pushViewController(vc, animated: true)
+    }
 }
