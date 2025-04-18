@@ -25,7 +25,7 @@ final class TimerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        openkeyBoardForFirstTextField()
+        openKeyBoardForFirstTextField()
     }
     
     init(viewModel: TimerViewModelProtocol) {
@@ -170,7 +170,7 @@ final class TimerVC: UIViewController {
         }
     }
     
-    private func openkeyBoardForFirstTextField() {
+    private func openKeyBoardForFirstTextField() {
         titleTextField.becomeFirstResponder()
     }
     

@@ -5,10 +5,8 @@ final class CalendarAssembler {
     
     static func make() -> UIViewController {
         let router = CalendarRouter()
-        let dateService = DateService()
         let vm = CalendarViewModel(
-            router: router,
-            dateService: dateService
+            router: router
         )
         let vc = CalendarVC(viewModel: vm)
         router.root = vc
