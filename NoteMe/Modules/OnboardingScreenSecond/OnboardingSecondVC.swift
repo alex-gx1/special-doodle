@@ -65,7 +65,7 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
         """
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
-        view.font = .appFont13
+        view.font = UIFont.appBoldFont13
         return view
     }()
     
@@ -91,9 +91,10 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
         view.addSubview(globalCardView)
         
         globalCardView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.horizontalEdges.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         globalCardView.addSubview(logoImg)
@@ -138,7 +139,7 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
         globalCardView.addSubview(doneButton)
         
         doneButton.snp.makeConstraints { make in
-            make.top.equalTo(plusImg.snp.bottom).offset(30)
+            make.bottom.equalToSuperview().inset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }

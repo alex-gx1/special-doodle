@@ -56,7 +56,7 @@ final class OnboardingVC: UIViewController, OnboardingScreens {
         view.text = "NoteMe is an application, which notify you about everything!"
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
-        view.font = .appFont13
+        view.font = UIFont.appBoldFont13
         return view
     } ()
     
@@ -87,9 +87,10 @@ final class OnboardingVC: UIViewController, OnboardingScreens {
         view.addSubview(globalCardView)
         
         globalCardView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.horizontalEdges.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         globalCardView.addSubview(logoImg)
@@ -127,7 +128,7 @@ final class OnboardingVC: UIViewController, OnboardingScreens {
         globalCardView.addSubview(nextButton)
         
         nextButton.snp.makeConstraints { make in
-            make.top.equalTo(cardView.snp.bottom).offset(330)
+            make.bottom.equalToSuperview().inset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }

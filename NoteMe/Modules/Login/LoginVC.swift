@@ -133,9 +133,10 @@ final class LoginVC: UIViewController, AuthScreen {
         view.addSubview(globalCardView)
         
         globalCardView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.horizontalEdges.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         globalCardView.addSubview(logoImg)
@@ -191,7 +192,7 @@ final class LoginVC: UIViewController, AuthScreen {
         globalCardView.addSubview(bottomCard)
         
         bottomCard.snp.makeConstraints {make in
-            make.top.equalTo(cardView.snp.bottom).offset(180)
+            make.bottom.equalToSuperview().inset(16)
             make.height.equalTo(90)
             make.horizontalEdges.equalToSuperview().inset(20)
         }

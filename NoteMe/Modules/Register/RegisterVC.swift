@@ -108,6 +108,7 @@ final class RegisterVC: UIViewController, AuthScreen {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        keyBoardDownTap()
     }
     
     private func bind(){
@@ -116,14 +117,20 @@ final class RegisterVC: UIViewController, AuthScreen {
         }
     }
     
+    private func keyBoardDownTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
         view.addSubview(globalCardView)
         
         globalCardView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.horizontalEdges.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         globalCardView.addSubview(logoImg)
@@ -179,8 +186,9 @@ final class RegisterVC: UIViewController, AuthScreen {
         }
         
         globalCardView.addSubview(bottomCard)
+        
         bottomCard.snp.makeConstraints { make in
-            make.top.equalTo(cardView.snp.bottom).offset(160)
+            make.bottom.equalToSuperview().inset(16)
             make.height.equalTo(90)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
@@ -221,6 +229,10 @@ final class RegisterVC: UIViewController, AuthScreen {
     
     @objc private func haveAccountButtonTapped() {
         viewModel.back()
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func showAlert(title: String, message: String) {

@@ -87,6 +87,7 @@ final class ResetVC: UIViewController, AuthScreen {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        keyBoardDownTap()
     }
     
     private func bind(){
@@ -95,15 +96,21 @@ final class ResetVC: UIViewController, AuthScreen {
         }
     }
     
+    private func keyBoardDownTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
         
         view.addSubview(globalCardView)
         
         globalCardView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
-            make.horizontalEdges.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         globalCardView.addSubview(logoImg)
@@ -146,15 +153,13 @@ final class ResetVC: UIViewController, AuthScreen {
         globalCardView.addSubview(cancelButton)
         
         resetButton.snp.makeConstraints{ make in
-            make.top.equalTo(cardView.snp.bottom).offset(200)
+            make.bottom.equalTo(cancelButton.snp.top).offset(-8)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }
         
-        
-        
         cancelButton.snp.makeConstraints { make in
-            make.top.equalTo(resetButton.snp.bottom).offset(8)
+            make.bottom.equalToSuperview().inset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(45)
         }
@@ -170,6 +175,10 @@ final class ResetVC: UIViewController, AuthScreen {
     
     @objc private func cancelButtonTapped() {
         viewModel.back()
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func showAlert(title: String, message: String) {

@@ -36,7 +36,16 @@ final class TabBarVC: UITabBarController {
         viewModel.viewDidAppear()
     }
 
-    
+    private func provideHapticFeedback() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.prepare()
+        generator.impactOccurred()
+    }
+
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        provideHapticFeedback()
+    }
+
     private func setupUI() {
         
         tabBar.tintColor = Colors.appYellowColor
