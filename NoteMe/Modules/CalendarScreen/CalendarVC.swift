@@ -9,8 +9,8 @@ final class CalendarVC: UIViewController {
     
     private let viewModel: CalendarViewModelProtocol
     
-    private let customInputView: CustomDateVC = {
-        let view = CustomDateVC()
+    private let customInputView: CustomDateKeyboard = {
+        let view = CustomDateKeyboard()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 250)
         return view
     }()

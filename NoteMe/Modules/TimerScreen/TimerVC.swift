@@ -9,8 +9,8 @@ final class TimerVC: UIViewController {
     
     private var viewModel: TimerViewModelProtocol
     
-    private let customInputView: CustomTimePickerView = {
-        let view = CustomTimePickerView()
+    private let customInputView: CustomTimeKeyboard = {
+        let view = CustomTimeKeyboard()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 250)
         return view
     }()

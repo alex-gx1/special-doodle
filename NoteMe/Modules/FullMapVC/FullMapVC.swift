@@ -76,6 +76,7 @@ final class FullMapVC: UIViewController {
         return button
     }()
     
+    
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
         view.addSubview(globalCardView)

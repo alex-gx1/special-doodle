@@ -87,8 +87,8 @@
 		F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */; };
 		F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */; };
 		F65B5B3C2DB1B23A007D2ED6 /* FullMapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */; };
-		F67A5FE62DB25C30001F63D5 /* CustomTimeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE52DB25C30001F63D5 /* CustomTimeVC.swift */; };
-		F67A5FE82DB29780001F63D5 /* CustomDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE72DB29780001F63D5 /* CustomDateVC.swift */; };
+		F67A5FE62DB25C30001F63D5 /* CustomTimeKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE52DB25C30001F63D5 /* CustomTimeKeyboard.swift */; };
+		F67A5FE82DB29780001F63D5 /* CustomDateKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE72DB29780001F63D5 /* CustomDateKeyboard.swift */; };
 		F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */; };
 		F69039952DAACEFC00800BB4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039942DAACEFC00800BB4 /* Observable.swift */; };
 		F69039982DAB016400800BB4 /* ProfileScreenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */; };
@@ -196,8 +196,8 @@
 		F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapViewModel.swift; sourceTree = "<group>"; };
 		F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapAssembler.swift; sourceTree = "<group>"; };
 		F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapRouter.swift; sourceTree = "<group>"; };
-		F67A5FE52DB25C30001F63D5 /* CustomTimeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeVC.swift; sourceTree = "<group>"; };
-		F67A5FE72DB29780001F63D5 /* CustomDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDateVC.swift; sourceTree = "<group>"; };
+		F67A5FE52DB25C30001F63D5 /* CustomTimeKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeKeyboard.swift; sourceTree = "<group>"; };
+		F67A5FE72DB29780001F63D5 /* CustomDateKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDateKeyboard.swift; sourceTree = "<group>"; };
 		F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
 		F69039942DAACEFC00800BB4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUseCase.swift; sourceTree = "<group>"; };
@@ -576,8 +576,8 @@
 		F67A5FE42DB25BF5001F63D5 /* CustomKeyBoards */ = {
 			isa = PBXGroup;
 			children = (
-				F67A5FE52DB25C30001F63D5 /* CustomTimeVC.swift */,
-				F67A5FE72DB29780001F63D5 /* CustomDateVC.swift */,
+				F67A5FE52DB25C30001F63D5 /* CustomTimeKeyboard.swift */,
+				F67A5FE72DB29780001F63D5 /* CustomDateKeyboard.swift */,
 			);
 			path = CustomKeyBoards;
 			sourceTree = "<group>";
@@ -803,7 +803,7 @@
 				9D2E20CB2D39AB9600B475EE /* ProfileScreenRouter.swift in Sources */,
 				F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */,
 				9D2E20C72D39AA3400B475EE /* ProfileScreenViewModel.swift in Sources */,
-				F67A5FE82DB29780001F63D5 /* CustomDateVC.swift in Sources */,
+				F67A5FE82DB29780001F63D5 /* CustomDateKeyboard.swift in Sources */,
 				9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */,
 				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
 				9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */,
@@ -818,7 +818,7 @@
 				9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */,
 				F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */,
 				9D17E8AB2CFF4BEE0060E5B0 /* Fonts.swift in Sources */,
-				F67A5FE62DB25C30001F63D5 /* CustomTimeVC.swift in Sources */,
+				F67A5FE62DB25C30001F63D5 /* CustomTimeKeyboard.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,
 				F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */,
 				9D6F25B22CFE2EBF00BFA561 /* ResetVC.swift in Sources */,
