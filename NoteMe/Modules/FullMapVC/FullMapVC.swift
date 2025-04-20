@@ -3,7 +3,7 @@ import MapKit
 import SnapKit
 
 protocol FullMapViewModelProtocol {
-    
+    func openSearchScreen()
 }
 
 final class FullMapVC: UIViewController {
@@ -22,6 +22,7 @@ final class FullMapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        keyBoardDownTap()
     }
     
     private lazy var globalCardView: UIView = {
@@ -30,44 +31,35 @@ final class FullMapVC: UIViewController {
         return view
     }()
     
-    private lazy var searchView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        let bottomBorder = UIView()
-        bottomBorder.backgroundColor = Colors.appBlackColor
-        view.addSubview(bottomBorder)
-
-        bottomBorder.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(1)
-        }
-        return view
-    }()
+    private func keyBoardDownTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
     
     private lazy var searchContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
         view.layer.borderColor = UIColor.lightGray.cgColor
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 18
         return view
     }()
-
+    
     private lazy var searchIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Images.search
         return imageView
     }()
-
+    
     private lazy var searchTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Search"
         textField.borderStyle = .none
         textField.font = .systemFont(ofSize: 16)
         textField.clearButtonMode = .whileEditing
+        textField.addTarget(self, action: #selector(textFieldTapped), for: .editingDidBegin)
         return textField
     }()
-
+    
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Cancel", for: .normal)
@@ -76,19 +68,39 @@ final class FullMapVC: UIViewController {
         return button
     }()
     
+    private lazy var mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.showsUserLocation = true
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.isRotateEnabled = true
+        return mapView
+    }()
+    
+    private lazy var searchStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.distribution = .fill
+        stack.backgroundColor = .white
+        stack.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        stack.isLayoutMarginsRelativeArrangement = true
+        return stack
+    }()
     
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
         view.addSubview(globalCardView)
         
-        globalCardView.addSubview(searchView)
-        globalCardView.addSubview(searchView)
-        searchView.addSubview(searchContainer)
-        searchView.addSubview(cancelButton)
-
+        globalCardView.addSubview(mapView)
+        globalCardView.addSubview(searchStackView)
+        
+        searchStackView.addArrangedSubview(searchContainer)
+        searchStackView.addArrangedSubview(cancelButton)
+        
         searchContainer.addSubview(searchIcon)
         searchContainer.addSubview(searchTextField)
-
         
         globalCardView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -97,40 +109,50 @@ final class FullMapVC: UIViewController {
             make.trailing.equalToSuperview()
         }
         
-        searchView.snp.makeConstraints { make in
+        searchStackView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
-
-        searchContainer.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(16)
-            make.centerY.equalToSuperview()
-            make.right.equalTo(cancelButton.snp.left).offset(-12)
+        
+        cancelButton.setContentHuggingPriority(.required, for: .horizontal)
+        cancelButton.snp.makeConstraints { make in
             make.height.equalTo(36)
         }
-
-        cancelButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(16)
-            make.centerY.equalToSuperview()
+        
+        searchContainer.snp.makeConstraints { make in
+            make.height.equalTo(36)
         }
-
+        
         searchIcon.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(12)
             make.centerY.equalToSuperview()
             make.size.equalTo(20)
         }
-
+        
         searchTextField.snp.makeConstraints { make in
             make.left.equalTo(searchIcon.snp.right).offset(8)
             make.right.equalToSuperview().inset(12)
             make.top.bottom.equalToSuperview()
         }
+        
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(searchContainer.snp.bottom).offset(1)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
     
     @objc private func cancelTapped() {
+        dismissKeyboard()
         searchTextField.text = ""
-        searchTextField.resignFirstResponder()
     }
-
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc private func textFieldTapped() {
+        viewModel.openSearchScreen()
+    }
 }

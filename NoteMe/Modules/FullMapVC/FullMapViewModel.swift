@@ -1,7 +1,7 @@
 import Foundation
 
 protocol FullMapRouterProtocol {
-    
+    func openSearchScreen()
 }
 
 final class FullMapViewModel: FullMapViewModelProtocol {
@@ -10,5 +10,8 @@ final class FullMapViewModel: FullMapViewModelProtocol {
     
     init(router: FullMapRouterProtocol) {
         self.router = router
+    }
+    func openSearchScreen() {
+        router.openSearchScreen()
     }
 }

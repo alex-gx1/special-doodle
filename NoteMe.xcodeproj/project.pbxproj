@@ -92,6 +92,10 @@
 		F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */; };
 		F69039952DAACEFC00800BB4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039942DAACEFC00800BB4 /* Observable.swift */; };
 		F69039982DAB016400800BB4 /* ProfileScreenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */; };
+		F6D8261D2DB582BC006BA35E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D8261C2DB582BC006BA35E /* SearchVC.swift */; };
+		F6D8261F2DB582C7006BA35E /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D8261E2DB582C7006BA35E /* SearchViewModel.swift */; };
+		F6D826212DB582D0006BA35E /* SearchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D826202DB582D0006BA35E /* SearchAssembler.swift */; };
+		F6D826232DB582D9006BA35E /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D826222DB582D9006BA35E /* SearchRouter.swift */; };
 		F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */; };
 		F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */; };
 		F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */; };
@@ -201,6 +205,10 @@
 		F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
 		F69039942DAACEFC00800BB4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUseCase.swift; sourceTree = "<group>"; };
+		F6D8261C2DB582BC006BA35E /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		F6D8261E2DB582C7006BA35E /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F6D826202DB582D0006BA35E /* SearchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembler.swift; sourceTree = "<group>"; };
+		F6D826222DB582D9006BA35E /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		F6E1F1CA2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverViewModel.swift; sourceTree = "<group>"; };
 		F6E1F1CC2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverAssembler.swift; sourceTree = "<group>"; };
 		F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverRouter.swift; sourceTree = "<group>"; };
@@ -468,6 +476,7 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F6D8261B2DB582AA006BA35E /* SearchVC */,
 				F67A5FE42DB25BF5001F63D5 /* CustomKeyBoards */,
 				F65B5B342DB1B201007D2ED6 /* FullMapVC */,
 				F60232F52DA6F8FF00F2D0E8 /* LocationScreen */,
@@ -588,6 +597,17 @@
 				F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		F6D8261B2DB582AA006BA35E /* SearchVC */ = {
+			isa = PBXGroup;
+			children = (
+				F6D8261C2DB582BC006BA35E /* SearchVC.swift */,
+				F6D8261E2DB582C7006BA35E /* SearchViewModel.swift */,
+				F6D826202DB582D0006BA35E /* SearchAssembler.swift */,
+				F6D826222DB582D9006BA35E /* SearchRouter.swift */,
+			);
+			path = SearchVC;
 			sourceTree = "<group>";
 		};
 		F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */ = {
@@ -747,6 +767,7 @@
 			files = (
 				9D6A68132D1E05CD0036D9A3 /* OnboardingSecondVC.swift in Sources */,
 				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
+				F6D826232DB582D9006BA35E /* SearchRouter.swift in Sources */,
 				9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */,
 				9D17E8A92CFF42EA0060E5B0 /* Images.swift in Sources */,
 				9DF57C902D03718600B73BCF /* Colors.swift in Sources */,
@@ -763,12 +784,14 @@
 				F6E1F1CD2DA5883B00C1CAD2 /* MenuPopOverAssembler.swift in Sources */,
 				9DC2EC262D073FF7005A21F3 /* AuthService.swift in Sources */,
 				9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */,
+				F6D826212DB582D0006BA35E /* SearchAssembler.swift in Sources */,
 				9DC999292D1A24C10090B8F3 /* ResetAuthServiceUseCase.swift in Sources */,
 				9D6F25AE2CFDFEF200BFA561 /* AppTextField.swift in Sources */,
 				F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */,
 				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
+				F6D8261F2DB582C7006BA35E /* SearchViewModel.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
 				9D2E20D82D3A7D0900B475EE /* TabBarViewModel.swift in Sources */,
@@ -801,6 +824,7 @@
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
 				9D2E20CB2D39AB9600B475EE /* ProfileScreenRouter.swift in Sources */,
+				F6D8261D2DB582BC006BA35E /* SearchVC.swift in Sources */,
 				F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */,
 				9D2E20C72D39AA3400B475EE /* ProfileScreenViewModel.swift in Sources */,
 				F67A5FE82DB29780001F63D5 /* CustomDateKeyboard.swift in Sources */,

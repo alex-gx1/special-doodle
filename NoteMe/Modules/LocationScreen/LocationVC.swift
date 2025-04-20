@@ -25,6 +25,12 @@ final class LocationVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         viewModel.askPermission()
+        keyBoardDownTap()
+    }
+    
+    private func keyBoardDownTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     private lazy var globalCardView: UIView = {
@@ -254,5 +260,8 @@ final class LocationVC: UIViewController {
     @objc private func handleMapTap() {
         viewModel.openFullMap()
     }
-
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
