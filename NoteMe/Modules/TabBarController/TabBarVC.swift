@@ -25,7 +25,7 @@ final class TabBarVC: UITabBarController {
         button.addTarget(self, action: #selector(PlusButtonTap), for: .touchUpInside)
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -35,17 +35,17 @@ final class TabBarVC: UITabBarController {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
     }
-
+    
     private func provideHapticFeedback() {
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.prepare()
         generator.impactOccurred()
     }
-
+    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         provideHapticFeedback()
     }
-
+    
     private func setupUI() {
         
         tabBar.tintColor = Colors.appYellowColor
@@ -62,9 +62,11 @@ final class TabBarVC: UITabBarController {
             make.width.height.equalTo(50)
         }
     }
-        
+    
     @objc private func PlusButtonTap(sender: UIButton) {
-        print("PlusButtonTap")
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.prepare()
+        generator.impactOccurred()
         viewModel.plusButtonTapped(from: sender, sourceRect: sender.bounds)
     }
 }

@@ -14,6 +14,9 @@ final class FullMapVC: UIViewController {
     
     private let viewModel: FullMapViewModelProtocol
     
+    private var locationManager = CLLocationManager()
+
+    
     init(viewModel: FullMapViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -67,7 +70,7 @@ final class FullMapVC: UIViewController {
         textField.borderStyle = .none
         textField.font = .systemFont(ofSize: 16)
         textField.clearButtonMode = .whileEditing
-        textField.addTarget(self, action: #selector(textFieldTapped), for: .editingDidBegin)
+        textField.addTarget(self, action: #selector(textFieldTapped), for: .editingChanged)
         return textField
     }()
     
@@ -228,8 +231,31 @@ final class FullMapVC: UIViewController {
         view.endEditing(true)
     }
     
-    @objc private func textFieldTapped() {
-        viewModel.openSearchScreen()
+    @objc private func textFieldTapped(_ textField: UITextField) {
+        //        viewModel.openSearchScreen()
+        guard let query = textField.text, !query.isEmpty else { return }
+           guard let userLocation = locationManager.location else { return }
+
+           let region = MKCoordinateRegion(center: userLocation.coordinate,
+                                           latitudinalMeters: 5000,
+                                           longitudinalMeters: 5000)
+
+           let request = MKLocalSearch.Request()
+           request.naturalLanguageQuery = query
+           request.region = region
+
+           let search = MKLocalSearch(request: request)
+           search.start { [weak self] response, error in
+               guard
+                   let coordinate = response?.mapItems.first?.placemark.coordinate,
+                   error == nil
+               else { return }
+
+               let resultRegion = MKCoordinateRegion(center: coordinate,
+                                                     latitudinalMeters: 1000,
+                                                     longitudinalMeters: 1000)
+               self?.mapView.setRegion(resultRegion, animated: true)
+           }
     }
     
     @objc private func selectButtonTap() {
