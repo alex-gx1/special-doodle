@@ -4,6 +4,10 @@ import SnapKit
 
 protocol FullMapViewModelProtocol {
     func openSearchScreen()
+    func closeVC()
+    var screenshotImage: Observable<UIImage?> { get }
+    func captureScreenshot(from mapView: MKMapView, image: UIImageView, in view: UIView)
+    func createAndCloseVC()
 }
 
 final class FullMapVC: UIViewController {
@@ -24,6 +28,13 @@ final class FullMapVC: UIViewController {
         setupUI()
         keyBoardDownTap()
     }
+    
+    private lazy var locationPointImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.locationPoint
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     private lazy var globalCardView: UIView = {
         let view = UIView()
@@ -71,9 +82,13 @@ final class FullMapVC: UIViewController {
     private lazy var mapView: MKMapView = {
         let mapView = MKMapView()
         mapView.showsUserLocation = true
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
-        mapView.isRotateEnabled = true
+        mapView.isRotateEnabled = false
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        //        if #available(iOS 17.0, *) {
+        //            mapView.showsUserTrackingButton = true
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
         return mapView
     }()
     
@@ -89,12 +104,55 @@ final class FullMapVC: UIViewController {
         return stack
     }()
     
+    private lazy var selectButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 5
+        button.backgroundColor = Colors.appYellowColor
+        button.setTitleColor(Colors.appBlackColor, for: .normal)
+        button.setTitle("Select", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont17
+        button.setTitleColor(Colors.appBlackColor.withAlphaComponent(0.5), for: .highlighted)
+        button.setBackgroundColor(Colors.appYellowColor?.withAlphaComponent(0.7), for: .highlighted)
+        button.addTarget(self, action: #selector(selectButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var cancelButtonBottom: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = Colors.appYellowColor?.cgColor
+        button.layer.borderWidth = 2.5
+        button.backgroundColor = Colors.appBlackColor
+        button.setTitleColor(Colors.appYellowColor, for: .normal)
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont17
+        button.setTitleColor(Colors.appYellowColor?.withAlphaComponent(0.5), for: .highlighted)
+        button.setBackgroundColor(Colors.appBlackColor.withAlphaComponent(0.7), for: .highlighted)
+        button.addTarget(self, action: #selector(cancelButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var testImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
         view.addSubview(globalCardView)
         
         globalCardView.addSubview(mapView)
         globalCardView.addSubview(searchStackView)
+        globalCardView.addSubview(selectButton)
+        globalCardView.addSubview(cancelButtonBottom)
+        globalCardView.addSubview(locationPointImageView)
+        
+        globalCardView.addSubview(testImageView)
+        
+        testImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+        }
         
         searchStackView.addArrangedSubview(searchContainer)
         searchStackView.addArrangedSubview(cancelButton)
@@ -107,6 +165,12 @@ final class FullMapVC: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+        }
+        
+        locationPointImageView.snp.makeConstraints { make in
+            make.center.equalTo(mapView)
+            make.height.equalTo(95)
+            make.width.equalTo(95)
         }
         
         searchStackView.snp.makeConstraints { make in
@@ -137,9 +201,21 @@ final class FullMapVC: UIViewController {
         }
         
         mapView.snp.makeConstraints { make in
-            make.top.equalTo(searchContainer.snp.bottom).offset(1)
+            make.top.equalTo(searchContainer.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        cancelButtonBottom.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(45)
+        }
+        
+        selectButton.snp.makeConstraints { make in
+            make.bottom.equalTo(cancelButtonBottom.snp.top).offset(-8)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(45)
         }
     }
     
@@ -154,5 +230,30 @@ final class FullMapVC: UIViewController {
     
     @objc private func textFieldTapped() {
         viewModel.openSearchScreen()
+    }
+    
+    @objc private func selectButtonTap() {
+        let mapRegion = mapView.convert(locationPointImageView.bounds, toRegionFrom: locationPointImageView)
+        
+        //        let center = CLLocation(latitude: mapRegion.center.latitude,
+        //                                longitude: mapRegion.center.longitude)
+        //
+        //        let top = CLLocation(latitude: mapRegion.center.latitude - mapRegion.span.latitudeDelta / 2,
+        //                             longitude: mapRegion.center.longitude)
+        //
+        //        let radius = center.distance(from: top)
+        //
+        //        let circleRegion = CLCircularRegion(center: mapRegion.center,
+        //                                            radius: radius,
+        //                                            identifier: UUID().uuidString)
+        mapView.setRegion(mapRegion, animated: true)
+        
+        viewModel.captureScreenshot(from: mapView, image: locationPointImageView, in: view)
+        
+        viewModel.createAndCloseVC()
+    }
+    
+    @objc private func cancelButtonTap() {
+        viewModel.closeVC()
     }
 }

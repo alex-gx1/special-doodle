@@ -3,12 +3,14 @@ import MapKit
 
 protocol LocationRouterProtocol {
     func closeVC()
-    func openFullMap()
+    func openFullMap(imageObservable: Observable<UIImage?>)
 }
 
 final class LocationViewModel: LocationViewModelProtocol {
     
     private let router: LocationRouterProtocol
+    
+    let locationImage = Observable<UIImage?>(nil)
     
     private lazy var locationManager: CLLocationManager = .init( )
     
@@ -25,6 +27,6 @@ final class LocationViewModel: LocationViewModelProtocol {
     }
     
     func openFullMap() {
-        router.openFullMap()
+        router.openFullMap(imageObservable: locationImage)
     }
 }

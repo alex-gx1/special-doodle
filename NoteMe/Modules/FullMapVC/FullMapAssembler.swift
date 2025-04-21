@@ -3,13 +3,16 @@ import UIKit
 final class FullMapAssembler {
     private init() {}
     
-    static func make() -> UIViewController {
+    static func make(imageObservable: Observable<UIImage?>) -> UIViewController {
         let router = FullMapRouter()
         
-        let vm = FullMapViewModel(
-            router: router
+        let viewModel = FullMapViewModel(
+            router: router,
+            screenshotImage: imageObservable
         )
-        let vc = FullMapVC(viewModel: vm)
+        let vc = FullMapVC(
+            viewModel: viewModel
+        )
         router.root = vc
         return vc
     }

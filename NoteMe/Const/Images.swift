@@ -26,4 +26,8 @@ enum Images {
     static let logout = UIImage(named: "logout")
     
     static let search = UIImage(named: "search")
+    
+    static let locationPoint = UIImage(named: "locationPoint")
+    
+    static let locationMap = UIImage(named: "locationMap")
 }

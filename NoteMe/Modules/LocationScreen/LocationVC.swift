@@ -6,6 +6,7 @@ protocol LocationViewModelProtocol {
     func closeVC()
     func askPermission()
     func openFullMap()
+    var locationImage: Observable<UIImage?> { get }
 }
 
 final class LocationVC: UIViewController {
@@ -26,6 +27,16 @@ final class LocationVC: UIViewController {
         setupUI()
         viewModel.askPermission()
         keyBoardDownTap()
+        bindImage()
+    }
+    
+    private func bindImage() {
+        locationMapUIImage.image = Images.locationMap
+        
+        viewModel.locationImage.bind { [weak self] image in
+            guard let image else { return }
+            self?.locationMapUIImage.image = image
+        }
     }
     
     private func keyBoardDownTap() {
@@ -107,12 +118,10 @@ final class LocationVC: UIViewController {
         return label
     }()
     
-    private lazy var mapView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.showsUserLocation = false
-        mapView.isZoomEnabled = false
-        mapView.isScrollEnabled = false
-        mapView.isRotateEnabled = false
+    private lazy var locationMapUIImage: UIImageView = {
+        let mapView = UIImageView()
+        mapView.image = Images.locationMap
+        mapView.adjustsImageSizeForAccessibilityContentSizeCategory = true
         return mapView
     }()
     
@@ -123,7 +132,6 @@ final class LocationVC: UIViewController {
         view.addGestureRecognizer(tap)
         return view
     }()
-
     
     private lazy var createButton: UIButton = {
         let button = UIButton()
@@ -166,9 +174,9 @@ final class LocationVC: UIViewController {
         middleCardView.addSubview(commentLabel)
         middleCardView.addSubview(textView)
         middleCardView.addSubview(locationLabel)
-        middleCardView.addSubview(mapView)
+        middleCardView.addSubview(locationMapUIImage)
         middleCardView.addSubview(mapTapView)
-
+        
         
         globalCardView.addSubview(createButton)
         globalCardView.addSubview(cancelButton)
@@ -225,14 +233,14 @@ final class LocationVC: UIViewController {
             make.left.right.equalToSuperview().inset(16)
         }
         
-        mapView.snp.makeConstraints { make in
+        locationMapUIImage.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(8)
         }
         
         mapTapView.snp.makeConstraints { make in
-            make.edges.equalTo(mapView)
+            make.edges.equalTo(locationMapUIImage)
         }
         
         cancelButton.snp.makeConstraints { make in
