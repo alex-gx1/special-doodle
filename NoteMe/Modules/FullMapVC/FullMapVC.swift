@@ -15,7 +15,6 @@ final class FullMapVC: UIViewController {
     private let viewModel: FullMapViewModelProtocol
     
     private var locationManager = CLLocationManager()
-
     
     init(viewModel: FullMapViewModelProtocol) {
         self.viewModel = viewModel
