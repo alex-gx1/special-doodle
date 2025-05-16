@@ -48,7 +48,6 @@
 		9D6F25782CFDDC8F00BFA561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25772CFDDC8F00BFA561 /* AppDelegate.swift */; };
 		9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25792CFDDC8F00BFA561 /* SceneDelegate.swift */; };
 		9D6F257C2CFDDC8F00BFA561 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F257B2CFDDC8F00BFA561 /* LoginVC.swift */; };
-		9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25802CFDDC8F00BFA561 /* NoteMe.xcdatamodeld */; };
 		9D6F25842CFDDC9100BFA561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D6F25832CFDDC9100BFA561 /* Assets.xcassets */; };
 		9D6F25872CFDDC9100BFA561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D6F25852CFDDC9100BFA561 /* LaunchScreen.storyboard */; };
 		9D6F25AC2CFDDD3200BFA561 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F25AB2CFDDD3200BFA561 /* SnapKit */; };
@@ -86,6 +85,9 @@
 		F65B5B3C2DB1B23A007D2ED6 /* FullMapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */; };
 		F67A5FE62DB25C30001F63D5 /* CustomTimeKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE52DB25C30001F63D5 /* CustomTimeKeyboard.swift */; };
 		F67A5FE82DB29780001F63D5 /* CustomDateKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A5FE72DB29780001F63D5 /* CustomDateKeyboard.swift */; };
+		F68064BE2DCBCEE700DE1F05 /* TimeTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68064BD2DCBCEE700DE1F05 /* TimeTaskCell.swift */; };
+		F68064C02DCBE34F00DE1F05 /* TimerTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68064BF2DCBE34F00DE1F05 /* TimerTaskModel.swift */; };
+		F68EFC7C2DCABBB10063D526 /* NotificationDataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6BC27692DBFDBFA002EF543 /* NotificationDataBase.xcdatamodeld */; };
 		F690398F2DAABC6600800BB4 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */; };
 		F69039952DAACEFC00800BB4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039942DAACEFC00800BB4 /* Observable.swift */; };
 		F69039982DAB016400800BB4 /* ProfileScreenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */; };
@@ -126,6 +128,8 @@
 		F6E7223A2DC1883900B20624 /* NSPredicate+Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E722392DC1883900B20624 /* NSPredicate+Consts.swift */; };
 		F6E7223D2DC19EB000B20624 /* DTODescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E7223C2DC19EB000B20624 /* DTODescription.swift */; };
 		F6E7223F2DC1A1C000B20624 /* NotificationsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E7223E2DC1A1C000B20624 /* NotificationsStorage.swift */; };
+		F6E90EC52DCE70D800F6B12E /* DateTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E90EC42DCE70D800F6B12E /* DateTaskCell.swift */; };
+		F6E90EC72DCE72C300F6B12E /* DateTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E90EC62DCE72C300F6B12E /* DateTaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,7 +193,6 @@
 		9D6F25772CFDDC8F00BFA561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D6F25792CFDDC8F00BFA561 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9D6F257B2CFDDC8F00BFA561 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		9D6F25812CFDDC8F00BFA561 /* NoteMe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NoteMe.xcdatamodel; sourceTree = "<group>"; };
 		9D6F25832CFDDC9100BFA561 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D6F25862CFDDC9100BFA561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D6F25882CFDDC9100BFA561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 		F65B5B3B2DB1B23A007D2ED6 /* FullMapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapRouter.swift; sourceTree = "<group>"; };
 		F67A5FE52DB25C30001F63D5 /* CustomTimeKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeKeyboard.swift; sourceTree = "<group>"; };
 		F67A5FE72DB29780001F63D5 /* CustomDateKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDateKeyboard.swift; sourceTree = "<group>"; };
+		F68064BD2DCBCEE700DE1F05 /* TimeTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTaskCell.swift; sourceTree = "<group>"; };
+		F68064BF2DCBE34F00DE1F05 /* TimerTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTaskModel.swift; sourceTree = "<group>"; };
 		F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
 		F69039942DAACEFC00800BB4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F69039972DAB016400800BB4 /* ProfileScreenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenUseCase.swift; sourceTree = "<group>"; };
@@ -266,6 +271,8 @@
 		F6E722392DC1883900B20624 /* NSPredicate+Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Consts.swift"; sourceTree = "<group>"; };
 		F6E7223C2DC19EB000B20624 /* DTODescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTODescription.swift; sourceTree = "<group>"; };
 		F6E7223E2DC1A1C000B20624 /* NotificationsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStorage.swift; sourceTree = "<group>"; };
+		F6E90EC42DCE70D800F6B12E /* DateTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTaskCell.swift; sourceTree = "<group>"; };
+		F6E90EC62DCE72C300F6B12E /* DateTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +315,8 @@
 			children = (
 				9D6F25AD2CFDFEF200BFA561 /* AppTextField.swift */,
 				F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */,
+				F68064BD2DCBCEE700DE1F05 /* TimeTaskCell.swift */,
+				F6E90EC42DCE70D800F6B12E /* DateTaskCell.swift */,
 			);
 			path = "СustomUI";
 			sourceTree = "<group>";
@@ -452,7 +461,6 @@
 				9DF57C922D0374EC00B73BCF /* Utils */,
 				9DF57C8E2D03713D00B73BCF /* Const */,
 				9D17E8A42CFF42610060E5B0 /* СustomUI */,
-				9D6F25802CFDDC8F00BFA561 /* NoteMe.xcdatamodeld */,
 				9DAA62762D15B9CD008FA250 /* GoogleService-Info.plist */,
 				9D6F25882CFDDC9100BFA561 /* Info.plist */,
 			);
@@ -559,6 +567,8 @@
 			isa = PBXGroup;
 			children = (
 				9DC2EC272D0741FB005A21F3 /* Model.swift */,
+				F68064BF2DCBE34F00DE1F05 /* TimerTaskModel.swift */,
+				F6E90EC62DCE72C300F6B12E /* DateTaskModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -920,6 +930,7 @@
 				F60232FD2DA6F94100F2D0E8 /* CalendarRouter.swift in Sources */,
 				9D6A68152D1E05E90036D9A3 /* OnboardingSecondViewModel.swift in Sources */,
 				9D28AFCE2D220366005DB31F /* MainScreenViewModel.swift in Sources */,
+				F68064C02DCBE34F00DE1F05 /* TimerTaskModel.swift in Sources */,
 				F60233032DA6F96600F2D0E8 /* LocationAssembler.swift in Sources */,
 				F6E1F1D22DA59E4500C1CAD2 /* TimerVC.swift in Sources */,
 				9D6A680C2D1DD7D70036D9A3 /* OnboardingViewModel.swift in Sources */,
@@ -967,13 +978,14 @@
 				F6E1F1D42DA59E5400C1CAD2 /* TimerViewModel.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
+				F6E90EC72DCE72C300F6B12E /* DateTaskModel.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
 				9D2E20CB2D39AB9600B475EE /* ProfileScreenRouter.swift in Sources */,
 				F6D8261D2DB582BC006BA35E /* SearchVC.swift in Sources */,
 				F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */,
 				9D2E20C72D39AA3400B475EE /* ProfileScreenViewModel.swift in Sources */,
 				F67A5FE82DB29780001F63D5 /* CustomDateKeyboard.swift in Sources */,
-				9D6F25822CFDDC8F00BFA561 /* NoteMe.xcdatamodeld in Sources */,
+				F6E90EC52DCE70D800F6B12E /* DateTaskCell.swift in Sources */,
 				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
 				9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */,
 				F60232FF2DA6F95200F2D0E8 /* LocationVC.swift in Sources */,
@@ -990,6 +1002,8 @@
 				F67A5FE62DB25C30001F63D5 /* CustomTimeKeyboard.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,
 				F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */,
+				F68064BE2DCBCEE700DE1F05 /* TimeTaskCell.swift in Sources */,
+				F68EFC7C2DCABBB10063D526 /* NotificationDataBase.xcdatamodeld in Sources */,
 				9D6F25B22CFE2EBF00BFA561 /* ResetVC.swift in Sources */,
 				9D2E20C02D399B3400B475EE /* MainScreenRouter.swift in Sources */,
 				F6E1F1CF2DA5884800C1CAD2 /* MenuPopOverRouter.swift in Sources */,
@@ -1394,16 +1408,6 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		9D6F25802CFDDC8F00BFA561 /* NoteMe.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				9D6F25812CFDDC8F00BFA561 /* NoteMe.xcdatamodel */,
-			);
-			currentVersion = 9D6F25812CFDDC8F00BFA561 /* NoteMe.xcdatamodel */;
-			path = NoteMe.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		F6BC27692DBFDBFA002EF543 /* NotificationDataBase.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

@@ -3,6 +3,8 @@ import SnapKit
 
 protocol CalendarViewModelProtocol {
     func closeVC ()
+    func showAlert(title: String, message: String?)
+    func saveNotification(title: String, targetDate: Date, subtitle: String)
 }
 
 final class CalendarVC: UIViewController {
@@ -165,10 +167,12 @@ final class CalendarVC: UIViewController {
         customInputView.doneButton.addTarget(self, action: #selector(doneTapped), for: .touchUpInside)
         customInputView.cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
     }
-    
+        
     private func selectedTimrBind() {
-        customInputView.selectedDate.bind { [weak self] time in
-            self?.dateTextField.text = time
+        customInputView.selectedDate.bind { [weak self] date in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM : dd : yyyy"
+            self?.dateTextField.text = formatter.string(from: date)
         }
     }
     
@@ -275,6 +279,20 @@ final class CalendarVC: UIViewController {
     }
     
     @objc func createButtonTap() {
+        let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let subtitle = textView.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let date = customInputView.selectedDate.value
+        
+        if title.isEmpty {
+            viewModel.showAlert(title: "Error", message: "Title can't be empty.")
+            return
+        }
+        if subtitle.isEmpty {
+            viewModel.showAlert(title: "Error", message: "Comment can't be empty.")
+            return
+        }
+        
+        viewModel.saveNotification(title: title, targetDate: date, subtitle: subtitle)
         viewModel.closeVC ()
         print("createButtonTap")
     }

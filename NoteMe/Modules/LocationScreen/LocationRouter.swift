@@ -11,4 +11,12 @@ final class LocationRouter: LocationRouterProtocol {
         let vc = FullMapAssembler.make(imageObservable: imageObservable)
         root?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func showAlert(title: String, message: String?) {
+        let alert = AlertBuilder.buildOkAlert(
+            title: title,
+            message: message
+        )
+        root?.present(alert, animated: true)
+    }
 }

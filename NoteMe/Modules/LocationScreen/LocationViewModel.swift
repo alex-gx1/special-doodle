@@ -4,6 +4,7 @@ import MapKit
 protocol LocationRouterProtocol {
     func closeVC()
     func openFullMap(imageObservable: Observable<UIImage?>)
+    func showAlert(title: String, message: String?)
 }
 
 final class LocationViewModel: LocationViewModelProtocol {
@@ -16,6 +17,10 @@ final class LocationViewModel: LocationViewModelProtocol {
     
     init(router: LocationRouterProtocol) {
         self.router = router
+    }
+    
+    func showAlert(title: String, message: String?) {
+        router.showAlert(title: title, message: message)
     }
     
     func closeVC() {

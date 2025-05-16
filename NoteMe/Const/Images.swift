@@ -30,4 +30,12 @@ enum Images {
     static let locationPoint = UIImage(named: "locationPoint")
     
     static let locationMap = UIImage(named: "locationMap")
+    
+    static let cellOptions = UIImage(named: "cellOptions")
+    
+    static let cellTimer = UIImage(named: "cellTimer")
+    
+    static let cellLocation = UIImage(named: "cellLocation")
+    
+    static let cellCalendar = UIImage(named: "cellCalendar")
 }

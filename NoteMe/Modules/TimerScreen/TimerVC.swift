@@ -3,6 +3,8 @@ import SnapKit
 
 protocol TimerViewModelProtocol {
     func closeVC()
+    func saveNotification(title: String, seconds: Double, subtitle: String)
+    func showAlert(title: String, message: String?)
 }
 
 final class TimerVC: UIViewController {
@@ -20,7 +22,7 @@ final class TimerVC: UIViewController {
         setupUI()
         keyBoardDownTap()
         viewButtonsTapped()
-        selectedTimrBind()
+        selectedTimeBind()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -164,9 +166,12 @@ final class TimerVC: UIViewController {
         customInputView.cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
     }
     
-    private func selectedTimrBind() {
-        customInputView.selectedTime.bind { [weak self] time in
-            self?.timerTextField.text = time
+    private func selectedTimeBind() {
+        customInputView.duration.bind { [weak self] value in
+            let totalSeconds = Int(value)
+            let hours = totalSeconds / 3600
+            let minutes = (totalSeconds % 3600) / 60
+            self?.timerTextField.text = "\(hours) hours : \(minutes) min"
         }
     }
     
@@ -273,8 +278,27 @@ final class TimerVC: UIViewController {
     }
     
     @objc func createButtonTap() {
+        let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let subtitle = textView.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let seconds = customInputView.duration.value
+        
+        if title.isEmpty {
+            viewModel.showAlert(title: "Error", message: "Title can't be empty.")
+            return
+        }
+        if subtitle.isEmpty {
+            viewModel.showAlert(title: "Error", message: "Comment can't be empty.")
+            return
+        }
+        if seconds == 0 {
+            viewModel.showAlert(title: "Error", message: "Please select a time.")
+            return
+        }
+        
+        viewModel.saveNotification(title: title, seconds: seconds, subtitle: subtitle)
         viewModel.closeVC()
     }
+    
     
     @objc func cancelButtonTap() {
         viewModel.closeVC()

@@ -11,7 +11,7 @@ final class ResetRouter: ResetRouterProtocol {
     func showAlert(
         title: String,
         message: String?
-    ) {
+    ){
         let alert = AlertBuilder.buildOkAlert(title: title, message: message)
         root?.present(alert, animated: true)
     }

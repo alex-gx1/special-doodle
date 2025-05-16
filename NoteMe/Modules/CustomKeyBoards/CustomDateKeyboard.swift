@@ -3,7 +3,7 @@ import SnapKit
 
 final class CustomDateKeyboard: UIView {
     
-    let selectedDate = Observable("Month : Day : Year")
+    let selectedDate = Observable(Date())
     
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -38,7 +38,7 @@ final class CustomDateKeyboard: UIView {
         setupUI()
         setupActions()
     }
-        
+    
     required init?(coder: NSCoder) { nil }
     
     private func setupUI() {
@@ -75,8 +75,6 @@ final class CustomDateKeyboard: UIView {
     }
     
     @objc private func dateChanged() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM : dd : yyyy"
-        selectedDate.value = formatter.string(from: datePicker.date)
+        selectedDate.value = datePicker.date
     }
 }

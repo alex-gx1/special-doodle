@@ -7,6 +7,7 @@ protocol LocationViewModelProtocol {
     func askPermission()
     func openFullMap()
     var locationImage: Observable<UIImage?> { get }
+    func showAlert(title: String, message: String?)
 }
 
 final class LocationVC: UIViewController {
@@ -257,6 +258,17 @@ final class LocationVC: UIViewController {
     }
     
     @objc private func createButtonTap() {
+        let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let subtitle = textView.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        if title.isEmpty {
+            viewModel.showAlert(title: "Error", message: "Title can't be empty.")
+            return
+        }
+        if subtitle.isEmpty {
+            viewModel.showAlert(title: "Error", message: "Comment can't be empty.")
+            return
+        }
         print("createButtonTap")
         viewModel.closeVC()
     }

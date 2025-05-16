@@ -3,7 +3,7 @@ import SnapKit
 
 final class CustomTimeKeyboard: UIView {
     
-    let selectedTime = Observable("0 hours : 0 min")
+    let duration = Observable<Double>(0)
     
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -74,9 +74,6 @@ final class CustomTimeKeyboard: UIView {
     }
     
     @objc private func timeChanged() {
-        let totalSeconds = Int(datePicker.countDownDuration)
-        let hours = totalSeconds / 3600
-        let minutes = (totalSeconds % 3600) / 60
-        selectedTime.value = "\(hours) hours : \(minutes) min"
+        duration.value = datePicker.countDownDuration
     }
 }
