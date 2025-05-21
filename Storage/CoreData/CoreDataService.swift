@@ -16,16 +16,26 @@ final class CoreDataService {
     var mainContext: NSManagedObjectContext {
         let context = persistentContainer.viewContext
         context.automaticallyMergesChangesFromParent = true
-        return context 
+        return context
     }
     
-    private let persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "NotificationDataBase")
-        container.loadPersistentStores { storeDescription, error in
+    private var persistentContainer: NSPersistentContainer = {
+        let modelName = "NotificationDataBase"
+        let bundle = Bundle(for: CoreDataService.self)
+        
+        guard
+            let modelURL = bundle.url(forResource: modelName, withExtension: "momd"),
+            let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)
+        else { fatalError("unable to find model in bundle") }
+        
+        let container = NSPersistentContainer(name: modelName,
+                                              managedObjectModel: managedObjectModel)
+        
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved CoreData error: \(error), \(error.userInfo)")
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        }
+        })
         return container
     }()
     

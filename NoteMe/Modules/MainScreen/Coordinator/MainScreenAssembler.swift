@@ -8,7 +8,7 @@ final class MainScreenAssembler {
         let vm = MainScreenViewModel()
         
         let vc = MainScreenVC(viewModel: vm)
-                
+        
         return vc
     }
 }

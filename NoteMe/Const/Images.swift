@@ -38,4 +38,6 @@ enum Images {
     static let cellLocation = UIImage(named: "cellLocation")
     
     static let cellCalendar = UIImage(named: "cellCalendar")
+    
+    static let sortButton = UIImage(named: "sortButton")
 }
