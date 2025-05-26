@@ -1,12 +1,6 @@
 import UIKit
 
-enum MainScreenSections {
-    case Date
-    case Timer
+enum NotificationModel {
+    case timer(TimerTaskModel)
+    case date(DateTaskModel)
 }
-
-enum MainScreenInput {
-    case timer([TimerTaskModel])
-    case date([DateTaskModel])
-}
-

@@ -2,14 +2,11 @@ import UIKit
 
 final class MainScreenAdapter: NSObject {
     
-    var sections: [MainScreenSections] = [] {
+    var models: [NotificationModel] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    var timerTasks: [TimerTaskModel] = []
-    var dateTasks: [DateTaskModel] = []
     
     private let tableView: UITableView
     
@@ -28,53 +25,35 @@ final class MainScreenAdapter: NSObject {
     }
     
     func resetData() {
-        sections = []
-        timerTasks = []
-        dateTasks = []
+        models = []
     }
     
-    func update(with input: MainScreenInput) {
-        switch input {
-        case .timer(let timerTasks):
-            self.timerTasks = timerTasks
-            if !sections.contains(.Timer) {
-                sections.append(.Timer)
-            }
-        case .date(let dateTasks):
-            self.dateTasks = dateTasks
-            if !sections.contains(.Date) {
-                sections.append(.Date)
-            }
-        }
-        tableView.reloadData()
+    func update(with models: [NotificationModel]) {
+        self.models = models
     }
 }
 
 extension MainScreenAdapter: UITableViewDataSource {
     
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch sections[section] {
-        case .Timer:
-            return timerTasks.count
-        case .Date:
-            return dateTasks.count
-        }
+        return models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch sections[indexPath.section] {
-        case .Timer:
+        switch models[indexPath.row] {
+        case .timer(let model):
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(TimerTaskCell.self)", for: indexPath) as! TimerTaskCell
-            cell.configure(with: timerTasks[indexPath.row])
+            cell.configure(with: model)
             return cell
-            
-        case .Date:
+
+        case .date(let model):
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(DateTaskCell.self)", for: indexPath) as! DateTaskCell
-            cell.configure(with: dateTasks[indexPath.row])
+            cell.configure(with: model, day: model.day, month: model.month)
             return cell
         }
     }
@@ -83,7 +62,7 @@ extension MainScreenAdapter: UITableViewDataSource {
 extension MainScreenAdapter: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
+        //        return UITableView.automaticDimension
         return 120
     }
 }

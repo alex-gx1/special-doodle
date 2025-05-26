@@ -613,8 +613,6 @@
 		F63445AC2DDD0B990040BC46 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
-				F68064BD2DCBCEE700DE1F05 /* TimeTaskCell.swift */,
-				F6E90EC42DCE70D800F6B12E /* DateTaskCell.swift */,
 				F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */,
 			);
 			path = Sections;
@@ -623,6 +621,8 @@
 		F63445B12DDDAB880040BC46 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				F68064BD2DCBCEE700DE1F05 /* TimeTaskCell.swift */,
+				F6E90EC42DCE70D800F6B12E /* DateTaskCell.swift */,
 				F687DCF82DD9042C00DF97D4 /* FilterCell.swift */,
 			);
 			path = SubViews;
@@ -651,9 +651,9 @@
 		F687DCF32DD8F7F400DF97D4 /* Adapter */ = {
 			isa = PBXGroup;
 			children = (
+				F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */,
 				F63445B12DDDAB880040BC46 /* SubViews */,
 				F63445AC2DDD0B990040BC46 /* Sections */,
-				F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */,
 			);
 			path = Adapter;
 			sourceTree = "<group>";

@@ -6,7 +6,7 @@ import SnapKit
 protocol MainScreenViewModelProtocol {
     func loadTimerTasks()
     func loadDateTasks()
-    var tasksDidUpdate: ((MainScreenInput) -> Void)? { get set }
+    var tasksDidUpdate: (([NotificationModel]) -> Void)? { get set }
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
 }
@@ -70,20 +70,19 @@ final class MainScreenVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
-        viewModel.loadTimerTasks()
-        viewModel.loadDateTasks()
+        viewModel.didSelectFilter(.all)
     }
-    
+
     private func bindViewModel() {
-        
-        viewModel.tasksDidUpdate = { [weak self] input in
-            self?.adapter.update(with: input)
-        }
-        
         viewModel.resetData = { [weak self] in
             self?.adapter.resetData()
         }
+        
+        viewModel.tasksDidUpdate = { [weak self] models in
+            self?.adapter.update(with: models)
+        }
     }
+
     
     private func setupUI() {
         
