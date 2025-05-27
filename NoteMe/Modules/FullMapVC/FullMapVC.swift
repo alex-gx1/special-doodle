@@ -6,6 +6,9 @@ protocol FullMapViewModelProtocol {
     func openSearchScreen()
     func closeVC()
     var screenshotImage: Observable<UIImage?> { get }
+    var x: Observable<Double> { get }
+    var y: Observable<Double> { get }
+    var radius: Observable<Double> { get }
     func captureScreenshot(from mapView: MKMapView, image: UIImageView, in view: UIView)
     func createAndCloseVC()
 }
@@ -231,7 +234,7 @@ final class FullMapVC: UIViewController {
     }
     
     @objc private func textFieldTapped(_ textField: UITextField) {
-        //        viewModel.openSearchScreen()
+
         guard let query = textField.text, !query.isEmpty else { return }
            guard let userLocation = locationManager.location else { return }
 
@@ -260,17 +263,29 @@ final class FullMapVC: UIViewController {
     @objc private func selectButtonTap() {
         let mapRegion = mapView.convert(locationPointImageView.bounds, toRegionFrom: locationPointImageView)
         
-        //        let center = CLLocation(latitude: mapRegion.center.latitude,
-        //                                longitude: mapRegion.center.longitude)
-        //
-        //        let top = CLLocation(latitude: mapRegion.center.latitude - mapRegion.span.latitudeDelta / 2,
-        //                             longitude: mapRegion.center.longitude)
-        //
-        //        let radius = center.distance(from: top)
-        //
-        //        let circleRegion = CLCircularRegion(center: mapRegion.center,
-        //                                            radius: radius,
-        //                                            identifier: UUID().uuidString)
+        let center = CLLocation(latitude: mapRegion.center.latitude,
+                                longitude: mapRegion.center.longitude)
+        
+        let top = CLLocation(latitude: mapRegion.center.latitude - mapRegion.span.latitudeDelta / 2,
+                             longitude: mapRegion.center.longitude)
+        
+        let radius = center.distance(from: top)
+        
+        let circleRegion = CLCircularRegion(
+            center: mapRegion.center,
+            radius: radius,                          
+            identifier: UUID().uuidString
+        )
+        
+        let coordinate = mapView.centerCoordinate
+        
+        let y = coordinate.latitude
+        let x = coordinate.longitude
+        
+        viewModel.x.value = x
+        viewModel.y.value = y
+        viewModel.radius.value = radius
+        
         mapView.setRegion(mapRegion, animated: true)
         
         viewModel.captureScreenshot(from: mapView, image: locationPointImageView, in: view)

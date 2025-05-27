@@ -7,7 +7,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     var tasksDidUpdate: (([NotificationModel]) -> Void)?
     
     var resetData: (() -> Void)?
-        
+    
     private func formatSeconds(_ seconds: Double) -> String {
         let totalSeconds = Int(seconds)
         let hours = totalSeconds / 3600
@@ -42,7 +42,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             full: Self.fullFormatter.string(from: date)
         )
     }
-
+    
     func loadTimerTasks() {
         let storage = TimerNotificationStorage()
         let dtos = storage.fetch()
@@ -75,6 +75,22 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             ))
         }
         
+        tasksDidUpdate?(tasks)
+    }
+    
+    func loadLocationTasks() {
+        let storage = LocationNotificationStorage()
+        let dtos = storage.fetch()
+        
+        let tasks: [NotificationModel] = dtos.map {
+            .location(
+                LocationTaskModel(
+                    title: $0.title,
+                    subtitle: $0.subtitle ?? "",
+                    url: $0.url
+                )
+            )
+        }
         tasksDidUpdate?(tasks)
     }
     
@@ -122,7 +138,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             loadDateTasks()
         case .all:
             loadAllTasks()
-            
+        case .location:
+            loadLocationTasks()
         default:
             break
         }

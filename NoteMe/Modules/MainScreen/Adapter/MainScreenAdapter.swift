@@ -22,6 +22,7 @@ final class MainScreenAdapter: NSObject {
         
         tableView.register(TimerTaskCell.self, forCellReuseIdentifier: "\(TimerTaskCell.self)")
         tableView.register(DateTaskCell.self, forCellReuseIdentifier: "\(DateTaskCell.self)")
+        tableView.register(LocationTaskCell.self, forCellReuseIdentifier: "\(LocationTaskCell.self)")
     }
     
     func resetData() {
@@ -55,7 +56,13 @@ extension MainScreenAdapter: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(DateTaskCell.self)", for: indexPath) as! DateTaskCell
             cell.configure(with: model, day: model.day, month: model.month)
             return cell
+            
+        case .location(let model):
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(LocationTaskCell.self)", for: indexPath) as! LocationTaskCell
+            cell.configure(with: model)
+            return cell
         }
+        
     }
 }
 

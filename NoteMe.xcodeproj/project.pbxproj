@@ -99,6 +99,7 @@
 		F69BFDF42DC48D7B00F8F49F /* AllNotficationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69BFDF32DC48D7B00F8F49F /* AllNotficationStorage.swift */; };
 		F69BFDF62DC493BD00F8F49F /* NSSortDescriptor+Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69BFDF52DC493BD00F8F49F /* NSSortDescriptor+Const.swift */; };
 		F6A038652DE5954E00B55965 /* LocationTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A038642DE5954E00B55965 /* LocationTaskCell.swift */; };
+		F6A038672DE5B26400B55965 /* LocationTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A038662DE5B26400B55965 /* LocationTaskModel.swift */; };
 		F6BC275E2DBFDB0A002EF543 /* Storage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC27582DBFDB0A002EF543 /* Storage.framework */; };
 		F6BC275F2DBFDB0A002EF543 /* Storage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC27582DBFDB0A002EF543 /* Storage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6BC27672DBFDB5B002EF543 /* Storage.h in Headers */ = {isa = PBXBuildFile; fileRef = F6BC27652DBFDB5B002EF543 /* Storage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -248,6 +249,7 @@
 		F69BFDF32DC48D7B00F8F49F /* AllNotficationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotficationStorage.swift; sourceTree = "<group>"; };
 		F69BFDF52DC493BD00F8F49F /* NSSortDescriptor+Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSortDescriptor+Const.swift"; sourceTree = "<group>"; };
 		F6A038642DE5954E00B55965 /* LocationTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTaskCell.swift; sourceTree = "<group>"; };
+		F6A038662DE5B26400B55965 /* LocationTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTaskModel.swift; sourceTree = "<group>"; };
 		F6BC27582DBFDB0A002EF543 /* Storage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Storage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6BC27652DBFDB5B002EF543 /* Storage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		F6BC276A2DBFDBFA002EF543 /* NotificationDataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotificationDataBase.xcdatamodel; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 			children = (
 				9DC2EC272D0741FB005A21F3 /* Model.swift */,
 				F68064BF2DCBE34F00DE1F05 /* TimerTaskModel.swift */,
+				F6A038662DE5B26400B55965 /* LocationTaskModel.swift */,
 				F6E90EC62DCE72C300F6B12E /* DateTaskModel.swift */,
 				F687DCF52DD9015B00DF97D4 /* FilterItem.swift */,
 			);
@@ -1005,6 +1008,7 @@
 				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
+				F6A038672DE5B26400B55965 /* LocationTaskModel.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
 				F65B5B3C2DB1B23A007D2ED6 /* FullMapRouter.swift in Sources */,

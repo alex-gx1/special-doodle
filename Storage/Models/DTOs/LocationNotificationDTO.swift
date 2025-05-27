@@ -13,6 +13,7 @@ public struct LocationNotificationDTO: DTODescription {
     public var x: Double
     public var y: Double
     public var radius: Double
+    public var url: String
     
     public init(
         id: String,
@@ -22,7 +23,8 @@ public struct LocationNotificationDTO: DTODescription {
         completedDate: Date? = nil,
         x: Double,
         y: Double,
-        radius: Double
+        radius: Double,
+        url: String
     ) {
         self.id = id
         self.title = title
@@ -32,6 +34,7 @@ public struct LocationNotificationDTO: DTODescription {
         self.x = x
         self.y = y
         self.radius = radius
+        self.url = url
     }
     
     public init?(mo: LocationNotificationMO) {
@@ -49,6 +52,7 @@ public struct LocationNotificationDTO: DTODescription {
         self.x = mo.x
         self.y = mo.y
         self.radius = mo.radius
+        self.url = mo.url
     }
     
     public static func fromMO(_ mo: LocationNotificationMO) -> LocationNotificationDTO? {
@@ -66,7 +70,8 @@ public struct LocationNotificationDTO: DTODescription {
             completedDate: mo.completedDate,
             x: mo.x,
             y: mo.y,
-            radius: mo.radius
+            radius: mo.radius,
+            url: mo.url
         )
     }
 }

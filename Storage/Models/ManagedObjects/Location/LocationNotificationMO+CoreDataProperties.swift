@@ -11,5 +11,6 @@ extension LocationNotificationMO {
     @NSManaged public var x: Double
     @NSManaged public var y: Double
     @NSManaged public var radius: Double
-
+    @NSManaged public var url: String
+    
 }

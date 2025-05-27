@@ -14,10 +14,16 @@ final class FullMapViewModel: FullMapViewModelProtocol {
     private let router: FullMapRouterProtocol
     
     let screenshotImage: Observable<UIImage?>
+    let x: Observable<Double>
+    let y: Observable<Double>
+    let radius: Observable<Double>
     
-    init(router: FullMapRouterProtocol, screenshotImage: Observable<UIImage?>) {
+    init(router: FullMapRouterProtocol, screenshotImage: Observable<UIImage?>, x: Observable<Double>, y: Observable<Double>, radius: Observable<Double>) {
         self.router = router
         self.screenshotImage = screenshotImage
+        self.x = x
+        self.y = y
+        self.radius = radius
     }
     func openSearchScreen() {
         router.openSearchScreen()

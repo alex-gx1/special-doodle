@@ -7,8 +7,12 @@ final class LocationRouter: LocationRouterProtocol {
         root?.navigationController?.popViewController(animated: true)
     }
     
-    func openFullMap(imageObservable: Observable<UIImage?>) {
-        let vc = FullMapAssembler.make(imageObservable: imageObservable)
+    func openFullMap(imageObservable: Observable<UIImage?>, x: Observable<Double>, y: Observable<Double>, radius: Observable<Double>) {
+        let vc = FullMapAssembler.make(
+            imageObservable: imageObservable,
+            x: x,
+            y: y,
+            radius: radius)
         root?.navigationController?.pushViewController(vc, animated: true)
     }
     

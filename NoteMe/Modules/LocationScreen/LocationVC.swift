@@ -7,7 +7,12 @@ protocol LocationViewModelProtocol {
     func askPermission()
     func openFullMap()
     var locationImage: Observable<UIImage?> { get }
+    var x: Observable<Double> { get }
+    var y: Observable<Double> { get }
+    var radius: Observable<Double> { get }
     func showAlert(title: String, message: String?)
+    func saveNotification(title: String, x: Double, y: Double, radius: Double , url: String, subtitle: String)
+    func saveImageToDocuments(_ image: UIImage, fileName: String) -> String?
 }
 
 final class LocationVC: UIViewController {
@@ -269,6 +274,20 @@ final class LocationVC: UIViewController {
             viewModel.showAlert(title: "Error", message: "Comment can't be empty.")
             return
         }
+        
+        guard let image = locationMapUIImage.image else {
+            viewModel.showAlert(title: "Error", message: "No map image found.")
+            return
+        }
+        
+        let fileName = UUID().uuidString + ".png"
+        guard let imagePath = viewModel.saveImageToDocuments(image, fileName: fileName) else {
+            viewModel.showAlert(title: "Error", message: "Failed to save image.")
+            return
+        }
+        
+        viewModel.saveNotification(title: title, x: viewModel.x.value, y: viewModel.y.value, radius: viewModel.radius.value, url: imagePath, subtitle: subtitle)
+        
         print("createButtonTap")
         viewModel.closeVC()
     }

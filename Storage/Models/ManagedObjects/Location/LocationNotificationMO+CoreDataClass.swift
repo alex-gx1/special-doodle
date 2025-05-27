@@ -18,5 +18,6 @@ public class LocationNotificationMO: BaseNotificationMO {
         self.x = locationDTO.x
         self.y = locationDTO.y
         self.radius = locationDTO.radius
+        self.url = locationDTO.url
     }
 }

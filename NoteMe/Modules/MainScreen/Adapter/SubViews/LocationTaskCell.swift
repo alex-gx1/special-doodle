@@ -5,7 +5,7 @@ final class LocationTaskCell: UITableViewCell {
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Images.cellTimer
+        imageView.image = Images.cellLocation
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -30,12 +30,12 @@ final class LocationTaskCell: UITableViewCell {
         return button
     }()
     
-    private let timerLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.appBoldFont25
-        label.textAlignment = .center
-        label.textColor = .black
-        return label
+    private lazy var locationMapUIImage: UIImageView = {
+        let mapView = UIImageView()
+        mapView.contentMode = .scaleAspectFill
+        mapView.clipsToBounds = true
+        mapView.layer.cornerRadius = 8
+        return mapView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,14 +61,12 @@ final class LocationTaskCell: UITableViewCell {
     
     private func setupUI() {
         
-        
-        [iconImageView, titleLabel, subtitleLabel, actionButton, timerLabel].forEach {
+        [iconImageView, titleLabel, subtitleLabel, actionButton, locationMapUIImage].forEach {
             contentView.addSubview($0)
         }
         
         iconImageView.snp.makeConstraints { make in
             make.top.left.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(54)
             make.size.equalTo(50)
         }
         
@@ -89,16 +87,39 @@ final class LocationTaskCell: UITableViewCell {
             make.right.equalToSuperview().inset(16)
         }
         
-        timerLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+        locationMapUIImage.snp.makeConstraints { make in
+            make.top.equalTo(iconImageView.snp.bottom).offset(8)
+            make.left.right.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(16)
+            make.height.equalTo(140)
         }
     }
+    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+        return CGSize(width: targetSize.width, height: 220)
+    }
     
-    func configure(with model: TimerTaskModel) {
+    func configure(with model: LocationTaskModel) {
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
-
+        
+        if let imagePath = model.url.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+           let imageUrl = URL(string: imagePath),
+           let image = UIImage(contentsOfFile: imageUrl.path) {
+            
+            let targetSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 160)
+            let scaledImage = image.scaledToSize(targetSize)
+            locationMapUIImage.image = scaledImage
+        } else {
+            locationMapUIImage.image = Images.locationMap
+        }
     }
+}
 
+extension UIImage {
+    func scaledToSize(_ size: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
 }
