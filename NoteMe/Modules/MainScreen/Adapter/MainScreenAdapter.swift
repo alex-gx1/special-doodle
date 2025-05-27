@@ -62,7 +62,6 @@ extension MainScreenAdapter: UITableViewDataSource {
 extension MainScreenAdapter: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //        return UITableView.automaticDimension
-        return 120
+        return UITableView.automaticDimension
     }
 }

@@ -7,11 +7,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     var tasksDidUpdate: (([NotificationModel]) -> Void)?
     
     var resetData: (() -> Void)?
-    
-    private var timer: Timer?
-    private var timerTasksDTO: [TimerNotificationDTO] = []
-    private var timerStartDate: Date?
-    
+        
     private func formatSeconds(_ seconds: Double) -> String {
         let totalSeconds = Int(seconds)
         let hours = totalSeconds / 3600
@@ -20,37 +16,6 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         return String(format: "%02d:%02d:%02d", hours, minutes, secs)
     }
     
-    private func startTimer() {
-        timerStartDate = Date()
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.updateTimerTasks()
-        }
-    }
-    
-    private func updateTimerTasks() {
-        guard let startDate = timerStartDate else { return }
-        let elapsed = Date().timeIntervalSince(startDate)
-        
-        let tasks: [NotificationModel] = timerTasksDTO.map { dto in
-            let remaining = max(0, dto.seconds - elapsed)
-            return .timer(
-                TimerTaskModel(
-                    title: dto.title,
-                    subtitle: dto.subtitle ?? "",
-                    timeString: formatSeconds(remaining)
-                )
-            )
-        }
-        tasksDidUpdate?(tasks)
-    }
-    
-    func resetTimer() {
-        timer?.invalidate()
-        timer = nil
-        timerStartDate = nil
-    }
-
     private static let fullFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -77,16 +42,25 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             full: Self.fullFormatter.string(from: date)
         )
     }
-    
+
     func loadTimerTasks() {
         let storage = TimerNotificationStorage()
-        timerTasksDTO = storage.fetch()
-        startTimer()
-        updateTimerTasks()
+        let dtos = storage.fetch()
+        
+        let tasks: [NotificationModel] = dtos.map {
+            .timer(
+                TimerTaskModel(
+                    title: $0.title,
+                    subtitle: $0.subtitle ?? "",
+                    seconds: $0.seconds,
+                    createdAt: $0.date
+                )
+            )
+        }
+        tasksDidUpdate?(tasks)
     }
     
     func loadDateTasks() {
-        resetTimer()
         let storage = DateNotificationStorage()
         let dtos = storage.fetch()
         
@@ -105,7 +79,6 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     }
     
     func loadAllTasks() {
-        resetTimer()
         let storage = AllNotficationStorage()
         let dtos = storage.fetch(sortDescriptors: [.Notification.byDate])
         
@@ -116,7 +89,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     TimerTaskModel(
                         title: timerDTO.title,
                         subtitle: timerDTO.subtitle ?? "",
-                        timeString: formatSeconds(timerDTO.seconds)
+                        seconds: timerDTO.seconds,
+                        createdAt: timerDTO.date
                     )
                 )
             case let dateDTO as DateNotificationDTO:
@@ -148,6 +122,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             loadDateTasks()
         case .all:
             loadAllTasks()
+            
         default:
             break
         }

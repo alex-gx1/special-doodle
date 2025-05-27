@@ -41,31 +41,32 @@ final class DateTaskCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        cellSetup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    private func cellSetup() {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 12
         contentView.clipsToBounds = true
-        
-        [dateBoxView, titleLabel, subtitleLabel, actionButton].forEach {
-            contentView.addSubview($0)
-        }
-        dateBoxView.addSubview(dateLabel)
-
-        
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0, height: 2)
         contentView.layer.shadowRadius = 2
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.masksToBounds = false
-        
+    }
+    
+    private func setupUI() {
+        [dateBoxView, titleLabel, subtitleLabel, actionButton].forEach {
+            contentView.addSubview($0)
+        }
+        dateBoxView.addSubview(dateLabel)
+
         dateBoxView.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().inset(16)
+            make.top.left.bottom.equalToSuperview().inset(16)
             make.size.equalTo(50)
         }
         
@@ -90,11 +91,6 @@ final class DateTaskCell: UITableViewCell {
             make.left.equalTo(titleLabel)
             make.right.equalToSuperview().inset(16)
         }
-        
-//        dateLabel.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.bottom.equalToSuperview().inset(12)
-//        }
     }
     
     func configure(with model: DateTaskModel, day: String, month: String) {

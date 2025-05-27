@@ -1,9 +1,7 @@
 import UIKit
 import SnapKit
 
-final class TimerTaskCell: UITableViewCell {
-    
-    private var timer: Timer?
+final class LocationTaskCell: UITableViewCell {
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -100,32 +98,7 @@ final class TimerTaskCell: UITableViewCell {
     func configure(with model: TimerTaskModel) {
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
-        updateTimerLabel(seconds: model.seconds, createdAt: model.createdAt)
-        
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.updateTimerLabel(seconds: model.seconds, createdAt: model.createdAt)
-        }
-    }
-    
-    private func updateTimerLabel(seconds: Double, createdAt: Date) {
-        let elapsed = Date().timeIntervalSince(createdAt)
-        let remaining = max(0, seconds - elapsed)
-        timerLabel.text = formatSeconds(remaining)
-    }
 
-    private func formatSeconds(_ seconds: Double) -> String {
-        let totalSeconds = Int(seconds)
-        let hours = totalSeconds / 3600
-        let minutes = (totalSeconds % 3600) / 60
-        let secs = totalSeconds % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, secs)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        timer?.invalidate()
-        timer = nil
     }
 
 }

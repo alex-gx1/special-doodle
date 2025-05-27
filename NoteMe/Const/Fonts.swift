@@ -2,6 +2,9 @@ import Foundation
 import UIKit
 
 extension UIFont {
+    
+    static var appBoldFont29: UIFont = .boldSystemFont(ofSize: 29.0)
+    
     static var appBoldFont25: UIFont = .boldSystemFont(ofSize: 25.0)
     
     static var appBoldFont17: UIFont = .boldSystemFont(ofSize: 17.0)
