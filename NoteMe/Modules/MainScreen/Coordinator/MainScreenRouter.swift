@@ -1,9 +1,14 @@
 import UIKit
+import Storage
 
 enum EditMenuItem {
     case edit
     case done
     case delete
+}
+
+protocol MainScreenRouterProtocol {
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
 }
 
 final class MainScreenRouter: MainScreenRouterProtocol {

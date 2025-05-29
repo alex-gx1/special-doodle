@@ -59,4 +59,32 @@ public class NotificationsStorage<DTO: DTODescription> {
             update(dto: dto, completion: completion)
         }
     }
+    
+    public func delete(
+        predicate: NSPredicate,
+        completion: CompletionHandler? = nil
+    ) {
+        let context = CoreDataService.shared.backgroundContext
+        context.perform { [weak self] in
+            guard let self = self else { return }
+            let objects = self.fetchMO(predicate: predicate)
+            for object in objects {
+                context.delete(object)
+            }
+            CoreDataService.shared.saveContext(context: context, completion: completion)
+        }
+    }
+    
+    public func delete(by id: String, completion: CompletionHandler? = nil) {
+        let context = CoreDataService.shared.backgroundContext
+        context.perform {
+            let predicate = NSPredicate(format: "identifier == %@", id)
+            let objects = self.fetchMO(predicate: predicate)
+            for obj in objects {
+                context.delete(obj)
+            }
+            CoreDataService.shared.saveContext(context: context, completion: completion)
+        }
+    }
+
 }

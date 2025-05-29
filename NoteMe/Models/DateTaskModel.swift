@@ -1,6 +1,7 @@
 import UIKit
 
 public struct DateTaskModel {
+    public let identifier: String
     public let title: String
     public let subtitle: String
     public let dateString: String

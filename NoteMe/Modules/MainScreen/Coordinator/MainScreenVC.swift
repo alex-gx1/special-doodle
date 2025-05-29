@@ -3,16 +3,6 @@ import Storage
 import UIKit
 import SnapKit
 
-protocol MainScreenViewModelProtocol {
-    func loadTimerTasks()
-    func loadDateTasks()
-    var tasksDidUpdate: (([NotificationModel]) -> Void)? { get set }
-    var resetData: (() -> Void)? { get set }
-    func didSelectFilter(_ filter: FilterItem)
-    func model(at index: Int) -> NotificationModel?
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
-}
-
 final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskCellDelegate, DateTaskCellDelegate {
     
     func dateTaskCellDidTapAction(_ cell: DateTaskCell) {
