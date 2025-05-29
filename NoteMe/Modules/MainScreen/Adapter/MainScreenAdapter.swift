@@ -2,6 +2,10 @@ import UIKit
 
 final class MainScreenAdapter: NSObject {
     
+    weak var locationTaskDelegate: LocationTaskCellDelegate?
+    weak var timerTaskDelegate: TimerTaskCellDelegate?
+    weak var dateTaskDelegate: DateTaskCellDelegate?
+    
     var models: [NotificationModel] = [] {
         didSet {
             tableView.reloadData()
@@ -50,16 +54,22 @@ extension MainScreenAdapter: UITableViewDataSource {
         case .timer(let model):
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(TimerTaskCell.self)", for: indexPath) as! TimerTaskCell
             cell.configure(with: model)
+            cell.delegate = timerTaskDelegate
+            cell.selectionStyle = .none
             return cell
 
         case .date(let model):
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(DateTaskCell.self)", for: indexPath) as! DateTaskCell
             cell.configure(with: model, day: model.day, month: model.month)
+            cell.delegate = dateTaskDelegate
+            cell.selectionStyle = .none
             return cell
             
         case .location(let model):
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(LocationTaskCell.self)", for: indexPath) as! LocationTaskCell
             cell.configure(with: model)
+            cell.delegate = locationTaskDelegate
+            cell.selectionStyle = .none
             return cell
         }
         

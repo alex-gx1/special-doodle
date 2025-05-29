@@ -1,7 +1,13 @@
 import UIKit
 import SnapKit
 
+protocol LocationTaskCellDelegate: AnyObject {
+    func locationTaskCellDidTapAction(_ cell: LocationTaskCell)
+}
+
 final class LocationTaskCell: UITableViewCell {
+    
+    weak var delegate: LocationTaskCellDelegate?
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -24,7 +30,7 @@ final class LocationTaskCell: UITableViewCell {
         return label
     }()
     
-    private let actionButton: UIButton = {
+     let actionButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.cellOptions, for: .normal)
         return button
@@ -57,8 +63,25 @@ final class LocationTaskCell: UITableViewCell {
         contentView.layer.shadowRadius = 2
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.masksToBounds = false
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(didTouchDown), for: .touchDown)
+        actionButton.addTarget(self, action: #selector(didTouchUp), for: [.touchUpInside, .touchCancel, .touchUpOutside])
     }
     
+    @objc private func didTouchDown() {
+        actionButton.alpha = 0.5
+    }
+
+    @objc private func didTouchUp() {
+        UIView.animate(withDuration: 0.2) {
+            self.actionButton.alpha = 1.0
+        }
+    }
+    
+    @objc private func actionButtonTapped() {
+        delegate?.locationTaskCellDidTapAction(self)
+    }
+
     private func setupUI() {
         
         [iconImageView, titleLabel, subtitleLabel, actionButton, locationMapUIImage].forEach {

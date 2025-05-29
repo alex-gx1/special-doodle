@@ -51,10 +51,10 @@ final class TabBarVC: UITabBarController {
         tabBar.tintColor = Colors.appYellowColor
         tabBar.unselectedItemTintColor = Colors.appTabBarIconsColor
         
-        view.addSubview(plusButton) // добавил кнопку на view
+        view.addSubview(plusButton)
         
-        plusButton.layer.zPosition = 1 // сделал кнопку на слой выше элементов tabbar
-        view.bringSubviewToFront(plusButton) // на всякий вывел кнопку выше дополнительно
+        plusButton.layer.zPosition = 1
+        view.bringSubviewToFront(plusButton)
         
         plusButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

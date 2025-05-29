@@ -1,6 +1,5 @@
 import UIKit
 
-
 final class MenuPopOverRouter: MenuPopOverRouterProtocol {
     weak var root: UIViewController?
     var onScreenSelected: ((MenuItem) -> Void)?
@@ -8,7 +7,6 @@ final class MenuPopOverRouter: MenuPopOverRouterProtocol {
     func openTimerScreen() {
         dismissAndSend(.timer)
     }
-    
     
     func openLocationScreen() {
         dismissAndSend(.location)

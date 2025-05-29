@@ -1,12 +1,32 @@
 import UIKit
 import Storage
 
+protocol MainScreenRouterProtocol {
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
+}
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
+    
+    private let router: MainScreenRouterProtocol
+    
+    init(router: MainScreenRouterProtocol) {
+        self.router = router
+    }
+    
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect) {
+        router.presentMenuPopover(from: source, sourceRect: sourceRect)
+    }
     
     var tasksDidUpdate: (([NotificationModel]) -> Void)?
     
     var resetData: (() -> Void)?
+    
+    private var allModels: [NotificationModel] = []
+    
+    func model(at index: Int) -> NotificationModel? {
+        guard index >= 0 && index < allModels.count else { return nil }
+        return allModels[index]
+    }
     
     private func formatSeconds(_ seconds: Double) -> String {
         let totalSeconds = Int(seconds)
@@ -57,6 +77,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 )
             )
         }
+        allModels = tasks
         tasksDidUpdate?(tasks)
     }
     
@@ -74,7 +95,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 month: components.month
             ))
         }
-        
+        allModels = tasks
         tasksDidUpdate?(tasks)
     }
     
@@ -91,6 +112,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 )
             )
         }
+        allModels = tasks
         tasksDidUpdate?(tasks)
     }
     
@@ -120,11 +142,19 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         month: components.month
                     )
                 )
+            case let locationDTO as LocationNotificationDTO:
+                return .location(
+                    LocationTaskModel(
+                        title: locationDTO.title,
+                        subtitle: locationDTO.subtitle ?? "",
+                        url: locationDTO.url
+                    )
+                )
             default:
                 return nil
             }
         }
-        
+        allModels = models
         tasksDidUpdate?(models)
     }
     
@@ -144,5 +174,4 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             break
         }
     }
-    
 }

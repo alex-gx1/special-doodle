@@ -9,10 +9,45 @@ protocol MainScreenViewModelProtocol {
     var tasksDidUpdate: (([NotificationModel]) -> Void)? { get set }
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
+    func model(at index: Int) -> NotificationModel?
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
 }
 
-final class MainScreenVC: UIViewController {
+final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskCellDelegate, DateTaskCellDelegate {
     
+    func dateTaskCellDidTapAction(_ cell: DateTaskCell) {
+        guard let indexPath = tableView.indexPath(for: cell),
+              let model = viewModel.model(at: indexPath.row),
+              case .date(let dateModel) = model else {
+            return
+        }
+
+        let rect = cell.actionButton.bounds
+        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+    }
+    
+    func timerTaskCellDidTapAction(_ cell: TimerTaskCell) {
+        guard let indexPath = tableView.indexPath(for: cell),
+              let model = viewModel.model(at: indexPath.row),
+              case .timer(let timerModel) = model else {
+            return
+        }
+
+        let rect = cell.actionButton.bounds
+        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+    }
+    
+    func locationTaskCellDidTapAction(_ cell: LocationTaskCell) {
+        guard let indexPath = tableView.indexPath(for: cell),
+              let model = viewModel.model(at: indexPath.row),
+              case .location(let locationModel) = model else {
+            return
+        }
+
+        let rect = cell.actionButton.bounds
+        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+    }
+
     private var viewModel: MainScreenViewModelProtocol
     
     private let tableView = UITableView()
@@ -71,6 +106,9 @@ final class MainScreenVC: UIViewController {
         setupUI()
         bindViewModel()
         viewModel.didSelectFilter(.all)
+        adapter.locationTaskDelegate = self
+        adapter.timerTaskDelegate = self
+        adapter.dateTaskDelegate = self
     }
 
     private func bindViewModel() {
@@ -83,7 +121,6 @@ final class MainScreenVC: UIViewController {
         }
     }
 
-    
     private func setupUI() {
         
         view.backgroundColor = Colors.appBlackColor
@@ -142,5 +179,11 @@ extension MainScreenVC: UICollectionViewDelegateFlowLayout {
         let item = FilterItem.allCases[indexPath.row]
         let width = item.rawValue.size(withAttributes: [.font: UIFont.systemFont(ofSize: 14, weight: .medium)]).width + 24
         return CGSize(width: width, height: 32)
+    }
+}
+
+extension MainScreenVC: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none // чтобы popover не превращался в fullscreen на iPhone
     }
 }

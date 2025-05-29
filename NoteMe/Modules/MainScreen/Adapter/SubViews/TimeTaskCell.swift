@@ -1,9 +1,15 @@
 import UIKit
 import SnapKit
 
+protocol TimerTaskCellDelegate: AnyObject {
+    func timerTaskCellDidTapAction(_ cell: TimerTaskCell)
+}
+
 final class TimerTaskCell: UITableViewCell {
     
     private var timer: Timer?
+    
+    weak var delegate: TimerTaskCellDelegate?
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -26,7 +32,7 @@ final class TimerTaskCell: UITableViewCell {
         return label
     }()
     
-    private let actionButton: UIButton = {
+    let actionButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.cellOptions, for: .normal)
         return button
@@ -59,6 +65,23 @@ final class TimerTaskCell: UITableViewCell {
         contentView.layer.shadowRadius = 2
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.masksToBounds = false
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(didTouchDown), for: .touchDown)
+        actionButton.addTarget(self, action: #selector(didTouchUp), for: [.touchUpInside, .touchCancel, .touchUpOutside])
+    }
+    
+    @objc private func didTouchDown() {
+        actionButton.alpha = 0.5
+    }
+
+    @objc private func didTouchUp() {
+        UIView.animate(withDuration: 0.2) {
+            self.actionButton.alpha = 1.0
+        }
+    }
+    
+    @objc private func actionButtonTapped() {
+        delegate?.timerTaskCellDidTapAction(self)
     }
     
     private func setupUI() {

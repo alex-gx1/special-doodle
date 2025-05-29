@@ -40,4 +40,10 @@ enum Images {
     static let cellCalendar = UIImage(named: "cellCalendar")
     
     static let sortButton = UIImage(named: "sortButton")
+    
+    static let editIcon = UIImage(named: "editIcon")
+    
+    static let doneIcon = UIImage(named: "doneIcon")
+    
+    static let deleteIcon = UIImage(named: "deleteIcon")
 }
