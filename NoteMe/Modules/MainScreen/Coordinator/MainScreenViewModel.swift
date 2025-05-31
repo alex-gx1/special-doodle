@@ -8,21 +8,16 @@ protocol MainScreenViewModelProtocol {
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
     func model(at index: Int) -> NotificationModel?
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
+    func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    func deleteLocationNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void)
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
-
+    
     private let router: MainScreenRouterProtocol
     
-    init(router: MainScreenRouterProtocol) {
-        self.router = router
-    }
-        
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect) {
-        router.presentMenuPopover(from: source, sourceRect: sourceRect)
-    }
-
     var tasksDidUpdate: (([NotificationModel]) -> Void)?
     
     var resetData: (() -> Void)?
@@ -34,39 +29,98 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         return allModels[index]
     }
     
-    private func formatSeconds(_ seconds: Double) -> String {
-        let totalSeconds = Int(seconds)
-        let hours = totalSeconds / 3600
-        let minutes = (totalSeconds % 3600) / 60
-        let secs = totalSeconds % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, secs)
+    private let dateStorage = DateNotificationStorage()
+    private let timerStorage = TimerNotificationStorage()
+    private let locationStorage = LocationNotificationStorage()
+    
+    init(router: MainScreenRouterProtocol) {
+        self.router = router
     }
     
-    private static let fullFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter
-    }()
-    
-    private static let dayFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        return formatter
-    }()
-    
-    private static let monthFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM"
-        return formatter
-    }()
-    
-    private func formatDateComponents(from date: Date) -> (day: String, month: String, full: String) {
-        return (
-            day: Self.dayFormatter.string(from: date),
-            month: Self.monthFormatter.string(from: date),
-            full: Self.fullFormatter.string(from: date)
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void) {
+        router.presentMenuPopover(
+            from: source,
+            sourceRect: sourceRect,
+            forItemId: id,
+            deleteHandler: deleteHandler
         )
+    }
+    
+    func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void) {
+        dateStorage.delete(id: id) { [weak self] success in
+            DispatchQueue.main.async {
+                if success {
+                    self?.allModels.removeAll { model in
+                        if case .date(let dateModel) = model {
+                            return dateModel.identifier == id
+                        }
+                        return false
+                    }
+                    self?.tasksDidUpdate?(self?.allModels ?? [])
+                }
+                completion(success)
+            }
+        }
+    }
+    
+    func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void) {
+        timerStorage.delete(id: id) { [weak self] success in
+            DispatchQueue.main.async {
+                if success {
+                    self?.allModels.removeAll { model in
+                        if case .timer(let timerModel) = model {
+                            return timerModel.identifier == id
+                        }
+                        return false
+                    }
+                    self?.tasksDidUpdate?(self?.allModels ?? [])
+                }
+                completion(success)
+            }
+        }
+    }
+    
+    func deleteLocationNotification(withId id: String, completion: @escaping (Bool) -> Void) {
+        locationStorage.delete(id: id) { [weak self] success in
+            DispatchQueue.main.async {
+                if success {
+                    // Удаляем связанное изображение
+                    if let url = self?.getLocationImageUrl(for: id) {
+                        self?.deleteImageIfNeeded(url: url)
+                    }
+                    
+                    self?.allModels.removeAll { model in
+                        if case .location(let locationModel) = model {
+                            return locationModel.identifier == id
+                        }
+                        return false
+                    }
+                    self?.tasksDidUpdate?(self?.allModels ?? [])
+                }
+                completion(success)
+            }
+        }
+    }
+    
+    private func getLocationImageUrl(for id: String) -> String? {
+        return allModels.first { model in
+            if case .location(let locationModel) = model {
+                return locationModel.identifier == id
+            }
+            return false
+        }.flatMap {
+            if case .location(let locationModel) = $0 {
+                return locationModel.url
+            }
+            return nil
+        }
+    }
+    
+    private func deleteImageIfNeeded(url: String) {
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: url) {
+            try? fileManager.removeItem(atPath: url)
+        }
     }
     
     func loadTimerTasks() {
@@ -168,6 +222,33 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         }
         allModels = models
         tasksDidUpdate?(models)
+    }
+    
+    private static let fullFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
+    private static let dayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter
+    }()
+    
+    private static let monthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        return formatter
+    }()
+    
+    private func formatDateComponents(from date: Date) -> (day: String, month: String, full: String) {
+        return (
+            day: Self.dayFormatter.string(from: date),
+            month: Self.monthFormatter.string(from: date),
+            full: Self.fullFormatter.string(from: date)
+        )
     }
     
     func didSelectFilter(_ filter: FilterItem) {

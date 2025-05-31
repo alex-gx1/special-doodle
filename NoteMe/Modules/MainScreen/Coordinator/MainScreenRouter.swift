@@ -8,25 +8,22 @@ enum EditMenuItem {
 }
 
 protocol MainScreenRouterProtocol {
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect)
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void)
 }
 
 final class MainScreenRouter: MainScreenRouterProtocol {
     weak var root: UIViewController?
     
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect) {
-        let menuVC = SmallPopOverAssembler.make { [weak self] (item: EditMenuItem) in
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void) {
+        let menuVC = SmallPopOverAssembler.make { (item: EditMenuItem) in
             switch item {
             case .edit:
-                //                let vc = TimerAssembler.make()
-                //                self?.root?.navigationController?.pushViewController(vc, animated: true)
                 print("edit tapped")
             case .done:
                 print("done tapped")
-                break
             case .delete:
+                deleteHandler()
                 print("delete tapped")
-                break
             }
         }
         

@@ -11,9 +11,44 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
               case .date(let dateModel) = model else {
             return
         }
-
+        
         let rect = cell.actionButton.bounds
-        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+        viewModel.presentMenuPopover(
+            from: cell.actionButton,
+            sourceRect: rect,
+            forItemId: dateModel.identifier,
+            deleteHandler: { [weak self] in
+                self?.confirmAndDeleteDate(withId: dateModel.identifier, at: indexPath)
+            }
+        )
+    }
+    
+    private func confirmAndDeleteDate(withId id: String, at indexPath: IndexPath) {
+        let alert = UIAlertController(
+            title: "Удаление",
+            message: "Вы уверены, что хотите удалить эту задачу?",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
+            self?.viewModel.deleteDateNotification(withId: id) { success in
+                if !success {
+                    self?.showErrorAlert(message: "Не удалось удалить задачу")
+                }
+            }
+        })
+        present(alert, animated: true)
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Ошибка",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     func timerTaskCellDidTapAction(_ cell: TimerTaskCell) {
@@ -22,9 +57,16 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
               case .timer(let timerModel) = model else {
             return
         }
-
+        
         let rect = cell.actionButton.bounds
-        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+        viewModel.presentMenuPopover(
+            from: cell.actionButton,
+            sourceRect: rect,
+            forItemId: timerModel.identifier,
+            deleteHandler: { [weak self] in
+                self?.confirmAndDeleteTimer(withId: timerModel.identifier, at: indexPath)
+            }
+        )
     }
     
     func locationTaskCellDidTapAction(_ cell: LocationTaskCell) {
@@ -33,11 +75,76 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
               case .location(let locationModel) = model else {
             return
         }
-
+        
         let rect = cell.actionButton.bounds
-        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+        viewModel.presentMenuPopover(
+            from: cell.actionButton,
+            sourceRect: rect,
+            forItemId: locationModel.identifier,
+            deleteHandler: { [weak self] in
+                self?.confirmAndDeleteLocation(withId: locationModel.identifier, at: indexPath)
+            }
+        )
     }
-
+    
+    private func confirmAndDeleteTimer(withId id: String, at indexPath: IndexPath) {
+        let alert = UIAlertController(
+            title: "Удаление",
+            message: "Вы уверены, что хотите удалить этот таймер?",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
+            self?.viewModel.deleteTimerNotification(withId: id) { success in
+                if !success {
+                    self?.showErrorAlert(message: "Не удалось удалить таймер")
+                }
+            }
+        })
+        present(alert, animated: true)
+    }
+    
+    private func confirmAndDeleteLocation(withId id: String, at indexPath: IndexPath) {
+        let alert = UIAlertController(
+            title: "Удаление",
+            message: "Вы уверены, что хотите удалить эту локацию?",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
+            self?.viewModel.deleteLocationNotification(withId: id) { success in
+                if !success {
+                    self?.showErrorAlert(message: "Не удалось удалить локацию")
+                }
+            }
+        })
+        present(alert, animated: true)
+    }
+    
+    //    func timerTaskCellDidTapAction(_ cell: TimerTaskCell) {
+    //        guard let indexPath = tableView.indexPath(for: cell),
+    //              let model = viewModel.model(at: indexPath.row),
+    //              case .timer(let timerModel) = model else {
+    //            return
+    //        }
+    //
+    //        let rect = cell.actionButton.bounds
+    //        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+    //    }
+    //
+    //    func locationTaskCellDidTapAction(_ cell: LocationTaskCell) {
+    //        guard let indexPath = tableView.indexPath(for: cell),
+    //              let model = viewModel.model(at: indexPath.row),
+    //              case .location(let locationModel) = model else {
+    //            return
+    //        }
+    //
+    //        let rect = cell.actionButton.bounds
+    //        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
+    //    }
+    
     private var viewModel: MainScreenViewModelProtocol
     
     private let tableView = UITableView()
@@ -100,7 +207,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         adapter.timerTaskDelegate = self
         adapter.dateTaskDelegate = self
     }
-
+    
     private func bindViewModel() {
         viewModel.resetData = { [weak self] in
             self?.adapter.resetData()
@@ -110,7 +217,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             self?.adapter.update(with: models)
         }
     }
-
+    
     private func setupUI() {
         
         view.backgroundColor = Colors.appBlackColor
@@ -174,6 +281,6 @@ extension MainScreenVC: UICollectionViewDelegateFlowLayout {
 
 extension MainScreenVC: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none // чтобы popover не превращался в fullscreen на iPhone
+        return .none
     }
 }
