@@ -8,10 +8,13 @@ protocol MainScreenViewModelProtocol {
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
     func model(at index: Int) -> NotificationModel?
+    //for delete methods
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteLocationNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    
     func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void)
+    //for btn done methods
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
@@ -45,7 +48,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             deleteHandler: deleteHandler
         )
     }
-    
+        
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void) {
         dateStorage.delete(id: id) { [weak self] success in
             DispatchQueue.main.async {
@@ -84,7 +87,6 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         locationStorage.delete(id: id) { [weak self] success in
             DispatchQueue.main.async {
                 if success {
-                    // Удаляем связанное изображение
                     if let url = self?.getLocationImageUrl(for: id) {
                         self?.deleteImageIfNeeded(url: url)
                     }
@@ -134,7 +136,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     title: $0.title,
                     subtitle: $0.subtitle ?? "",
                     seconds: $0.seconds,
-                    createdAt: $0.date
+                    createdAt: $0.date,
+                    completedDate: $0.completedDate ?? Date.distantPast
                 )
             )
         }
@@ -154,7 +157,10 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 subtitle: $0.subtitle ?? "",
                 dateString: components.full,
                 day: components.day,
-                month: components.month
+                month: components.month,
+                createdAt: $0.date,
+                targetDate: $0.targetDate,
+                completedDate: $0.completedDate ?? Date.distantPast
             ))
         }
         allModels = tasks
@@ -171,7 +177,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     identifier: $0.id,
                     title: $0.title,
                     subtitle: $0.subtitle ?? "",
-                    url: $0.url
+                    url: $0.url,
+                    completedDate: $0.completedDate ?? Date.distantPast
                 )
             )
         }
@@ -192,7 +199,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         title: timerDTO.title,
                         subtitle: timerDTO.subtitle ?? "",
                         seconds: timerDTO.seconds,
-                        createdAt: timerDTO.date
+                        createdAt: timerDTO.date,
+                        completedDate: timerDTO.completedDate ?? Date.distantPast
                     )
                 )
             case let dateDTO as DateNotificationDTO:
@@ -204,7 +212,10 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         subtitle: dateDTO.subtitle ?? "",
                         dateString: components.full,
                         day: components.day,
-                        month: components.month
+                        month: components.month,
+                        createdAt: dateDTO.date,
+                        targetDate: dateDTO.targetDate,
+                        completedDate: dateDTO.completedDate ?? Date.distantPast
                     )
                 )
             case let locationDTO as LocationNotificationDTO:
@@ -213,7 +224,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         identifier: locationDTO.id,
                         title: locationDTO.title,
                         subtitle: locationDTO.subtitle ?? "",
-                        url: locationDTO.url
+                        url: locationDTO.url,
+                        completedDate: locationDTO.completedDate ?? Date.distantPast
                     )
                 )
             default:

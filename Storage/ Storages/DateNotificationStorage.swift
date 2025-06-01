@@ -13,6 +13,13 @@ public final class DateNotificationStorage: NotificationsStorage<DateNotificatio
         ).compactMap { $0 as? DateNotificationDTO}
     }
     
+    override public func updateOrCreate(
+        dto: DateNotificationDTO,
+        completion: CompletionHandler? = nil
+    ) {
+        super.updateOrCreate(dto: dto, completion: completion)
+    }
+    
     public func delete(id: String, completion: CompletionHandler? = nil) {
         let context = CoreDataService.shared.backgroundContext
         context.perform { [weak self] in

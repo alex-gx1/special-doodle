@@ -332,6 +332,7 @@
 		9D17E8A42CFF42610060E5B0 /* СustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				F67A5FE42DB25BF5001F63D5 /* CustomKeyBoards */,
 				9D6F25AD2CFDFEF200BFA561 /* AppTextField.swift */,
 				F690398E2DAABC6600800BB4 /* HalfSizePresentationController.swift */,
 			);
@@ -526,7 +527,6 @@
 			children = (
 				F66FEB0F2DE774CB007E5A2B /* SmallPopOverScreen */,
 				F6D8261B2DB582AA006BA35E /* SearchVC */,
-				F67A5FE42DB25BF5001F63D5 /* CustomKeyBoards */,
 				F65B5B342DB1B201007D2ED6 /* FullMapVC */,
 				F60232F52DA6F8FF00F2D0E8 /* LocationScreen */,
 				F60232F42DA6F8E900F2D0E8 /* CalendarScreen */,

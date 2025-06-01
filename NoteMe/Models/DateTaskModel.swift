@@ -7,5 +7,9 @@ public struct DateTaskModel {
     public let dateString: String
     public let day: String
     public let month: String
+    
+    public let createdAt: Date
+    public let targetDate: Date
+    public let completedDate: Date
 }
 
