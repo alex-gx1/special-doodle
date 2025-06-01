@@ -4,8 +4,8 @@ import CoreData
 public class NotificationsStorage<DTO: DTODescription> {
     public typealias CompletionHandler = (Bool) -> Void
     public init() {}
-
-    private func fetchMO(
+    
+    public func fetchMO(
         predicate: NSPredicate? = nil,
         sortDescriptors: [NSSortDescriptor] = []
     ) -> [DTO.MO] {
@@ -16,7 +16,7 @@ public class NotificationsStorage<DTO: DTODescription> {
         let results = try? context.fetch(request)
         return results ?? []
     }
-
+    
     public func fetch(
         predicate: NSPredicate? = nil,
         sortDescriptors: [NSSortDescriptor] = []
@@ -24,7 +24,7 @@ public class NotificationsStorage<DTO: DTODescription> {
         return fetchMO(predicate: predicate, sortDescriptors: sortDescriptors)
             .compactMap { $0.toDTO() }
     }
-
+    
     public func create(
         dto: DTO,
         completion: CompletionHandler? = nil
@@ -36,7 +36,7 @@ public class NotificationsStorage<DTO: DTODescription> {
             CoreDataService.shared.saveContext(context: context, completion: completion)
         }
     }
-
+    
     public func update(
         dto: DTO,
         completion: CompletionHandler? = nil
@@ -48,7 +48,7 @@ public class NotificationsStorage<DTO: DTODescription> {
             CoreDataService.shared.saveContext(context: context, completion: completion)
         }
     }
-
+    
     public func updateOrCreate(
         dto: DTO,
         completion: CompletionHandler? = nil
@@ -57,6 +57,44 @@ public class NotificationsStorage<DTO: DTODescription> {
             create(dto: dto, completion: completion)
         } else {
             update(dto: dto, completion: completion)
+        }
+    }
+    
+    public func updateCompletedDate(
+        id: String,
+        date: Date,
+        completion: CompletionHandler? = nil
+    ) {
+        let context = CoreDataService.shared.backgroundContext
+        
+        context.perform {
+            let request = NSFetchRequest<DTO.MO>(entityName: "\(DTO.MO.self)")
+            request.predicate = NSPredicate(format: "identifier == %@", id)
+            
+            do {
+                guard let mo = try context.fetch(request).first as? MODescription else {
+                    DispatchQueue.main.async {
+                        completion?(false)
+                    }
+                    return
+                }
+                
+                print("Current completedDate: \(mo.completedDate?.description ?? "nil")")
+                mo.completedDate = date
+                print("New completedDate: \(mo.completedDate?.description ?? "nil")")
+                
+                try context.save()
+                
+                DispatchQueue.main.async {
+                    completion?(true)
+                }
+                
+            } catch {
+                print("Failed to update completedDate: \(error)")
+                DispatchQueue.main.async {
+                    completion?(false)
+                }
+            }
         }
     }
     
@@ -86,5 +124,5 @@ public class NotificationsStorage<DTO: DTODescription> {
             CoreDataService.shared.saveContext(context: context, completion: completion)
         }
     }
-
+    
 }

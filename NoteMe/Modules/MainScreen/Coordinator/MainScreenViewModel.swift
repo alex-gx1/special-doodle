@@ -13,8 +13,12 @@ protocol MainScreenViewModelProtocol {
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteLocationNotification(withId id: String, completion: @escaping (Bool) -> Void)
     
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void)
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String,
+                            deleteHandler: @escaping () -> Void, completeHandler: @escaping () -> Void)
     //for btn done methods
+    func completeDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    func completeTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    func completeLocationNotification(withId id: String, completion: @escaping (Bool) -> Void)
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
@@ -40,15 +44,108 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         self.router = router
     }
     
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String, deleteHandler: @escaping () -> Void) {
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String,
+                            deleteHandler: @escaping () -> Void, completeHandler: @escaping () -> Void) {
         router.presentMenuPopover(
             from: source,
             sourceRect: sourceRect,
             forItemId: id,
-            deleteHandler: deleteHandler
+            deleteHandler: deleteHandler,
+            completeHandler: completeHandler
         )
     }
+
+    func completeDateNotification(withId id: String, completion: @escaping (Bool) -> Void) {
+        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
         
+        dateStorage.updateCompletedDate(id: id, date: Date()) { [weak self] success in
+            
+            if success, let index = self?.allModels.firstIndex(where: { model in
+                if case .date(let dateModel) = model {
+                    return dateModel.identifier == id
+                }
+                return false
+            }), case .date(let dateModel) = self?.allModels[index] {
+                
+                let updatedModel = DateTaskModel(
+                    identifier: dateModel.identifier,
+                    title: dateModel.title,
+                    subtitle: dateModel.subtitle,
+                    dateString: dateModel.dateString,
+                    day: dateModel.day,
+                    month: dateModel.month,
+                    createdAt: dateModel.createdAt,
+                    targetDate: dateModel.targetDate,
+                    completedDate: Date()
+                )
+                
+                self?.allModels[index] = .date(updatedModel)
+                self?.tasksDidUpdate?(self?.allModels ?? [])
+            }
+            
+            completion(success)
+        }
+    }
+    
+    func completeTimerNotification(withId id: String, completion: @escaping (Bool) -> Void) {
+        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
+        
+        timerStorage.updateCompletedDate(id: id, date: Date()) { [weak self] success in
+            if success, let index = self?.allModels.firstIndex(where: { model in
+                if case .timer(let timerModel) = model {
+                    return timerModel.identifier == id
+                }
+                return false
+            }), case .timer(let timerModel) = self?.allModels[index] {
+                
+                let updatedModel = TimerTaskModel(
+                    identifier: timerModel.identifier,
+                    title: timerModel.title,
+                    subtitle: timerModel.subtitle,
+                    seconds: timerModel.seconds,
+                    createdAt: timerModel.createdAt,
+                    completedDate: Date()
+                )
+                
+                self?.allModels[index] = .timer(updatedModel)
+                self?.tasksDidUpdate?(self?.allModels ?? [])
+            }
+            
+            completion(success)
+        }
+    }
+    
+    func completeLocationNotification(withId id: String, completion: @escaping (Bool) -> Void) {
+        dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
+        
+        locationStorage.updateCompletedDate(id: id, date: Date()) { [weak self] success in
+            if success, let index = self?.allModels.firstIndex(where: { model in
+                if case .location(let locationModel) = model {
+                    return locationModel.identifier == id
+                }
+                return false
+            }), case .location(let locationModel) = self?.allModels[index] {
+                
+                let updatedModel = LocationTaskModel(
+                    identifier: locationModel.identifier,
+                    title: locationModel.title,
+                    subtitle: locationModel.subtitle,
+                    url: locationModel.url,
+                    createdAt: locationModel.createdAt,
+                    completedDate: Date(),
+                    x: locationModel.x,
+                    y: locationModel.y,
+                    radius: locationModel.radius
+                )
+                
+                self?.allModels[index] = .location(updatedModel)
+                self?.tasksDidUpdate?(self?.allModels ?? [])
+            }
+            
+            completion(success)
+        }
+    }
+    
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void) {
         dateStorage.delete(id: id) { [weak self] success in
             DispatchQueue.main.async {
@@ -178,7 +275,11 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     title: $0.title,
                     subtitle: $0.subtitle ?? "",
                     url: $0.url,
-                    completedDate: $0.completedDate ?? Date.distantPast
+                    createdAt: $0.date,
+                    completedDate: $0.completedDate ?? Date.distantPast,
+                    x: $0.x,
+                    y: $0.y,
+                    radius: $0.radius
                 )
             )
         }
@@ -225,7 +326,11 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         title: locationDTO.title,
                         subtitle: locationDTO.subtitle ?? "",
                         url: locationDTO.url,
-                        completedDate: locationDTO.completedDate ?? Date.distantPast
+                        createdAt: locationDTO.date,
+                        completedDate: locationDTO.completedDate ?? Date.distantPast,
+                        x: locationDTO.x,
+                        y: locationDTO.y,
+                        radius: locationDTO.radius
                     )
                 )
             default:

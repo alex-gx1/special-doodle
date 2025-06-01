@@ -19,8 +19,19 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             forItemId: dateModel.identifier,
             deleteHandler: { [weak self] in
                 self?.confirmAndDeleteDate(withId: dateModel.identifier, at: indexPath)
+            },
+            completeHandler: { [weak self] in
+                self?.completeDateTask(withId: dateModel.identifier, at: indexPath)
             }
         )
+    }
+    
+    private func completeDateTask(withId id: String, at indexPath: IndexPath) {
+        viewModel.completeDateNotification(withId: id) { [weak self] success in
+            if !success {
+                self?.showErrorAlert(message: "Не удалось отметить задачу как выполненную")
+            }
+        }
     }
     
     private func confirmAndDeleteDate(withId id: String, at indexPath: IndexPath) {
@@ -65,8 +76,19 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             forItemId: timerModel.identifier,
             deleteHandler: { [weak self] in
                 self?.confirmAndDeleteTimer(withId: timerModel.identifier, at: indexPath)
+            },
+            completeHandler: { [weak self] in
+                self?.completeTimerTask(withId: timerModel.identifier, at: indexPath)
             }
         )
+    }
+    
+    private func completeTimerTask(withId id: String, at indexPath: IndexPath) {
+        viewModel.completeTimerNotification(withId: id) { [weak self] success in
+            if !success {
+                self?.showErrorAlert(message: "Не удалось отметить таймер как выполненный")
+            }
+        }
     }
     
     func locationTaskCellDidTapAction(_ cell: LocationTaskCell) {
@@ -83,8 +105,20 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             forItemId: locationModel.identifier,
             deleteHandler: { [weak self] in
                 self?.confirmAndDeleteLocation(withId: locationModel.identifier, at: indexPath)
+            },
+            completeHandler: { [weak self] in
+                self?.completeLocationTask(withId: locationModel.identifier, at: indexPath)
             }
+            
         )
+    }
+    
+    private func completeLocationTask(withId id: String, at indexPath: IndexPath) {
+        viewModel.completeLocationNotification(withId: id) { [weak self] success in
+            if !success {
+                self?.showErrorAlert(message: "Не удалось отметить таймер как выполненный")
+            }
+        }
     }
     
     private func confirmAndDeleteTimer(withId id: String, at indexPath: IndexPath) {
@@ -122,28 +156,6 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         })
         present(alert, animated: true)
     }
-    
-    //    func timerTaskCellDidTapAction(_ cell: TimerTaskCell) {
-    //        guard let indexPath = tableView.indexPath(for: cell),
-    //              let model = viewModel.model(at: indexPath.row),
-    //              case .timer(let timerModel) = model else {
-    //            return
-    //        }
-    //
-    //        let rect = cell.actionButton.bounds
-    //        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
-    //    }
-    //
-    //    func locationTaskCellDidTapAction(_ cell: LocationTaskCell) {
-    //        guard let indexPath = tableView.indexPath(for: cell),
-    //              let model = viewModel.model(at: indexPath.row),
-    //              case .location(let locationModel) = model else {
-    //            return
-    //        }
-    //
-    //        let rect = cell.actionButton.bounds
-    //        viewModel.presentMenuPopover(from: cell.actionButton, sourceRect: rect)
-    //    }
     
     private var viewModel: MainScreenViewModelProtocol
     

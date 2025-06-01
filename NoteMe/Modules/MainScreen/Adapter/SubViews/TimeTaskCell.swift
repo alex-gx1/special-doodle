@@ -73,7 +73,7 @@ final class TimerTaskCell: UITableViewCell {
     @objc private func didTouchDown() {
         actionButton.alpha = 0.5
     }
-
+    
     @objc private func didTouchUp() {
         UIView.animate(withDuration: 0.2) {
             self.actionButton.alpha = 1.0
@@ -121,6 +121,8 @@ final class TimerTaskCell: UITableViewCell {
     }
     
     func configure(with model: TimerTaskModel) {
+        resetCellAppearance()
+        
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
         updateTimerLabel(seconds: model.seconds, createdAt: model.createdAt)
@@ -129,6 +131,35 @@ final class TimerTaskCell: UITableViewCell {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.updateTimerLabel(seconds: model.seconds, createdAt: model.createdAt)
         }
+        
+        if model.completedDate != Date.distantPast {
+            applyCompletedStyle()
+        }
+    }
+    
+    private func resetCellAppearance() {
+        contentView.backgroundColor = .white
+        titleLabel.textColor = .black
+        subtitleLabel.textColor = .darkGray
+        timerLabel.textColor = .black
+        
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    private func applyCompletedStyle() {
+        contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+        titleLabel.textColor = .lightGray
+        subtitleLabel.textColor = .lightGray
+        timerLabel.textColor = .lightGray
+        timer?.invalidate()
+        timer = nil
+        timerLabel.text = "00:00:00"
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        resetCellAppearance()
     }
     
     private func updateTimerLabel(seconds: Double, createdAt: Date) {
@@ -136,7 +167,7 @@ final class TimerTaskCell: UITableViewCell {
         let remaining = max(0, seconds - elapsed)
         timerLabel.text = formatSeconds(remaining)
     }
-
+    
     private func formatSeconds(_ seconds: Double) -> String {
         let totalSeconds = Int(seconds)
         let hours = totalSeconds / 3600
@@ -144,11 +175,4 @@ final class TimerTaskCell: UITableViewCell {
         let secs = totalSeconds % 60
         return String(format: "%02d:%02d:%02d", hours, minutes, secs)
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        timer?.invalidate()
-        timer = nil
-    }
-
 }

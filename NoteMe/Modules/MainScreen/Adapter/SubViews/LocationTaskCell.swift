@@ -30,7 +30,7 @@ final class LocationTaskCell: UITableViewCell {
         return label
     }()
     
-     let actionButton: UIButton = {
+    let actionButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.cellOptions, for: .normal)
         return button
@@ -71,7 +71,7 @@ final class LocationTaskCell: UITableViewCell {
     @objc private func didTouchDown() {
         actionButton.alpha = 0.5
     }
-
+    
     @objc private func didTouchUp() {
         UIView.animate(withDuration: 0.2) {
             self.actionButton.alpha = 1.0
@@ -81,7 +81,7 @@ final class LocationTaskCell: UITableViewCell {
     @objc private func actionButtonTapped() {
         delegate?.locationTaskCellDidTapAction(self)
     }
-
+    
     private func setupUI() {
         
         [iconImageView, titleLabel, subtitleLabel, actionButton, locationMapUIImage].forEach {
@@ -122,6 +122,8 @@ final class LocationTaskCell: UITableViewCell {
     }
     
     func configure(with model: LocationTaskModel) {
+        resetCellAppearance()
+        
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
         
@@ -135,6 +137,36 @@ final class LocationTaskCell: UITableViewCell {
         } else {
             locationMapUIImage.image = Images.locationMap
         }
+        
+        
+        if model.completedDate != Date.distantPast {
+            applyCompletedStyle()
+        }
+    }
+    
+    private func resetCellAppearance() {
+        contentView.backgroundColor = .white
+        titleLabel.textColor = .black
+        subtitleLabel.textColor = .darkGray
+        locationMapUIImage.alpha = 1.0
+        
+        locationMapUIImage.subviews.forEach {
+            if $0.tag == 100 {
+                $0.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func applyCompletedStyle() {
+        contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+        titleLabel.textColor = .lightGray
+        subtitleLabel.textColor = .lightGray
+        
+        let overlayView = UIView(frame: locationMapUIImage.bounds)
+        overlayView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        overlayView.tag = 100
+        overlayView.isUserInteractionEnabled = false
+        locationMapUIImage.addSubview(overlayView)
     }
 }
 

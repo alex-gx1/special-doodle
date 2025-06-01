@@ -43,7 +43,7 @@ final class DateTaskCell: UITableViewCell {
         button.setImage(Images.cellOptions, for: .normal)
         return button
     }()
-        
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -71,7 +71,7 @@ final class DateTaskCell: UITableViewCell {
     @objc private func didTouchDown() {
         actionButton.alpha = 0.5
     }
-
+    
     @objc private func didTouchUp() {
         UIView.animate(withDuration: 0.2) {
             self.actionButton.alpha = 1.0
@@ -87,7 +87,7 @@ final class DateTaskCell: UITableViewCell {
             contentView.addSubview($0)
         }
         dateBoxView.addSubview(dateLabel)
-
+        
         dateBoxView.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview().inset(16)
             make.size.equalTo(50)
@@ -117,20 +117,57 @@ final class DateTaskCell: UITableViewCell {
     }
     
     func configure(with model: DateTaskModel, day: String, month: String) {
+        resetCellAppearance()
+        
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
-
+        
         let attrStr = NSMutableAttributedString(string: "\(day)\n\(month)")
         attrStr.addAttributes([
             .foregroundColor: Colors.appYellowColor!,
             .font: UIFont.appBoldFont25
         ], range: NSRange(location: 0, length: day.count))
-
+        
         attrStr.addAttributes([
             .foregroundColor: Colors.appGreyColor!,
             .font: UIFont.appBoldFont15
         ], range: NSRange(location: day.count + 1, length: month.count))
-
+        
         dateLabel.attributedText = attrStr
+        
+        if model.completedDate != Date.distantPast {
+            applyCompletedStyle()
+        }
+    }
+    
+    private func resetCellAppearance() {
+        contentView.backgroundColor = .white
+        titleLabel.textColor = .black
+        subtitleLabel.textColor = .darkGray
+        dateBoxView.backgroundColor = .black
+        
+        let defaultAttrStr = NSMutableAttributedString(string: "--\n--")
+        defaultAttrStr.addAttributes([
+            .foregroundColor: Colors.appYellowColor!,
+            .font: UIFont.appBoldFont25
+        ], range: NSRange(location: 0, length: 2))
+        
+        defaultAttrStr.addAttributes([
+            .foregroundColor: Colors.appGreyColor!,
+            .font: UIFont.appBoldFont15
+        ], range: NSRange(location: 3, length: 2))
+        
+        dateLabel.attributedText = defaultAttrStr
+    }
+    
+    private func applyCompletedStyle() {
+        contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+        titleLabel.textColor = .lightGray
+        subtitleLabel.textColor = .lightGray
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        resetCellAppearance()
     }
 }

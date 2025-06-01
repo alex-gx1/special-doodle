@@ -20,6 +20,14 @@ public final class TimerNotificationStorage: NotificationsStorage<TimerNotificat
         super.updateOrCreate(dto: dto, completion: completion)
     }
     
+    override public func updateCompletedDate(
+        id: String,
+        date: Date,
+        completion: CompletionHandler? = nil
+    ) {
+        super.updateCompletedDate(id: id, date: date, completion: completion)
+    }
+    
     public func delete(id: String, completion: CompletionHandler? = nil) {
         let context = CoreDataService.shared.backgroundContext
         context.perform { [weak self] in

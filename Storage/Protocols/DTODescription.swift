@@ -15,6 +15,7 @@ public protocol DTODescription {
 }
 
 public protocol MODescription: NSManagedObject, NSFetchRequestResult {
+    var completedDate: Date? { get set }
     func apply(dto: any DTODescription)
     func toDTO() -> (any DTODescription)?
 }
