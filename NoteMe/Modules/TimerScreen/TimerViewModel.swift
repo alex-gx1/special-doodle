@@ -6,7 +6,6 @@ protocol TimerRouterProtocol {
     func showAlert(title: String, message: String?)
 }
 
-
 final class TimerViewModel: TimerViewModelProtocol {
     
     private let router: TimerRouterProtocol
@@ -33,7 +32,7 @@ final class TimerViewModel: TimerViewModelProtocol {
         )
         
         storage.create(dto: dto) { success in
-            print(success ? "Успешно сохранено" : "Ошибка при сохранении")
+            print(success ? (NotificationCenter.default.post(name: .taskDidChange, object: nil, userInfo: ["type": "timer"])) : "Ошибка при сохранении")
         }
         if let storeURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
             print("Путь к базе данных:", storeURL.path)
@@ -45,4 +44,3 @@ final class TimerViewModel: TimerViewModelProtocol {
     }
     
 }
-

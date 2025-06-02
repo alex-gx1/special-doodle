@@ -86,7 +86,6 @@ final class TimerTaskCell: UITableViewCell {
     
     private func setupUI() {
         
-        
         [iconImageView, titleLabel, subtitleLabel, actionButton, timerLabel].forEach {
             contentView.addSubview($0)
         }

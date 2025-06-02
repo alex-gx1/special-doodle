@@ -54,7 +54,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             completeHandler: completeHandler
         )
     }
-
+    
     func completeDateNotification(withId id: String, completion: @escaping (Bool) -> Void) {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
         

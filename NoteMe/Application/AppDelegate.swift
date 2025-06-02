@@ -8,17 +8,67 @@
 import UIKit
 import CoreData
 import FirebaseCore
+import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification,
+                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .sound, .list])
+        } else {
+            completionHandler([.alert, .sound])
+        }
+    }
+    
+    func requestNotificationAuthorization() {
+        let center = UNUserNotificationCenter.current()
+        
+        center.getNotificationSettings { settings in
+            print("Текущий статус разрешений: \(settings.authorizationStatus.rawValue)")
+            
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    DispatchQueue.main.async {
+                        if granted {
+                            print("Разрешение на уведомления получено")
+                            // Запускаем проверку уведомлений после получения прав
+                            NotificationHandler().checkAllNotifications()
+                        } else if let error = error {
+                            print("Ошибка запроса разрешений: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            case .denied:
+                print("Пользователь запретил уведомления")
+            case .authorized, .provisional, .ephemeral:
+                print("Уведомления уже разрешены")
+                NotificationHandler().checkAllNotifications()
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        NotificationHandler().checkAllNotifications()
+    }
 
-
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        NotificationHandler().checkAllNotifications()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        UNUserNotificationCenter.current().delegate = self
+        requestNotificationAuthorization()
+        NotificationManager.shared.checkNotificationsImmediately()
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

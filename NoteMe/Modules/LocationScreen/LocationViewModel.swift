@@ -41,21 +41,6 @@ final class LocationViewModel: LocationViewModelProtocol {
         router.openFullMap(imageObservable: locationImage, x: x, y: y, radius: radius)
     }
     
-//    func saveImageToDocuments(_ image: UIImage, fileName: String) -> String? {
-//        guard let data = image.pngData() else { return nil }
-//        
-//        let fileManager = FileManager.default
-//        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let fileURL = documentsURL.appendingPathComponent(fileName)
-//
-//        do {
-//            try data.write(to: fileURL)
-//            return fileURL.path
-//        } catch {
-//            print("Error saving image: \(error.localizedDescription)")
-//            return nil
-//        }
-//    }
     func saveImageToDocuments(_ image: UIImage, fileName: String) -> String? {
         guard let data = image.pngData() else { return nil }
         

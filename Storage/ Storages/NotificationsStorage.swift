@@ -59,7 +59,7 @@ public class NotificationsStorage<DTO: DTODescription> {
             update(dto: dto, completion: completion)
         }
     }
-    
+        
     public func updateCompletedDate(
         id: String,
         date: Date,

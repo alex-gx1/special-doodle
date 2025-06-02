@@ -104,6 +104,8 @@
 		F69BFDF62DC493BD00F8F49F /* NSSortDescriptor+Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69BFDF52DC493BD00F8F49F /* NSSortDescriptor+Const.swift */; };
 		F6A038652DE5954E00B55965 /* LocationTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A038642DE5954E00B55965 /* LocationTaskCell.swift */; };
 		F6A038672DE5B26400B55965 /* LocationTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A038662DE5B26400B55965 /* LocationTaskModel.swift */; };
+		F6A955C22DECC3D6003768A2 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A955C12DECC3D6003768A2 /* NotificationHandler.swift */; };
+		F6A955C42DED1A09003768A2 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A955C32DED1A09003768A2 /* NotificationManager.swift */; };
 		F6BC275E2DBFDB0A002EF543 /* Storage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC27582DBFDB0A002EF543 /* Storage.framework */; };
 		F6BC275F2DBFDB0A002EF543 /* Storage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC27582DBFDB0A002EF543 /* Storage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6BC27672DBFDB5B002EF543 /* Storage.h in Headers */ = {isa = PBXBuildFile; fileRef = F6BC27652DBFDB5B002EF543 /* Storage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,6 +260,8 @@
 		F69BFDF52DC493BD00F8F49F /* NSSortDescriptor+Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSortDescriptor+Const.swift"; sourceTree = "<group>"; };
 		F6A038642DE5954E00B55965 /* LocationTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTaskCell.swift; sourceTree = "<group>"; };
 		F6A038662DE5B26400B55965 /* LocationTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTaskModel.swift; sourceTree = "<group>"; };
+		F6A955C12DECC3D6003768A2 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		F6A955C32DED1A09003768A2 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		F6BC27582DBFDB0A002EF543 /* Storage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Storage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6BC27652DBFDB5B002EF543 /* Storage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		F6BC276A2DBFDBFA002EF543 /* NotificationDataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotificationDataBase.xcdatamodel; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 		9DC2EC242D073FCF005A21F3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F6A955C02DECC39E003768A2 /* NotificationHandler */,
 				9D2E20B52D385F4F00B475EE /* Container */,
 				9DC2EC252D073FF7005A21F3 /* AuthService.swift */,
 				9DF336022D19C1F40048C928 /* ValidationService.swift */,
@@ -709,6 +714,15 @@
 				F69BFDEF2DC40A4A00F8F49F /* FRCService.swift */,
 			);
 			path = FRC;
+			sourceTree = "<group>";
+		};
+		F6A955C02DECC39E003768A2 /* NotificationHandler */ = {
+			isa = PBXGroup;
+			children = (
+				F6A955C12DECC3D6003768A2 /* NotificationHandler.swift */,
+				F6A955C32DED1A09003768A2 /* NotificationManager.swift */,
+			);
+			path = NotificationHandler;
 			sourceTree = "<group>";
 		};
 		F6BC27662DBFDB5B002EF543 /* Storage */ = {
@@ -1021,6 +1035,7 @@
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				F6D8261F2DB582C7006BA35E /* SearchViewModel.swift in Sources */,
+				F6A955C22DECC3D6003768A2 /* NotificationHandler.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
 				9D2E20D82D3A7D0900B475EE /* TabBarViewModel.swift in Sources */,
@@ -1034,6 +1049,7 @@
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
 				9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */,
 				F65B5B3C2DB1B23A007D2ED6 /* FullMapRouter.swift in Sources */,
+				F6A955C42DED1A09003768A2 /* NotificationManager.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
 				F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,

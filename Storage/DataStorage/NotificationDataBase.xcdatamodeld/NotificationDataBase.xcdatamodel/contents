@@ -2,10 +2,16 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="BaseNotificationMO" representedClassName="BaseNotificationMO" syncable="YES">
         <attribute name="completedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="critical" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="highPriority" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="lowPriority" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mediumPriority" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="other" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="work" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="DateNotificationMO" representedClassName="DateNotificationMO" parentEntity="BaseNotificationMO" syncable="YES">
         <attribute name="targetDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
