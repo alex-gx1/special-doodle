@@ -8,6 +8,7 @@ protocol MainScreenViewModelProtocol {
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
     func model(at index: Int) -> NotificationModel?
+    func loadAllTasks()
     //for delete methods
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
@@ -518,6 +519,38 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         tasksDidUpdate?(filteredModels)
     }
     
+    private func filterTasksByActive() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return timerModel.completedDate == Date.distantPast
+            case .date(let dateModel):
+                return dateModel.completedDate == Date.distantPast
+            case .location(let locationModel):
+                return locationModel.completedDate == Date.distantPast
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
+    private func filterTasksByCompleted() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return timerModel.completedDate != Date.distantPast
+            case .date(let dateModel):
+                return dateModel.completedDate != Date.distantPast
+            case .location(let locationModel):
+                return locationModel.completedDate != Date.distantPast
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
     func didSelectFilter(_ filter: FilterItem) {
         resetData?()
         
@@ -530,6 +563,10 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             loadAllTasks()
         case .location:
             loadLocationTasks()
+        case .active:
+            filterTasksByActive()
+        case .completed:
+            filterTasksByCompleted()
         case .work:
             filterTasksByWork()
         case .other:

@@ -13,5 +13,6 @@ final class TimerRouter: NSObject, TimerRouterProtocol {
     
     func closeVC () {
         root?.navigationController?.popViewController(animated: true)
+        NotificationCenter.default.post(name: .taskCreatedNotification, object: nil)
     }
 }

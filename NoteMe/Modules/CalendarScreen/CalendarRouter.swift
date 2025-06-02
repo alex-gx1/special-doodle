@@ -13,5 +13,6 @@ final class CalendarRouter: NSObject, CalendarRouterProtocol {
     
     func closeVC () {
         root?.navigationController?.popViewController(animated: true)
+        NotificationCenter.default.post(name: .taskCreatedNotification, object: nil)
     }
 }

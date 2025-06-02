@@ -218,6 +218,27 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         adapter.locationTaskDelegate = self
         adapter.timerTaskDelegate = self
         adapter.dateTaskDelegate = self
+        setupNotifications()
+    }
+    
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleTaskCreatedNotification),
+            name: .taskCreatedNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func handleTaskCreatedNotification() {
+        
+        selectedIndex = FilterItem.allCases.firstIndex(of: .all) ?? 0
+        collectionView.reloadData()
+        
+        viewModel.didSelectFilter(.all)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func bindViewModel() {

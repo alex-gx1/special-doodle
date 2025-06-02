@@ -5,6 +5,7 @@ final class LocationRouter: LocationRouterProtocol {
     
     func closeVC() {
         root?.navigationController?.popViewController(animated: true)
+        NotificationCenter.default.post(name: .taskCreatedNotification, object: nil)
     }
     
     func openFullMap(imageObservable: Observable<UIImage?>, x: Observable<Double>, y: Observable<Double>, radius: Observable<Double>) {

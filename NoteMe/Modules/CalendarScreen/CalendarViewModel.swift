@@ -65,7 +65,6 @@ final class CalendarViewModel: CalendarViewModelProtocol {
         }
     }
     
-    
     private let router: CalendarRouterProtocol
     
     private let storage = DateNotificationStorage()

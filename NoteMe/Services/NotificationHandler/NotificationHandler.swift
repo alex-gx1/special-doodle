@@ -171,3 +171,7 @@ final class NotificationHandler {
         }
     }
 }
+
+extension Notification.Name {
+    static let taskCreatedNotification = Notification.Name("TaskCreatedNotification")
+}
