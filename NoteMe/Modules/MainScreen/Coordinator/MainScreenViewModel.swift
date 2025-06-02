@@ -76,7 +76,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     month: dateModel.month,
                     createdAt: dateModel.createdAt,
                     targetDate: dateModel.targetDate,
-                    completedDate: Date()
+                    completedDate: Date(),
+                    work: dateModel.work,
+                    other: dateModel.other,
+                    critical: dateModel.critical,
+                    highPriority: dateModel.highPriority,
+                    mediumPriority: dateModel.mediumPriority,
+                    lowPriority: dateModel.lowPriority
                 )
                 
                 self?.allModels[index] = .date(updatedModel)
@@ -104,7 +110,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     subtitle: timerModel.subtitle,
                     seconds: timerModel.seconds,
                     createdAt: timerModel.createdAt,
-                    completedDate: Date()
+                    completedDate: Date(),
+                    work: timerModel.work,
+                    other: timerModel.other,
+                    critical: timerModel.critical,
+                    highPriority: timerModel.highPriority,
+                    mediumPriority: timerModel.mediumPriority,
+                    lowPriority: timerModel.lowPriority
                 )
                 
                 self?.allModels[index] = .timer(updatedModel)
@@ -135,7 +147,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     completedDate: Date(),
                     x: locationModel.x,
                     y: locationModel.y,
-                    radius: locationModel.radius
+                    radius: locationModel.radius,
+                    work: locationModel.work,
+                    other: locationModel.other,
+                    critical: locationModel.critical,
+                    highPriority: locationModel.highPriority,
+                    mediumPriority: locationModel.mediumPriority,
+                    lowPriority: locationModel.lowPriority
                 )
                 
                 self?.allModels[index] = .location(updatedModel)
@@ -234,7 +252,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     subtitle: $0.subtitle ?? "",
                     seconds: $0.seconds,
                     createdAt: $0.date,
-                    completedDate: $0.completedDate ?? Date.distantPast
+                    completedDate: $0.completedDate ?? Date.distantPast,
+                    work: $0.work ?? "",
+                    other: $0.other ?? "",
+                    critical: $0.critical ?? "",
+                    highPriority: $0.highPriority ?? "",
+                    mediumPriority: $0.mediumPriority ?? "",
+                    lowPriority: $0.lowPriority ?? ""
                 )
             )
         }
@@ -257,7 +281,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 month: components.month,
                 createdAt: $0.date,
                 targetDate: $0.targetDate,
-                completedDate: $0.completedDate ?? Date.distantPast
+                completedDate: $0.completedDate ?? Date.distantPast,
+                work: $0.work ?? "",
+                other: $0.other ?? "",
+                critical: $0.critical ?? "",
+                highPriority: $0.highPriority ?? "",
+                mediumPriority: $0.mediumPriority ?? "",
+                lowPriority: $0.lowPriority ?? ""
             ))
         }
         allModels = tasks
@@ -279,7 +309,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                     completedDate: $0.completedDate ?? Date.distantPast,
                     x: $0.x,
                     y: $0.y,
-                    radius: $0.radius
+                    radius: $0.radius,
+                    work: $0.work ?? "",
+                    other: $0.other ?? "",
+                    critical: $0.critical ?? "",
+                    highPriority: $0.highPriority ?? "",
+                    mediumPriority: $0.mediumPriority ?? "",
+                    lowPriority: $0.lowPriority ?? ""
                 )
             )
         }
@@ -301,7 +337,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         subtitle: timerDTO.subtitle ?? "",
                         seconds: timerDTO.seconds,
                         createdAt: timerDTO.date,
-                        completedDate: timerDTO.completedDate ?? Date.distantPast
+                        completedDate: timerDTO.completedDate ?? Date.distantPast,
+                        work: timerDTO.work ?? "",
+                        other: timerDTO.other ?? "",
+                        critical: timerDTO.critical ?? "",
+                        highPriority: timerDTO.highPriority ?? "",
+                        mediumPriority: timerDTO.mediumPriority ?? "",
+                        lowPriority: timerDTO.lowPriority ?? ""
                     )
                 )
             case let dateDTO as DateNotificationDTO:
@@ -316,7 +358,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         month: components.month,
                         createdAt: dateDTO.date,
                         targetDate: dateDTO.targetDate,
-                        completedDate: dateDTO.completedDate ?? Date.distantPast
+                        completedDate: dateDTO.completedDate ?? Date.distantPast,
+                        work: dateDTO.work ?? "",
+                        other: dateDTO.other ?? "",
+                        critical: dateDTO.critical ?? "",
+                        highPriority: dateDTO.highPriority ?? "",
+                        mediumPriority: dateDTO.mediumPriority ?? "",
+                        lowPriority: dateDTO.lowPriority ?? ""
                     )
                 )
             case let locationDTO as LocationNotificationDTO:
@@ -330,7 +378,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         completedDate: locationDTO.completedDate ?? Date.distantPast,
                         x: locationDTO.x,
                         y: locationDTO.y,
-                        radius: locationDTO.radius
+                        radius: locationDTO.radius,
+                        work: locationDTO.work ?? "",
+                        other: locationDTO.other ?? "",
+                        critical: locationDTO.critical ?? "",
+                        highPriority: locationDTO.highPriority ?? "",
+                        mediumPriority: locationDTO.mediumPriority ?? "",
+                        lowPriority: locationDTO.lowPriority ?? ""
                     )
                 )
             default:
@@ -368,6 +422,102 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         )
     }
     
+    private func filterTasksByWork() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return !timerModel.work.isEmpty
+            case .date(let dateModel):
+                return !dateModel.work.isEmpty
+            case .location(let locationModel):
+                return !locationModel.work.isEmpty
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
+    private func filterTasksByOther() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return !timerModel.other.isEmpty
+            case .date(let dateModel):
+                return !dateModel.other.isEmpty
+            case .location(let locationModel):
+                return !locationModel.other.isEmpty
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
+    private func filterTasksByCritical() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return !timerModel.critical.isEmpty
+            case .date(let dateModel):
+                return !dateModel.critical.isEmpty
+            case .location(let locationModel):
+                return !locationModel.critical.isEmpty
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
+    private func filterTasksByHigh() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return !timerModel.highPriority.isEmpty
+            case .date(let dateModel):
+                return !dateModel.highPriority.isEmpty
+            case .location(let locationModel):
+                return !locationModel.highPriority.isEmpty
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
+    private func filterTasksByMedium() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return !timerModel.mediumPriority.isEmpty
+            case .date(let dateModel):
+                return !dateModel.mediumPriority.isEmpty
+            case .location(let locationModel):
+                return !locationModel.mediumPriority.isEmpty
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
+    private func filterTasksByLow() {
+        loadAllTasks()
+        
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return !timerModel.lowPriority.isEmpty
+            case .date(let dateModel):
+                return !dateModel.lowPriority.isEmpty
+            case .location(let locationModel):
+                return !locationModel.lowPriority.isEmpty
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+    
     func didSelectFilter(_ filter: FilterItem) {
         resetData?()
         
@@ -380,6 +530,18 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
             loadAllTasks()
         case .location:
             loadLocationTasks()
+        case .work:
+            filterTasksByWork()
+        case .other:
+            filterTasksByOther()
+        case .critical:
+            filterTasksByCritical()
+        case .high:
+            filterTasksByHigh()
+        case .medium:
+            filterTasksByMedium()
+        case .low:
+            filterTasksByLow()
         default:
             break
         }

@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     DispatchQueue.main.async {
                         if granted {
                             print("Разрешение на уведомления получено")
-                            // Запускаем проверку уведомлений после получения прав
+
                             NotificationHandler().checkAllNotifications()
                         } else if let error = error {
                             print("Ошибка запроса разрешений: \(error.localizedDescription)")

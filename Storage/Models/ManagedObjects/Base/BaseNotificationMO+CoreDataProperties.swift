@@ -12,6 +12,14 @@ extension BaseNotificationMO {
     @NSManaged public var subtitle: String?
     @NSManaged public var date: Date?
     @NSManaged public var completedDate: Date?
+    
+    @NSManaged public var work: String?
+    @NSManaged public var other: String?
+    
+    @NSManaged public var critical: String?
+    @NSManaged public var highPriority: String?
+    @NSManaged public var mediumPriority: String?
+    @NSManaged public var lowPriority: String?
 
 }
 

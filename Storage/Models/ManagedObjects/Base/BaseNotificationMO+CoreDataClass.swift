@@ -13,5 +13,12 @@ public class BaseNotificationMO: NSManagedObject, MODescription {
         self.completedDate = dto.completedDate
         self.title = dto.title
         self.subtitle = dto.subtitle
+        
+        self.work = dto.work
+        self.other = dto.other
+        self.critical = dto.critical
+        self.highPriority = dto.highPriority
+        self.mediumPriority = dto.mediumPriority
+        self.lowPriority = dto.lowPriority
     }
 }

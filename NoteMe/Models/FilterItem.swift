@@ -5,6 +5,11 @@ enum FilterItem: String, CaseIterable {
     case date = "Date"
     case location = "Location"
     case timer = "Timer"
-    case Work = "Work"
-    case Other = "Other"
+    
+    case work = "Work"
+    case other = "Other"
+    case critical = "Critical"
+    case high = "High"
+    case medium = "Medium"
+    case low = "Low"
 }

@@ -15,6 +15,13 @@ public struct LocationNotificationDTO: DTODescription {
     public var radius: Double
     public var url: String
     
+    public var work: String?
+    public var other: String?
+    public var critical: String?
+    public var highPriority: String?
+    public var mediumPriority: String?
+    public var lowPriority: String?
+    
     public init(
         id: String,
         title: String,
@@ -24,7 +31,14 @@ public struct LocationNotificationDTO: DTODescription {
         x: Double,
         y: Double,
         radius: Double,
-        url: String
+        url: String,
+        
+        work: String? = nil,
+        other: String? = nil,
+        critical: String? = nil,
+        highPriority: String? = nil,
+        mediumPriority: String? = nil,
+        lowPriority: String? = nil
     ) {
         self.id = id
         self.title = title
@@ -35,6 +49,13 @@ public struct LocationNotificationDTO: DTODescription {
         self.y = y
         self.radius = radius
         self.url = url
+        
+        self.work = work
+        self.other = other
+        self.critical = critical
+        self.highPriority = highPriority
+        self.mediumPriority = mediumPriority
+        self.lowPriority = lowPriority
     }
     
     public init?(mo: LocationNotificationMO) {
@@ -53,6 +74,13 @@ public struct LocationNotificationDTO: DTODescription {
         self.y = mo.y
         self.radius = mo.radius
         self.url = mo.url
+        
+        self.work = mo.work
+        self.other = mo.other
+        self.critical = mo.critical
+        self.highPriority = mo.highPriority
+        self.mediumPriority = mo.mediumPriority
+        self.lowPriority = mo.lowPriority
     }
     
     public static func fromMO(_ mo: LocationNotificationMO) -> LocationNotificationDTO? {
@@ -71,7 +99,14 @@ public struct LocationNotificationDTO: DTODescription {
             x: mo.x,
             y: mo.y,
             radius: mo.radius,
-            url: mo.url
+            url: mo.url,
+            work: mo.work,
+            other: mo.other,
+            critical: mo.critical,
+            highPriority: mo.highPriority,
+            mediumPriority: mo.mediumPriority,
+            lowPriority: mo.lowPriority
+            
         )
     }
 }

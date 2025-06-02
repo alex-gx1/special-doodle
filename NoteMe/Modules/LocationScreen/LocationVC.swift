@@ -11,13 +11,15 @@ protocol LocationViewModelProtocol {
     var y: Observable<Double> { get }
     var radius: Observable<Double> { get }
     func showAlert(title: String, message: String?)
-    func saveNotification(title: String, x: Double, y: Double, radius: Double , url: String, subtitle: String)
+    func saveNotification(title: String, x: Double, y: Double, radius: Double , url: String, subtitle: String, category: String, priority: String)
     func saveImageToDocuments(_ image: UIImage, fileName: String) -> String?
 }
 
 final class LocationVC: UIViewController {
     
     private let viewModel: LocationViewModelProtocol
+    private var selectedCategory: String = "Other"
+    private var selectedPriority: String = "Medium"
     
     init(viewModel: LocationViewModelProtocol) {
         self.viewModel = viewModel
@@ -49,6 +51,8 @@ final class LocationVC: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
+    
+    // MARK: - UI Components
     
     private lazy var globalCardView: UIView = {
         let view = UIView()
@@ -128,6 +132,7 @@ final class LocationVC: UIViewController {
         let mapView = UIImageView()
         mapView.image = Images.locationMap
         mapView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        mapView.contentMode = .scaleAspectFit
         return mapView
     }()
     
@@ -139,6 +144,107 @@ final class LocationVC: UIViewController {
         return view
     }()
     
+    // Category Section
+    private lazy var categoryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Category"
+        label.font = UIFont.appBoldFont15
+        label.textColor = Colors.appBlackColor
+        return label
+    }()
+    
+    private lazy var categoryStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 12
+        return stack
+    }()
+    
+    private lazy var otherButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Other", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont15
+        button.setTitleColor(Colors.appBlackColor, for: .normal)
+        button.backgroundColor = Colors.appYellowColor
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var workButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Work", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont15
+        button.setTitleColor(Colors.appBlackColor, for: .normal)
+        button.backgroundColor = Colors.appYellowColor?.withAlphaComponent(0.7)
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    // Priority Section
+    private lazy var priorityLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Priority"
+        label.font = UIFont.appBoldFont15
+        label.textColor = Colors.appBlackColor
+        return label
+    }()
+    
+    private lazy var priorityStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 8
+        return stack
+    }()
+    
+    private lazy var criticalButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Critical", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont13
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemRed.withAlphaComponent(0.7)
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var highPriorityButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("High", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont13
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemOrange.withAlphaComponent(0.7)
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var mediumPriorityButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Medium", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont13
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var lowPriorityButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Low", for: .normal)
+        button.titleLabel?.font = UIFont.appBoldFont13
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemGreen.withAlphaComponent(0.7)
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    // Action Buttons
     private lazy var createButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 5
@@ -167,31 +273,52 @@ final class LocationVC: UIViewController {
         return button
     }()
     
+    // MARK: - Setup Methods
+    
     private func setupUI() {
         view.backgroundColor = Colors.appBlackColor
+        
+        // Add subviews
         view.addSubview(globalCardView)
         globalCardView.addSubview(topLabel)
         globalCardView.addSubview(middleCardView)
         
+        // Middle card content
+        middleCardView.addSubview(titleLabel)
         middleCardView.addSubview(titleTextField)
         middleCardView.addSubview(titleSeparator)
-        middleCardView.addSubview(titleLabel)
-        middleCardView.addSubview(textView)
         middleCardView.addSubview(commentLabel)
         middleCardView.addSubview(textView)
         middleCardView.addSubview(locationLabel)
         middleCardView.addSubview(locationMapUIImage)
         middleCardView.addSubview(mapTapView)
         
+        // Category section
+        middleCardView.addSubview(categoryLabel)
+        categoryStackView.addArrangedSubview(otherButton)
+        categoryStackView.addArrangedSubview(workButton)
+        middleCardView.addSubview(categoryStackView)
         
+        // Priority section
+        middleCardView.addSubview(priorityLabel)
+        priorityStackView.addArrangedSubview(criticalButton)
+        priorityStackView.addArrangedSubview(highPriorityButton)
+        priorityStackView.addArrangedSubview(mediumPriorityButton)
+        priorityStackView.addArrangedSubview(lowPriorityButton)
+        middleCardView.addSubview(priorityStackView)
+        
+        // Action buttons
         globalCardView.addSubview(createButton)
         globalCardView.addSubview(cancelButton)
         
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
         globalCardView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         topLabel.snp.makeConstraints { make in
@@ -203,9 +330,10 @@ final class LocationVC: UIViewController {
         middleCardView.snp.makeConstraints { make in
             make.top.equalTo(topLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(360)
+            make.height.equalTo(500) // Increased height for new elements
         }
         
+        // Title section
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.left.right.equalToSuperview().inset(16)
@@ -223,6 +351,7 @@ final class LocationVC: UIViewController {
             make.height.equalTo(0.5)
         }
         
+        // Comment section
         commentLabel.snp.makeConstraints { make in
             make.top.equalTo(titleSeparator.snp.bottom).offset(16)
             make.left.right.equalToSuperview().inset(16)
@@ -234,6 +363,7 @@ final class LocationVC: UIViewController {
             make.height.equalTo(68)
         }
         
+        // Location section
         locationLabel.snp.makeConstraints { make in
             make.top.equalTo(textView.snp.bottom).offset(16)
             make.left.right.equalToSuperview().inset(16)
@@ -242,13 +372,38 @@ final class LocationVC: UIViewController {
         locationMapUIImage.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(8)
+            make.height.equalTo(120)
         }
         
         mapTapView.snp.makeConstraints { make in
             make.edges.equalTo(locationMapUIImage)
         }
         
+        // Category section
+        categoryLabel.snp.makeConstraints { make in
+            make.top.equalTo(locationMapUIImage.snp.bottom).offset(16)
+            make.left.equalToSuperview().inset(16)
+        }
+        
+        categoryStackView.snp.makeConstraints { make in
+            make.top.equalTo(categoryLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+        }
+        
+        // Priority section
+        priorityLabel.snp.makeConstraints { make in
+            make.top.equalTo(categoryStackView.snp.bottom).offset(16)
+            make.left.equalToSuperview().inset(16)
+        }
+        
+        priorityStackView.snp.makeConstraints { make in
+            make.top.equalTo(priorityLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(30)
+        }
+        
+        // Action buttons
         cancelButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
             make.horizontalEdges.equalToSuperview().inset(20)
@@ -261,6 +416,8 @@ final class LocationVC: UIViewController {
             make.height.equalTo(45)
         }
     }
+    
+    // MARK: - Button Actions
     
     @objc private func createButtonTap() {
         let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -286,21 +443,43 @@ final class LocationVC: UIViewController {
             return
         }
         
-        viewModel.saveNotification(title: title, x: viewModel.x.value, y: viewModel.y.value, radius: viewModel.radius.value, url: imagePath, subtitle: subtitle)
+        viewModel.saveNotification(
+            title: title,
+            x: viewModel.x.value,
+            y: viewModel.y.value,
+            radius: viewModel.radius.value,
+            url: imagePath,
+            subtitle: subtitle,
+            category: selectedCategory,
+            priority: selectedPriority
+        )
         
-        print("createButtonTap")
         viewModel.closeVC()
     }
     
     @objc private func cancelButtonTap() {
-        print("createButtonTap")
         viewModel.closeVC()
     }
+    
     @objc private func handleMapTap() {
         viewModel.openFullMap()
     }
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func categoryButtonTapped(_ sender: UIButton) {
+        [otherButton, workButton].forEach { button in
+            button.backgroundColor = button == sender ? Colors.appYellowColor : Colors.appYellowColor?.withAlphaComponent(0.7)
+        }
+        selectedCategory = sender.title(for: .normal) ?? "Other"
+    }
+    
+    @objc private func priorityButtonTapped(_ sender: UIButton) {
+        [criticalButton, highPriorityButton, mediumPriorityButton, lowPriorityButton].forEach { button in
+            button.backgroundColor = button == sender ? button.backgroundColor?.withAlphaComponent(1.0) : button.backgroundColor?.withAlphaComponent(0.7)
+        }
+        selectedPriority = sender.title(for: .normal) ?? "Medium"
     }
 }

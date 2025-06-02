@@ -10,6 +10,68 @@ protocol LocationRouterProtocol {
 
 final class LocationViewModel: LocationViewModelProtocol {
     
+    func saveNotification(title: String, x: Double, y: Double, radius: Double, url: String, subtitle: String, category: String, priority: String) {
+        let currentDate = Date()
+        
+        var work: String? = nil
+        var other: String? = nil
+        var critical: String? = nil
+        var highPriority: String? = nil
+        var mediumPriority: String? = nil
+        var lowPriority: String? = nil
+        
+        switch category {
+        case "Work":
+            work = "Work"
+        case "Other":
+            other = "Other"
+        default:
+            break
+        }
+        
+        switch priority {
+        case "Critical":
+            critical = "Critical"
+        case "High":
+            highPriority = "High"
+        case "Medium":
+            mediumPriority = "Medium"
+        case "Low":
+            lowPriority = "Low"
+        default:
+            break
+        }
+        
+        let dto = LocationNotificationDTO(
+            id: UUID().uuidString,
+            title: title,
+            subtitle: subtitle,
+            date: currentDate,
+            x: x,
+            y: y,
+            radius: radius,
+            url: url,
+            work: work,
+            other: other,
+            critical: critical,
+            highPriority: highPriority,
+            mediumPriority: mediumPriority,
+            lowPriority: lowPriority
+        )
+        
+        storage.create(dto: dto) { success in
+            print(success ? (NotificationCenter.default.post(
+                name: .taskDidChange,
+                object: nil,
+                userInfo: ["type": "location"]
+            )) : "Ошибка при сохранении")
+        }
+        if let storeURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+            print("Путь к базе данных:", storeURL.path)
+        }
+    }
+    
+    
     private let router: LocationRouterProtocol
     
     private let storage = LocationNotificationStorage()
@@ -47,44 +109,17 @@ final class LocationViewModel: LocationViewModelProtocol {
         let fileManager = FileManager.default
         let directory = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         
-        // Создаем подпапку для изображений
         let imagesDirectory = directory.appendingPathComponent("LocationImages")
         try? fileManager.createDirectory(at: imagesDirectory, withIntermediateDirectories: true)
         
         let fileURL = imagesDirectory.appendingPathComponent(fileName)
-
+        
         do {
             try data.write(to: fileURL)
             return fileURL.path
         } catch {
             print("Error saving image: \(error.localizedDescription)")
             return nil
-        }
-    }
-
-    func saveNotification(title: String, x: Double, y: Double, radius: Double , url: String, subtitle: String) {
-        let currentDate = Date()
-        
-        let dto = LocationNotificationDTO(
-            id: UUID().uuidString,
-            title: title,
-            subtitle: subtitle,
-            date: currentDate,
-            x: x,
-            y: y,
-            radius: radius,
-            url: url
-        )
-        
-        storage.create(dto: dto) { success in
-            print(success ? (NotificationCenter.default.post(
-                name: .taskDidChange,
-                object: nil,
-                userInfo: ["type": "location"]
-            )) : "Ошибка при сохранении")
-        }
-        if let storeURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-            print("Путь к базе данных:", storeURL.path)
         }
     }
 }
