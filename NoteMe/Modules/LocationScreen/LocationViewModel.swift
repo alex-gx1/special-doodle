@@ -77,7 +77,11 @@ final class LocationViewModel: LocationViewModelProtocol {
         )
         
         storage.create(dto: dto) { success in
-            print(success ? "Успешно сохранено" : "Ошибка при сохранении")
+            print(success ? (NotificationCenter.default.post(
+                name: .taskDidChange,
+                object: nil,
+                userInfo: ["type": "location"]
+            )) : "Ошибка при сохранении")
         }
         if let storeURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
             print("Путь к базе данных:", storeURL.path)

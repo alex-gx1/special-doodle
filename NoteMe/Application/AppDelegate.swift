@@ -65,7 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
         requestNotificationAuthorization()
-        NotificationManager.shared.checkNotificationsImmediately()
+            NotificationManager.shared.requestLocationAuthorization()
+            
+            NotificationManager.shared.checkNotificationsImmediately()
         return true
     }
     
@@ -129,4 +131,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
 }
-

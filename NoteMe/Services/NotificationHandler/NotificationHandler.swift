@@ -1,6 +1,7 @@
 import Foundation
 import Storage
 import UserNotifications
+import CoreLocation
 
 final class NotificationHandler {
     private let timerNotificationStorage = TimerNotificationStorage()
@@ -11,28 +12,75 @@ final class NotificationHandler {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.checkAndScheduleTimerNotifications()
             self?.checkAndScheduleDateNotifications()
+            self?.checkAndScheduleLocationNotifications()
+        }
+    }
+    
+    func checkAndScheduleLocationNotifications() {
+        let predicate = NSPredicate(format: "completedDate == nil")
+        let locationTasks = LocationNotificationStorage().fetch(predicate: predicate)
+        print("Найдено активных location-задач: \(locationTasks.count)")
+        
+        for task in locationTasks {
+            scheduleLocationNotification(for: task)
+        }
+    }
+    
+    private func scheduleLocationNotification(for task: LocationNotificationDTO) {
+        guard task.completedDate == nil else {
+            print("Location-задача \(task.id) уже завершена")
+            return
+        }
+        
+        let center = CLLocationCoordinate2D(latitude: task.x, longitude: task.y)
+        let region = CLCircularRegion(
+            center: center,
+            radius: task.radius,
+            identifier: task.id
+        )
+        region.notifyOnEntry = true
+        region.notifyOnExit = false
+        
+        let content = UNMutableNotificationContent()
+        content.title = task.title
+        content.body = task.subtitle ?? "Вы вошли в заданную область"
+        content.sound = .default
+        
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+        
+        let request = UNNotificationRequest(
+            identifier: "location-\(task.id)",
+            content: content,
+            trigger: trigger
+        )
+        
+        notificationCenter.add(request) { error in
+            if let error = error {
+                print("❌ Ошибка location-уведомления для \(task.id): \(error.localizedDescription)")
+            } else {
+                print("✅ Location-уведомление для \(task.id) запланировано")
+            }
         }
     }
     
     func checkAndScheduleDateNotifications() {
-            let now = Date()
-            let predicate = NSPredicate(format: "completedDate == nil AND targetDate > %@", now as NSDate)
-            
-            let dateTasks = dateNotificationStorage.fetch(predicate: predicate)
-            print("Найдено активных дата-задач: \(dateTasks.count)")
-            
-            for task in dateTasks {
-                scheduleDateNotification(for: task)
-            }
-        }
+        let now = Date()
+        let predicate = NSPredicate(format: "completedDate == nil AND targetDate > %@", now as NSDate)
         
+        let dateTasks = dateNotificationStorage.fetch(predicate: predicate)
+        print("Найдено активных дата-задач: \(dateTasks.count)")
+        
+        for task in dateTasks {
+            scheduleDateNotification(for: task)
+        }
+    }
+    
     private func scheduleDateNotification(for task: DateNotificationDTO) {
         guard task.completedDate == nil else {
             print("Дата-задача \(task.id) уже завершена")
             return
         }
         
-        // Разница между текущей датой и targetDate
         let timeInterval = task.targetDate.timeIntervalSinceNow
         
         guard timeInterval > 0 else {
@@ -47,10 +95,9 @@ final class NotificationHandler {
         content.body = task.subtitle ?? "Срок выполнения задачи приближается"
         content.sound = .default
         
-        // Можно добавить разные триггеры (например, за 1 день и за 1 час до targetDate)
         let triggers = [
             UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false),
-            // За 1 час до дедлайна
+            
             UNTimeIntervalNotificationTrigger(
                 timeInterval: max(0, timeInterval - 3600),
                 repeats: false
