@@ -46,8 +46,13 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     private lazy var sortButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.sortButton, for: .normal)
+        button.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func sortButtonTapped() {
+        viewModel.toggleSortOrder()
+    }
     
     private lazy var topStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [collectionView, sortButton])

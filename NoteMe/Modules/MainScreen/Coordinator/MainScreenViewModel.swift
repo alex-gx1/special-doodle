@@ -2,13 +2,13 @@ import UIKit
 import Storage
 
 protocol MainScreenViewModelProtocol {
-    func loadTimerTasks()
-    func loadDateTasks()
+//    func loadTimerTasks(with sortDescriptors: [NSSortDescriptor])
+//    func loadDateTasks()
     var tasksDidUpdate: (([NotificationModel]) -> Void)? { get set }
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
     func model(at index: Int) -> NotificationModel?
-    func loadAllTasks()
+//    func loadAllTasks()
     //for delete methods
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
@@ -20,6 +20,10 @@ protocol MainScreenViewModelProtocol {
     func completeDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func completeTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func completeLocationNotification(withId id: String, completion: @escaping (Bool) -> Void)
+    
+    //for sort btn
+    func toggleSortOrder()
+    var isAscendingOrder: Bool { get }
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
@@ -40,6 +44,24 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     private let dateStorage = DateNotificationStorage()
     private let timerStorage = TimerNotificationStorage()
     private let locationStorage = LocationNotificationStorage()
+    
+    private var currentFilter: FilterItem = .all
+    private var isAscending = false
+    
+    var isAscendingOrder: Bool {
+        return isAscending
+    }
+    
+    func toggleSortOrder() {
+        isAscending.toggle()
+        didSelectFilter(currentFilter)
+    }
+    
+    private func currentSortDescriptor() -> NSSortDescriptor {
+        return isAscending ?
+            NSSortDescriptor.Notification.byDateAscending :
+            NSSortDescriptor.Notification.byDate
+    }
     
     init(router: MainScreenRouterProtocol) {
         self.router = router
@@ -241,9 +263,9 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         }
     }
     
-    func loadTimerTasks() {
+    func loadTimerTasks(with sortDescriptors: [NSSortDescriptor] = []) {
         let storage = TimerNotificationStorage()
-        let dtos = storage.fetch()
+        let dtos = storage.fetch(sortDescriptors: sortDescriptors)
         
         let tasks: [NotificationModel] = dtos.map {
             .timer(
@@ -267,9 +289,9 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         tasksDidUpdate?(tasks)
     }
     
-    func loadDateTasks() {
+    func loadDateTasks(with sortDescriptors: [NSSortDescriptor] = []) {
         let storage = DateNotificationStorage()
-        let dtos = storage.fetch()
+        let dtos = storage.fetch(sortDescriptors: sortDescriptors)
         
         let tasks: [NotificationModel] = dtos.map {
             let components = formatDateComponents(from: $0.targetDate)
@@ -295,9 +317,9 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         tasksDidUpdate?(tasks)
     }
     
-    func loadLocationTasks() {
+    func loadLocationTasks(with sortDescriptors: [NSSortDescriptor] = []) {
         let storage = LocationNotificationStorage()
-        let dtos = storage.fetch()
+        let dtos = storage.fetch(sortDescriptors: sortDescriptors)
         
         let tasks: [NotificationModel] = dtos.map {
             .location(
@@ -324,9 +346,9 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         tasksDidUpdate?(tasks)
     }
     
-    func loadAllTasks() {
+    func loadAllTasks(with sortDescriptors: [NSSortDescriptor] = []) {
         let storage = AllNotficationStorage()
-        let dtos = storage.fetch(sortDescriptors: [.Notification.byDate])
+        let dtos = storage.fetch(sortDescriptors: sortDescriptors)
         
         let models: [NotificationModel] = dtos.compactMap { dto in
             switch dto {
@@ -423,128 +445,104 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         )
     }
     
-    private func filterTasksByWork() {
-        loadAllTasks()
+    private func filterTasksByWork(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let workModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return !timerModel.work.isEmpty
-            case .date(let dateModel):
-                return !dateModel.work.isEmpty
-            case .location(let locationModel):
-                return !locationModel.work.isEmpty
+            case .timer(let timerModel): return !timerModel.work.isEmpty
+            case .date(let dateModel): return !dateModel.work.isEmpty
+            case .location(let locationModel): return !locationModel.work.isEmpty
             }
         }
         allModels = workModels
         tasksDidUpdate?(allModels)
     }
     
-    private func filterTasksByOther() {
-        loadAllTasks()
+    private func filterTasksByOther(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let otherModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return !timerModel.other.isEmpty
-            case .date(let dateModel):
-                return !dateModel.other.isEmpty
-            case .location(let locationModel):
-                return !locationModel.other.isEmpty
+            case .timer(let timerModel): return !timerModel.other.isEmpty
+            case .date(let dateModel): return !dateModel.other.isEmpty
+            case .location(let locationModel): return !locationModel.other.isEmpty
             }
         }
         allModels = otherModels
         tasksDidUpdate?(allModels)
     }
     
-    private func filterTasksByCritical() {
-        loadAllTasks()
+    private func filterTasksByCritical(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let criticalModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return !timerModel.critical.isEmpty
-            case .date(let dateModel):
-                return !dateModel.critical.isEmpty
-            case .location(let locationModel):
-                return !locationModel.critical.isEmpty
+            case .timer(let timerModel): return !timerModel.critical.isEmpty
+            case .date(let dateModel): return !dateModel.critical.isEmpty
+            case .location(let locationModel): return !locationModel.critical.isEmpty
             }
         }
         allModels = criticalModels
         tasksDidUpdate?(allModels)
     }
     
-    private func filterTasksByHigh() {
-        loadAllTasks()
+    private func filterTasksByHigh(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let highPriorityModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return !timerModel.highPriority.isEmpty
-            case .date(let dateModel):
-                return !dateModel.highPriority.isEmpty
-            case .location(let locationModel):
-                return !locationModel.highPriority.isEmpty
+            case .timer(let timerModel): return !timerModel.highPriority.isEmpty
+            case .date(let dateModel): return !dateModel.highPriority.isEmpty
+            case .location(let locationModel): return !locationModel.highPriority.isEmpty
             }
         }
         allModels = highPriorityModels
         tasksDidUpdate?(allModels)
     }
     
-    private func filterTasksByMedium() {
-        loadAllTasks()
+    private func filterTasksByMedium(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let mediumPriorityModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return !timerModel.mediumPriority.isEmpty
-            case .date(let dateModel):
-                return !dateModel.mediumPriority.isEmpty
-            case .location(let locationModel):
-                return !locationModel.mediumPriority.isEmpty
+            case .timer(let timerModel): return !timerModel.mediumPriority.isEmpty
+            case .date(let dateModel): return !dateModel.mediumPriority.isEmpty
+            case .location(let locationModel): return !locationModel.mediumPriority.isEmpty
             }
         }
         allModels = mediumPriorityModels
         tasksDidUpdate?(allModels)
     }
-    
-    private func filterTasksByLow() {
-        loadAllTasks()
+
+    private func filterTasksByLow(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let lowPriorityModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return !timerModel.lowPriority.isEmpty
-            case .date(let dateModel):
-                return !dateModel.lowPriority.isEmpty
-            case .location(let locationModel):
-                return !locationModel.lowPriority.isEmpty
+            case .timer(let timerModel): return !timerModel.lowPriority.isEmpty
+            case .date(let dateModel): return !dateModel.lowPriority.isEmpty
+            case .location(let locationModel): return !locationModel.lowPriority.isEmpty
             }
         }
         allModels = lowPriorityModels
         tasksDidUpdate?(allModels)
     }
-    
-    private func filterTasksByActive() {
-        loadAllTasks()
+
+    private func filterTasksByActive(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let activeModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return timerModel.completedDate == .distantPast
-            case .date(let dateModel):
-                return dateModel.completedDate == .distantPast
-            case .location(let locationModel):
-                return locationModel.completedDate == .distantPast
+            case .timer(let timerModel): return timerModel.completedDate == .distantPast
+            case .date(let dateModel): return dateModel.completedDate == .distantPast
+            case .location(let locationModel): return locationModel.completedDate == .distantPast
             }
         }
         allModels = activeModels
         tasksDidUpdate?(allModels)
     }
-    
-    private func filterTasksByCompleted() {
-        loadAllTasks()
+
+    private func filterTasksByCompleted(with sortDescriptors: [NSSortDescriptor] = []) {
+        loadAllTasks(with: sortDescriptors)
         let completedModels = allModels.filter { model in
             switch model {
-            case .timer(let timerModel):
-                return timerModel.completedDate != .distantPast
-            case .date(let dateModel):
-                return dateModel.completedDate != .distantPast
-            case .location(let locationModel):
-                return locationModel.completedDate != .distantPast
+            case .timer(let timerModel): return timerModel.completedDate != .distantPast
+            case .date(let dateModel): return dateModel.completedDate != .distantPast
+            case .location(let locationModel): return locationModel.completedDate != .distantPast
             }
         }
         allModels = completedModels
@@ -552,33 +550,36 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     }
     
     func didSelectFilter(_ filter: FilterItem) {
+        currentFilter = filter
         resetData?()
+        
+        let sortDescriptor = currentSortDescriptor()
         
         switch filter {
         case .timer:
-            loadTimerTasks()
+            loadTimerTasks(with: [sortDescriptor])
         case .date:
-            loadDateTasks()
+            loadDateTasks(with: [sortDescriptor])
         case .all:
-            loadAllTasks()
+            loadAllTasks(with: [sortDescriptor])
         case .location:
-            loadLocationTasks()
+            loadLocationTasks(with: [sortDescriptor])
         case .active:
-            filterTasksByActive()
+            filterTasksByActive(with: [sortDescriptor])
         case .completed:
-            filterTasksByCompleted()
+            filterTasksByCompleted(with: [sortDescriptor])
         case .work:
-            filterTasksByWork()
+            filterTasksByWork(with: [sortDescriptor])
         case .other:
-            filterTasksByOther()
+            filterTasksByOther(with: [sortDescriptor])
         case .critical:
-            filterTasksByCritical()
+            filterTasksByCritical(with: [sortDescriptor])
         case .high:
-            filterTasksByHigh()
+            filterTasksByHigh(with: [sortDescriptor])
         case .medium:
-            filterTasksByMedium()
+            filterTasksByMedium(with: [sortDescriptor])
         case .low:
-            filterTasksByLow()
+            filterTasksByLow(with: [sortDescriptor])
         default:
             break
         }

@@ -330,7 +330,7 @@ final class LocationVC: UIViewController {
         middleCardView.snp.makeConstraints { make in
             make.top.equalTo(topLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(500) // Increased height for new elements
+            make.height.equalTo(500)
         }
         
         // Title section
