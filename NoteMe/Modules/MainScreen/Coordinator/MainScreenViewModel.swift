@@ -425,8 +425,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     
     private func filterTasksByWork() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let workModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
                 return !timerModel.work.isEmpty
@@ -436,13 +435,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 return !locationModel.work.isEmpty
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = workModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByOther() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let otherModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
                 return !timerModel.other.isEmpty
@@ -452,13 +451,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 return !locationModel.other.isEmpty
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = otherModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByCritical() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let criticalModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
                 return !timerModel.critical.isEmpty
@@ -468,13 +467,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 return !locationModel.critical.isEmpty
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = criticalModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByHigh() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let highPriorityModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
                 return !timerModel.highPriority.isEmpty
@@ -484,13 +483,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 return !locationModel.highPriority.isEmpty
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = highPriorityModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByMedium() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let mediumPriorityModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
                 return !timerModel.mediumPriority.isEmpty
@@ -500,13 +499,13 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 return !locationModel.mediumPriority.isEmpty
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = mediumPriorityModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByLow() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let lowPriorityModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
                 return !timerModel.lowPriority.isEmpty
@@ -516,39 +515,40 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 return !locationModel.lowPriority.isEmpty
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = lowPriorityModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByActive() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let activeModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
-                return timerModel.completedDate == Date.distantPast
+                return timerModel.completedDate == .distantPast
             case .date(let dateModel):
-                return dateModel.completedDate == Date.distantPast
+                return dateModel.completedDate == .distantPast
             case .location(let locationModel):
-                return locationModel.completedDate == Date.distantPast
+                return locationModel.completedDate == .distantPast
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = activeModels
+        tasksDidUpdate?(allModels)
     }
     
     private func filterTasksByCompleted() {
         loadAllTasks()
-        
-        let filteredModels = allModels.filter { model in
+        let completedModels = allModels.filter { model in
             switch model {
             case .timer(let timerModel):
-                return timerModel.completedDate != Date.distantPast
+                return timerModel.completedDate != .distantPast
             case .date(let dateModel):
-                return dateModel.completedDate != Date.distantPast
+                return dateModel.completedDate != .distantPast
             case .location(let locationModel):
-                return locationModel.completedDate != Date.distantPast
+                return locationModel.completedDate != .distantPast
             }
         }
-        tasksDidUpdate?(filteredModels)
+        allModels = completedModels
+        tasksDidUpdate?(allModels)
     }
     
     func didSelectFilter(_ filter: FilterItem) {
