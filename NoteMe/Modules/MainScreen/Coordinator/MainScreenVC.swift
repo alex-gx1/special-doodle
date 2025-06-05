@@ -4,6 +4,100 @@ import UIKit
 import SnapKit
 
 final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskCellDelegate, DateTaskCellDelegate {
+
+    private var viewModel: MainScreenViewModelProtocol
+    
+    private let tableView = UITableView()
+    private lazy var adapter = MainScreenAdapter(tableView: tableView)
+    
+    private var selectedIndex: Int = 0
+    
+    init(viewModel: MainScreenViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private lazy var globalCardView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: FilterCell.identifier)
+        return collectionView
+    }()
+    
+    private lazy var sortButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Images.sortButton, for: .normal)
+        return button
+    }()
+    
+    private lazy var topStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [collectionView, sortButton])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .fill
+        stack.distribution = .fill
+        return stack
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        bindViewModel()
+        viewModel.didSelectFilter(.all)
+        adapter.locationTaskDelegate = self
+        adapter.timerTaskDelegate = self
+        adapter.dateTaskDelegate = self
+        setupNotifications()
+    }
+    
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleTaskCreatedNotification),
+            name: .taskCreatedNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func handleTaskCreatedNotification() {
+        
+        selectedIndex = FilterItem.allCases.firstIndex(of: .all) ?? 0
+        collectionView.reloadData()
+        
+        viewModel.didSelectFilter(.all)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func bindViewModel() {
+        viewModel.resetData = { [weak self] in
+            self?.adapter.resetData()
+        }
+        
+        viewModel.tasksDidUpdate = { [weak self] models in
+            self?.adapter.update(with: models)
+        }
+    }
     
     func dateTaskCellDidTapAction(_ cell: DateTaskCell) {
         guard let indexPath = tableView.indexPath(for: cell),
@@ -155,100 +249,6 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             }
         })
         present(alert, animated: true)
-    }
-    
-    private var viewModel: MainScreenViewModelProtocol
-    
-    private let tableView = UITableView()
-    private lazy var adapter = MainScreenAdapter(tableView: tableView)
-    
-    private var selectedIndex: Int = 0
-    
-    init(viewModel: MainScreenViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private lazy var globalCardView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: FilterCell.identifier)
-        return collectionView
-    }()
-    
-    private lazy var sortButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Images.sortButton, for: .normal)
-        return button
-    }()
-    
-    private lazy var topStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [collectionView, sortButton])
-        stack.axis = .horizontal
-        stack.spacing = 8
-        stack.alignment = .fill
-        stack.distribution = .fill
-        return stack
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        bindViewModel()
-        viewModel.didSelectFilter(.all)
-        adapter.locationTaskDelegate = self
-        adapter.timerTaskDelegate = self
-        adapter.dateTaskDelegate = self
-        setupNotifications()
-    }
-    
-    private func setupNotifications() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleTaskCreatedNotification),
-            name: .taskCreatedNotification,
-            object: nil
-        )
-    }
-    
-    @objc private func handleTaskCreatedNotification() {
-        
-        selectedIndex = FilterItem.allCases.firstIndex(of: .all) ?? 0
-        collectionView.reloadData()
-        
-        viewModel.didSelectFilter(.all)
-    }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    private func bindViewModel() {
-        viewModel.resetData = { [weak self] in
-            self?.adapter.resetData()
-        }
-        
-        viewModel.tasksDidUpdate = { [weak self] models in
-            self?.adapter.update(with: models)
-        }
     }
     
     private func setupUI() {
