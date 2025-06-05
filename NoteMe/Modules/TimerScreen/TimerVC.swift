@@ -143,7 +143,7 @@ final class TimerVC: UIViewController {
         button.setTitle("Work", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont15
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.backgroundColor = Colors.appYellowColor?.withAlphaComponent(0.7)
+        button.backgroundColor = Colors.appGreyColor
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -170,8 +170,8 @@ final class TimerVC: UIViewController {
         let button = UIButton()
         button.setTitle("Critical", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemRed.withAlphaComponent(0.7)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = Colors.appGreyColor
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -181,8 +181,8 @@ final class TimerVC: UIViewController {
         let button = UIButton()
         button.setTitle("High", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemOrange.withAlphaComponent(0.7)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = Colors.appGreyColor
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -192,8 +192,8 @@ final class TimerVC: UIViewController {
         let button = UIButton()
         button.setTitle("Medium", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = Colors.appYellowColor
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -203,8 +203,8 @@ final class TimerVC: UIViewController {
         let button = UIButton()
         button.setTitle("Low", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemGreen.withAlphaComponent(0.7)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = Colors.appGreyColor
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(priorityButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -320,7 +320,7 @@ final class TimerVC: UIViewController {
         middleCardView.snp.makeConstraints { make in
             make.top.equalTo(topLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(400) // Increased height for new elements
+            make.height.equalTo(400)
         }
         
         // Title section
@@ -480,14 +480,14 @@ final class TimerVC: UIViewController {
     
     @objc private func categoryButtonTapped(_ sender: UIButton) {
         [otherButton, workButton].forEach { button in
-            button.backgroundColor = button == sender ? Colors.appYellowColor : Colors.appYellowColor?.withAlphaComponent(0.7)
+            button.backgroundColor = button == sender ? Colors.appYellowColor : Colors.appGreyColor
         }
         selectedCategory = sender.title(for: .normal) ?? "Other"
     }
     
     @objc private func priorityButtonTapped(_ sender: UIButton) {
         [criticalButton, highPriorityButton, mediumPriorityButton, lowPriorityButton].forEach { button in
-            button.backgroundColor = button == sender ? button.backgroundColor?.withAlphaComponent(1.0) : button.backgroundColor?.withAlphaComponent(0.7)
+            button.backgroundColor = button == sender ? Colors.appYellowColor : Colors.appGreyColor
         }
         selectedPriority = sender.title(for: .normal) ?? "Medium"
     }
