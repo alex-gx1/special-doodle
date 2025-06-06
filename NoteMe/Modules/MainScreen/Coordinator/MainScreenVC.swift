@@ -3,7 +3,7 @@ import Storage
 import UIKit
 import SnapKit
 
-final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskCellDelegate, DateTaskCellDelegate {
+final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskCellDelegate, DateTaskCellDelegate, UITextFieldDelegate {
     
     private var viewModel: MainScreenViewModelProtocol
     
@@ -53,8 +53,14 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     }()
     
     private func setupSearchTextField() {
+        searchTextField.delegate = self
         searchTextField.addTarget(self, action: #selector(searchTextChanged(_:)), for: .editingChanged)
         cancelSearchButton.addTarget(self, action: #selector(cancelSearchTapped), for: .touchUpInside)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     @objc private func searchTextChanged(_ textField: UITextField) {
@@ -138,8 +144,18 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         
         searchStackView.isHidden = false
         searchStackView.alpha = 1
-        
+        setupKeyboardHidingOnTap()
         setupSearchTextField()
+    }
+    
+    private func setupKeyboardHidingOnTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func setupNotifications() {

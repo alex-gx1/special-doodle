@@ -33,20 +33,80 @@ protocol MainScreenViewModelProtocol {
 final class MainScreenViewModel: MainScreenViewModelProtocol {
     
     func searchTasks(with text: String) {
-        let filteredModels = allModels.filter { model in
-            switch model {
-            case .timer(let timerModel):
-                return timerModel.title.lowercased().contains(text) ||
-                       timerModel.subtitle.lowercased().contains(text)
-            case .date(let dateModel):
-                return dateModel.title.lowercased().contains(text) ||
-                       dateModel.subtitle.lowercased().contains(text)
-            case .location(let locationModel):
-                return locationModel.title.lowercased().contains(text) ||
-                       locationModel.subtitle.lowercased().contains(text)
+        let searchText = text.lowercased()
+        let sortDescriptor = currentSortDescriptor()
+        let predicate = NSPredicate(format: "title CONTAINS[c] %@ OR subtitle CONTAINS[c] %@", searchText, searchText)
+        
+        let storage = AllNotficationStorage()
+        let dtos = storage.fetch(predicate: predicate, sortDescriptors: [sortDescriptor])
+        
+        let models: [NotificationModel] = dtos.compactMap { dto in
+            switch dto {
+            case let timerDTO as TimerNotificationDTO:
+                return .timer(
+                    TimerTaskModel(
+                        identifier: timerDTO.id,
+                        title: timerDTO.title,
+                        subtitle: timerDTO.subtitle ?? "",
+                        seconds: timerDTO.seconds,
+                        createdAt: timerDTO.date,
+                        completedDate: timerDTO.completedDate ?? Date.distantPast,
+                        work: timerDTO.work ?? "",
+                        other: timerDTO.other ?? "",
+                        critical: timerDTO.critical ?? "",
+                        highPriority: timerDTO.highPriority ?? "",
+                        mediumPriority: timerDTO.mediumPriority ?? "",
+                        lowPriority: timerDTO.lowPriority ?? ""
+                    )
+                )
+            case let dateDTO as DateNotificationDTO:
+                let components = formatDateComponents(from: dateDTO.targetDate)
+                return .date(
+                    DateTaskModel(
+                        identifier: dateDTO.id,
+                        title: dateDTO.title,
+                        subtitle: dateDTO.subtitle ?? "",
+                        dateString: components.full,
+                        day: components.day,
+                        month: components.month,
+                        createdAt: dateDTO.date,
+                        targetDate: dateDTO.targetDate,
+                        completedDate: dateDTO.completedDate ?? Date.distantPast,
+                        work: dateDTO.work ?? "",
+                        other: dateDTO.other ?? "",
+                        critical: dateDTO.critical ?? "",
+                        highPriority: dateDTO.highPriority ?? "",
+                        mediumPriority: dateDTO.mediumPriority ?? "",
+                        lowPriority: dateDTO.lowPriority ?? ""
+                    )
+                )
+            case let locationDTO as LocationNotificationDTO:
+                return .location(
+                    LocationTaskModel(
+                        identifier: locationDTO.id,
+                        title: locationDTO.title,
+                        subtitle: locationDTO.subtitle ?? "",
+                        url: locationDTO.url,
+                        createdAt: locationDTO.date,
+                        completedDate: locationDTO.completedDate ?? Date.distantPast,
+                        x: locationDTO.x,
+                        y: locationDTO.y,
+                        radius: locationDTO.radius,
+                        work: locationDTO.work ?? "",
+                        other: locationDTO.other ?? "",
+                        critical: locationDTO.critical ?? "",
+                        highPriority: locationDTO.highPriority ?? "",
+                        mediumPriority: locationDTO.mediumPriority ?? "",
+                        lowPriority: locationDTO.lowPriority ?? ""
+                    )
+                )
+            default:
+                return nil
             }
         }
-        tasksDidUpdate?(filteredModels)
+        
+        allModels = models
+        tasksDidUpdate?(models)
     }
 
     func clearSearch() {
