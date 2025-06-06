@@ -12,6 +12,8 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     
     private var selectedIndex: Int = 0
     
+    private var isSearchVisible = true
+    
     init(viewModel: MainScreenViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -114,6 +116,9 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         adapter.timerTaskDelegate = self
         adapter.dateTaskDelegate = self
         setupNotifications()
+        
+        searchStackView.isHidden = false
+        searchStackView.alpha = 1
     }
     
     private func setupNotifications() {
@@ -126,9 +131,18 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     }
     
     @objc private func handleTaskCreatedNotification() {
-        
         selectedIndex = FilterItem.allCases.firstIndex(of: .all) ?? 0
         collectionView.reloadData()
+        
+        searchStackView.isHidden = false
+        searchStackView.alpha = 1
+        isSearchVisible = true
+        
+        tableView.snp.remakeConstraints { make in
+            make.top.equalTo(searchStackView.snp.bottom).offset(0)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview()
+        }
         
         viewModel.didSelectFilter(.all)
     }
@@ -319,7 +333,6 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             make.height.equalTo(40)
         }
         
-        // Настройка поиска
         searchStackView.addArrangedSubview(searchContainer)
         searchStackView.addArrangedSubview(cancelSearchButton)
         searchContainer.addSubview(searchIcon)
@@ -369,19 +382,60 @@ extension MainScreenVC: UICollectionViewDataSource {
         return FilterItem.allCases.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath ) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCell.identifier, for: indexPath) as! FilterCell
         let item = FilterItem.allCases[indexPath.row]
-        cell.setup(item, isSelected: indexPath.row == selectedIndex)
+        cell.setup(with: item)
+        cell.isSelected = indexPath.row == selectedIndex
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        guard selectedIndex != indexPath.row else { return }
+        
+        let prevIndexPath = IndexPath(item: selectedIndex, section: 0)
+        if let prevCell = collectionView.cellForItem(at: prevIndexPath) as? FilterCell {
+            prevCell.isSelected = false
+        }
+        
+        if let newCell = collectionView.cellForItem(at: indexPath) as? FilterCell {
+            newCell.isSelected = true
+        }
+        
         selectedIndex = indexPath.row
-        collectionView.reloadData()
         
         let selectedFilter = FilterItem.allCases[indexPath.row]
         viewModel.didSelectFilter(selectedFilter)
+        
+        let shouldShowSearch = selectedFilter == .all
+        
+        guard shouldShowSearch != isSearchVisible else { return }
+        
+        UIView.performWithoutAnimation {
+            self.searchStackView.isHidden = !shouldShowSearch
+            self.searchStackView.alpha = shouldShowSearch ? 1 : 0
+            self.view.layoutIfNeeded()
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            if shouldShowSearch {
+                self.tableView.snp.remakeConstraints { make in
+                    make.top.equalTo(self.searchStackView.snp.bottom).offset(0)
+                    make.leading.trailing.equalToSuperview().inset(16)
+                    make.bottom.equalToSuperview()
+                }
+            } else {
+                self.tableView.snp.remakeConstraints { make in
+                    make.top.equalTo(self.topStackView.snp.bottom).offset(8)
+                    make.leading.trailing.equalToSuperview().inset(16)
+                    make.bottom.equalToSuperview()
+                }
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+        isSearchVisible = shouldShowSearch
     }
 }
 
