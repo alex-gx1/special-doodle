@@ -26,10 +26,32 @@ protocol MainScreenViewModelProtocol {
     var isAscendingOrder: Bool { get }
     
     //for search
-
+    func searchTasks(with text: String)
+    func clearSearch()
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
+    
+    func searchTasks(with text: String) {
+        let filteredModels = allModels.filter { model in
+            switch model {
+            case .timer(let timerModel):
+                return timerModel.title.lowercased().contains(text) ||
+                       timerModel.subtitle.lowercased().contains(text)
+            case .date(let dateModel):
+                return dateModel.title.lowercased().contains(text) ||
+                       dateModel.subtitle.lowercased().contains(text)
+            case .location(let locationModel):
+                return locationModel.title.lowercased().contains(text) ||
+                       locationModel.subtitle.lowercased().contains(text)
+            }
+        }
+        tasksDidUpdate?(filteredModels)
+    }
+
+    func clearSearch() {
+        didSelectFilter(currentFilter)
+    }
     
     private let router: MainScreenRouterProtocol
     

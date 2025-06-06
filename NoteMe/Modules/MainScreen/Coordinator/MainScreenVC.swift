@@ -52,11 +52,30 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         return textField
     }()
     
+    private func setupSearchTextField() {
+        searchTextField.addTarget(self, action: #selector(searchTextChanged(_:)), for: .editingChanged)
+        cancelSearchButton.addTarget(self, action: #selector(cancelSearchTapped), for: .touchUpInside)
+    }
+    
+    @objc private func searchTextChanged(_ textField: UITextField) {
+        guard let searchText = textField.text?.lowercased(), !searchText.isEmpty else {
+            viewModel.clearSearch()
+            return
+        }
+        viewModel.searchTasks(with: searchText)
+    }
+
+    @objc private func cancelSearchTapped() {
+        searchTextField.text = ""
+        searchTextField.resignFirstResponder()
+        viewModel.clearSearch()
+    }
+    
     private lazy var cancelSearchButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Cancel", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.isHidden = false
+        button.isHidden = true
         return button
     }()
     
@@ -119,6 +138,8 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         
         searchStackView.isHidden = false
         searchStackView.alpha = 1
+        
+        setupSearchTextField()
     }
     
     private func setupNotifications() {
