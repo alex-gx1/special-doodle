@@ -14,6 +14,7 @@ protocol ProfileScreenRouterProtocol {
         onConfirm: @escaping () -> Void
     )
     func openLoginScreen()
+    func openStatsScreen()
 }
 
 final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
@@ -45,4 +46,7 @@ final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
         )
     }
 
+    func openStatsScreen() {
+        router.openStatsScreen()
+    }
 }

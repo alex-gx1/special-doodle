@@ -46,4 +46,6 @@ enum Images {
     static let doneIcon = UIImage(named: "doneIcon")
     
     static let deleteIcon = UIImage(named: "deleteIcon")
+    
+    static let stats = UIImage(named: "stats")
 }

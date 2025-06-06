@@ -32,6 +32,56 @@ protocol MainScreenViewModelProtocol {
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
     
+    private let router: MainScreenRouterProtocol
+    
+    var tasksDidUpdate: (([NotificationModel]) -> Void)?
+    
+    var resetData: (() -> Void)?
+    
+    private var allModels: [NotificationModel] = []
+    
+    func model(at index: Int) -> NotificationModel? {
+        guard index >= 0 && index < allModels.count else { return nil }
+        return allModels[index]
+    }
+    
+    private let dateStorage = DateNotificationStorage()
+    private let timerStorage = TimerNotificationStorage()
+    private let locationStorage = LocationNotificationStorage()
+    
+    private var currentFilter: FilterItem = .all
+    private var isAscending = false
+    
+    var isAscendingOrder: Bool {
+        return isAscending
+    }
+    
+    func toggleSortOrder() {
+        isAscending.toggle()
+        didSelectFilter(currentFilter)
+    }
+    
+    private func currentSortDescriptor() -> NSSortDescriptor {
+        return isAscending ?
+        NSSortDescriptor.Notification.byDateAscending :
+        NSSortDescriptor.Notification.byDate
+    }
+    
+    init(router: MainScreenRouterProtocol) {
+        self.router = router
+    }
+    
+    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String,
+                            deleteHandler: @escaping () -> Void, completeHandler: @escaping () -> Void) {
+        router.presentMenuPopover(
+            from: source,
+            sourceRect: sourceRect,
+            forItemId: id,
+            deleteHandler: deleteHandler,
+            completeHandler: completeHandler
+        )
+    }
+    
     func searchTasks(with text: String) {
         let searchText = text.lowercased()
         let sortDescriptor = currentSortDescriptor()
@@ -108,59 +158,9 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         allModels = models
         tasksDidUpdate?(models)
     }
-
+    
     func clearSearch() {
         didSelectFilter(currentFilter)
-    }
-    
-    private let router: MainScreenRouterProtocol
-    
-    var tasksDidUpdate: (([NotificationModel]) -> Void)?
-    
-    var resetData: (() -> Void)?
-    
-    private var allModels: [NotificationModel] = []
-    
-    func model(at index: Int) -> NotificationModel? {
-        guard index >= 0 && index < allModels.count else { return nil }
-        return allModels[index]
-    }
-    
-    private let dateStorage = DateNotificationStorage()
-    private let timerStorage = TimerNotificationStorage()
-    private let locationStorage = LocationNotificationStorage()
-    
-    private var currentFilter: FilterItem = .all
-    private var isAscending = false
-    
-    var isAscendingOrder: Bool {
-        return isAscending
-    }
-    
-    func toggleSortOrder() {
-        isAscending.toggle()
-        didSelectFilter(currentFilter)
-    }
-    
-    private func currentSortDescriptor() -> NSSortDescriptor {
-        return isAscending ?
-        NSSortDescriptor.Notification.byDateAscending :
-        NSSortDescriptor.Notification.byDate
-    }
-    
-    init(router: MainScreenRouterProtocol) {
-        self.router = router
-    }
-    
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String,
-                            deleteHandler: @escaping () -> Void, completeHandler: @escaping () -> Void) {
-        router.presentMenuPopover(
-            from: source,
-            sourceRect: sourceRect,
-            forItemId: id,
-            deleteHandler: deleteHandler,
-            completeHandler: completeHandler
-        )
     }
     
     func completeDateNotification(withId id: String, completion: @escaping (Bool) -> Void) {

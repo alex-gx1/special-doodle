@@ -81,6 +81,10 @@
 		F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */; };
 		F63445AE2DDD0BF60040BC46 /* MainScreenSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */; };
 		F63445B02DDD0F240040BC46 /* MainScreenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */; };
+		F635179B2DF38AE400D97E8F /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179A2DF38AE400D97E8F /* StatsVC.swift */; };
+		F635179D2DF38AF800D97E8F /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179C2DF38AF800D97E8F /* StatsViewModel.swift */; };
+		F635179F2DF38B0800D97E8F /* StatsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179E2DF38B0800D97E8F /* StatsAssembler.swift */; };
+		F63517A12DF38DED00D97E8F /* StatsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517A02DF38DED00D97E8F /* StatsRouter.swift */; };
 		F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */; };
 		F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */; };
 		F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */; };
@@ -237,6 +241,10 @@
 		F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
 		F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenSections.swift; sourceTree = "<group>"; };
 		F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAdapter.swift; sourceTree = "<group>"; };
+		F635179A2DF38AE400D97E8F /* StatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
+		F635179C2DF38AF800D97E8F /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		F635179E2DF38B0800D97E8F /* StatsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsAssembler.swift; sourceTree = "<group>"; };
+		F63517A02DF38DED00D97E8F /* StatsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRouter.swift; sourceTree = "<group>"; };
 		F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapVC.swift; sourceTree = "<group>"; };
 		F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapViewModel.swift; sourceTree = "<group>"; };
 		F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapAssembler.swift; sourceTree = "<group>"; };
@@ -537,6 +545,7 @@
 				F60232F42DA6F8E900F2D0E8 /* CalendarScreen */,
 				F6E1F1D02DA59E2500C1CAD2 /* TimerScreen */,
 				F605B1B42DA45B7800B330E6 /* PopOverScreen */,
+				F63517992DF38AB200D97E8F /* StatsScreen */,
 				9D2E20CC2D39ABF500B475EE /* TabBarController */,
 				9D2E20C32D39A9CB00B475EE /* ProfileScreen */,
 				9D28AFCA2D21FE54005DB31F /* MainScreen */,
@@ -646,6 +655,17 @@
 				F687DCF82DD9042C00DF97D4 /* FilterCell.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		F63517992DF38AB200D97E8F /* StatsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F635179A2DF38AE400D97E8F /* StatsVC.swift */,
+				F635179C2DF38AF800D97E8F /* StatsViewModel.swift */,
+				F635179E2DF38B0800D97E8F /* StatsAssembler.swift */,
+				F63517A02DF38DED00D97E8F /* StatsRouter.swift */,
+			);
+			path = StatsScreen;
 			sourceTree = "<group>";
 		};
 		F65B5B342DB1B201007D2ED6 /* FullMapVC */ = {
@@ -1020,6 +1040,7 @@
 				F66FEB132DE7751D007E5A2B /* SmallPopOverViewModel.swift in Sources */,
 				F6E1F1CB2DA587FD00C1CAD2 /* MenuPopOverViewModel.swift in Sources */,
 				9D2E20C22D399C1D00B475EE /* OnboardingScreens.swift in Sources */,
+				F635179B2DF38AE400D97E8F /* StatsVC.swift in Sources */,
 				F63445AE2DDD0BF60040BC46 /* MainScreenSections.swift in Sources */,
 				9D2835EF2D1B3F99009A66DA /* LoginRouter.swift in Sources */,
 				F66FEB112DE77504007E5A2B /* SmallPopOverVC.swift in Sources */,
@@ -1044,6 +1065,7 @@
 				F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */,
 				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
+				F635179F2DF38B0800D97E8F /* StatsAssembler.swift in Sources */,
 				9D6A68172D1E060A0036D9A3 /* OnboardingSecondAssembler.swift in Sources */,
 				F6A038672DE5B26400B55965 /* LocationTaskModel.swift in Sources */,
 				9D6A68072D1C83B60036D9A3 /* AlertBuilder.swift in Sources */,
@@ -1052,6 +1074,7 @@
 				F6A955C42DED1A09003768A2 /* NotificationManager.swift in Sources */,
 				9DE5FD772D1A09DD004DA69A /* LoginAuthServiceUseCase.swift in Sources */,
 				F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */,
+				F635179D2DF38AF800D97E8F /* StatsViewModel.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
 				F60232F72DA6F91600F2D0E8 /* CalendarVC.swift in Sources */,
 				9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */,
@@ -1078,6 +1101,7 @@
 				F6E90EC52DCE70D800F6B12E /* DateTaskCell.swift in Sources */,
 				9D6A680A2D1DD7B70036D9A3 /* OnboardingVC.swift in Sources */,
 				9D6A68102D1DD8110036D9A3 /* OnboardingRouter.swift in Sources */,
+				F63517A12DF38DED00D97E8F /* StatsRouter.swift in Sources */,
 				F60232FF2DA6F95200F2D0E8 /* LocationVC.swift in Sources */,
 				F6A038652DE5954E00B55965 /* LocationTaskCell.swift in Sources */,
 				F66FEB152DE77530007E5A2B /* SmallPopOverAssembler.swift in Sources */,

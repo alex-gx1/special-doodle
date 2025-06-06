@@ -14,6 +14,9 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     
     private var isSearchVisible = true
     
+    private let feedbackGenerator = UISelectionFeedbackGenerator()
+    private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    
     init(viewModel: MainScreenViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -62,21 +65,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         textField.resignFirstResponder()
         return true
     }
-    
-    @objc private func searchTextChanged(_ textField: UITextField) {
-        guard let searchText = textField.text?.lowercased(), !searchText.isEmpty else {
-            viewModel.clearSearch()
-            return
-        }
-        viewModel.searchTasks(with: searchText)
-    }
-
-    @objc private func cancelSearchTapped() {
-        searchTextField.text = ""
-        searchTextField.resignFirstResponder()
-        viewModel.clearSearch()
-    }
-    
+        
     private lazy var cancelSearchButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Cancel", for: .normal)
@@ -120,6 +109,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     }()
     
     @objc private func sortButtonTapped() {
+        impactFeedbackGenerator.impactOccurred()
         viewModel.toggleSortOrder()
     }
     
@@ -156,6 +146,20 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func searchTextChanged(_ textField: UITextField) {
+        guard let searchText = textField.text?.lowercased(), !searchText.isEmpty else {
+            viewModel.clearSearch()
+            return
+        }
+        viewModel.searchTasks(with: searchText)
+    }
+
+    @objc private func cancelSearchTapped() {
+        searchTextField.text = ""
+        searchTextField.resignFirstResponder()
+        viewModel.clearSearch()
     }
     
     private func setupNotifications() {
@@ -429,6 +433,8 @@ extension MainScreenVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
+        feedbackGenerator.selectionChanged()
+        
         guard selectedIndex != indexPath.row else { return }
         
         let prevIndexPath = IndexPath(item: selectedIndex, section: 0)

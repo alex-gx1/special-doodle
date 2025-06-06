@@ -15,7 +15,7 @@ final class TabBarViewModel: TabBarViewModelProtocol {
     
     func viewDidAppear() {
         router.removeOnboardingScreens()
-        print("экран удален")
+        print("экран удаленннн")
     }
     
     func plusButtonTapped(from source: UIView, sourceRect: CGRect) {

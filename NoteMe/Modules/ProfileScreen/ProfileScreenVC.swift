@@ -7,6 +7,7 @@ import Firebase
 protocol ProfileScreenViewModelProtocol {
     func showAlert(Title: String, Message: String?)
     func getUserMail() -> String
+    func openStatsScreen()
 }
 
 final class ProfileScreenVC: UIViewController {
@@ -139,6 +140,32 @@ final class ProfileScreenVC: UIViewController {
         return button
     }()
     
+    private lazy var statsImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.stats
+        imageView.contentMode = .scaleAspectFit
+        imageView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        return imageView
+    }()
+    
+    private lazy var statsButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Images.stats, for: .normal)
+        button.setTitle(" Stats", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setTitleColor(Colors.appBlackColor, for: .normal)
+        button.titleLabel?.font = UIFont.appFont15
+        button.addTarget(self, action: #selector(handleStats), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var separator3: UIView = {
+        let view = UIView()
+        view.backgroundColor = Colors.appGreyColor
+        return view
+    }()
+    
     private lazy var logoutButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.logout, for: .normal)
@@ -176,6 +203,10 @@ final class ProfileScreenVC: UIViewController {
         bottomCardView.addSubview(separator2)
         
         bottomCardView.addSubview(logoutButton)
+        
+        bottomCardView.addSubview(statsButton)
+        
+        bottomCardView.addSubview(separator3)
         
         globalCardView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -219,7 +250,7 @@ final class ProfileScreenVC: UIViewController {
         bottomCardView.snp.makeConstraints { make in
             make.top.equalTo(settingsLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(146)
+            make.height.equalTo(186)
         }
         
         switchContainer.snp.makeConstraints { make in
@@ -236,24 +267,40 @@ final class ProfileScreenVC: UIViewController {
         
         exportButton.snp.makeConstraints { make in
             make.top.equalTo(separator1.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(30)
         }
         
         separator2.snp.makeConstraints { make in
-            make.top.equalTo(exportButton.snp.bottom).offset(5)
+            make.top.equalTo(exportButton.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(1)
+        }
+        
+        statsButton.snp.makeConstraints { make in
+            make.top.equalTo(separator2.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(30)
+        }
+        
+        separator3.snp.makeConstraints { make in
+            make.top.equalTo(statsButton.snp.bottom).offset(6)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(1)
         }
         
         logoutButton.snp.makeConstraints { make in
-            make.top.equalTo(separator2.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().offset(16)
+            make.top.equalTo(separator3.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(30)
         }
     }
     
     @objc func handleLogout() {
         viewModel.showAlert(Title: "Are you shure about that ?", Message: "You will be sent to the login page")
+    }
+    
+    @objc func handleStats() {
+        viewModel.openStatsScreen()
     }
 }
