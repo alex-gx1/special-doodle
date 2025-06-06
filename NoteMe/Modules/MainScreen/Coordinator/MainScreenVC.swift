@@ -4,7 +4,7 @@ import UIKit
 import SnapKit
 
 final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskCellDelegate, DateTaskCellDelegate {
-
+    
     private var viewModel: MainScreenViewModelProtocol
     
     private let tableView = UITableView()
@@ -25,6 +25,48 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         let view = UIView()
         view.backgroundColor = .white
         return view
+    }()
+    
+    private lazy var searchContainer: UIView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 18
+        return view
+    }()
+    
+    private lazy var searchIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.search
+        return imageView
+    }()
+    
+    private lazy var searchTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Search tasks"
+        textField.borderStyle = .none
+        textField.font = .systemFont(ofSize: 16)
+        textField.clearButtonMode = .whileEditing
+        return textField
+    }()
+    
+    private lazy var cancelSearchButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.isHidden = false
+        return button
+    }()
+    
+    private lazy var searchStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.distribution = .fill
+        stack.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        stack.isLayoutMarginsRelativeArrangement = true
+        return stack
     }()
     
     private lazy var collectionView: UICollectionView = {
@@ -277,10 +319,44 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             make.height.equalTo(40)
         }
         
+        // Настройка поиска
+        searchStackView.addArrangedSubview(searchContainer)
+        searchStackView.addArrangedSubview(cancelSearchButton)
+        searchContainer.addSubview(searchIcon)
+        searchContainer.addSubview(searchTextField)
+        
+        globalCardView.addSubview(searchStackView)
+        searchStackView.snp.makeConstraints { make in
+            make.top.equalTo(topStackView.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(55)
+        }
+        
+        searchContainer.snp.makeConstraints { make in
+            make.height.equalTo(36)
+        }
+        
+        searchIcon.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(12)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(20)
+        }
+        
+        searchTextField.snp.makeConstraints { make in
+            make.left.equalTo(searchIcon.snp.right).offset(8)
+            make.right.equalToSuperview().inset(12)
+            make.top.bottom.equalToSuperview()
+        }
+        
+        cancelSearchButton.setContentHuggingPriority(.required, for: .horizontal)
+        cancelSearchButton.snp.makeConstraints { make in
+            make.height.equalTo(36)
+        }
+        
         globalCardView.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(topStackView.snp.bottom).offset(16)
+            make.top.equalTo(searchStackView.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview()
         }

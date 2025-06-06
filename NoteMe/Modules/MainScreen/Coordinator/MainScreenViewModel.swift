@@ -2,13 +2,13 @@ import UIKit
 import Storage
 
 protocol MainScreenViewModelProtocol {
-//    func loadTimerTasks(with sortDescriptors: [NSSortDescriptor])
-//    func loadDateTasks()
+    //    func loadTimerTasks(with sortDescriptors: [NSSortDescriptor])
+    //    func loadDateTasks()
     var tasksDidUpdate: (([NotificationModel]) -> Void)? { get set }
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
     func model(at index: Int) -> NotificationModel?
-//    func loadAllTasks()
+    //    func loadAllTasks()
     //for delete methods
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
@@ -24,6 +24,9 @@ protocol MainScreenViewModelProtocol {
     //for sort btn
     func toggleSortOrder()
     var isAscendingOrder: Bool { get }
+    
+    //for search
+
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
@@ -59,8 +62,8 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     
     private func currentSortDescriptor() -> NSSortDescriptor {
         return isAscending ?
-            NSSortDescriptor.Notification.byDateAscending :
-            NSSortDescriptor.Notification.byDate
+        NSSortDescriptor.Notification.byDateAscending :
+        NSSortDescriptor.Notification.byDate
     }
     
     init(router: MainScreenRouterProtocol) {
@@ -509,7 +512,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         allModels = mediumPriorityModels
         tasksDidUpdate?(allModels)
     }
-
+    
     private func filterTasksByLow(with sortDescriptors: [NSSortDescriptor] = []) {
         loadAllTasks(with: sortDescriptors)
         let lowPriorityModels = allModels.filter { model in
@@ -522,7 +525,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         allModels = lowPriorityModels
         tasksDidUpdate?(allModels)
     }
-
+    
     private func filterTasksByActive(with sortDescriptors: [NSSortDescriptor] = []) {
         loadAllTasks(with: sortDescriptors)
         let activeModels = allModels.filter { model in
@@ -535,7 +538,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         allModels = activeModels
         tasksDidUpdate?(allModels)
     }
-
+    
     private func filterTasksByCompleted(with sortDescriptors: [NSSortDescriptor] = []) {
         loadAllTasks(with: sortDescriptors)
         let completedModels = allModels.filter { model in
