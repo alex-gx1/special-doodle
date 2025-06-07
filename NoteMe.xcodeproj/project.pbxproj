@@ -85,6 +85,7 @@
 		F635179D2DF38AF800D97E8F /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179C2DF38AF800D97E8F /* StatsViewModel.swift */; };
 		F635179F2DF38B0800D97E8F /* StatsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179E2DF38B0800D97E8F /* StatsAssembler.swift */; };
 		F63517A12DF38DED00D97E8F /* StatsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517A02DF38DED00D97E8F /* StatsRouter.swift */; };
+		F63517A42DF3A3CA00D97E8F /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = F63517A32DF3A3CA00D97E8F /* DGCharts */; };
 		F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */; };
 		F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */; };
 		F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */; };
@@ -318,6 +319,7 @@
 				9D1B7E9F2D0231DF0088BCCD /* FirebaseAnalytics in Frameworks */,
 				9D6F25AC2CFDDD3200BFA561 /* SnapKit in Frameworks */,
 				9D1B7EA32D0231DF0088BCCD /* FirebaseAuth in Frameworks */,
+				F63517A42DF3A3CA00D97E8F /* DGCharts in Frameworks */,
 				9D1B7EA52D0231DF0088BCCD /* FirebaseAuthCombine-Community in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -931,6 +933,7 @@
 				9D1B7EA42D0231DF0088BCCD /* FirebaseAuthCombine-Community */,
 				9D1B7EA62D0231DF0088BCCD /* FirebaseDatabase */,
 				9D1B7EA82D0231DF0088BCCD /* FirebaseDatabaseSwift */,
+				F63517A32DF3A3CA00D97E8F /* DGCharts */,
 			);
 			productName = NoteMe;
 			productReference = 9D6F25742CFDDC8F00BFA561 /* NoteMe.app */;
@@ -987,6 +990,7 @@
 			packageReferences = (
 				9D6F25AA2CFDDD3200BFA561 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				9D1B7E9D2D0231DF0088BCCD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F63517A22DF3A3CA00D97E8F /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 9D6F25752CFDDC8F00BFA561 /* Products */;
 			projectDirPath = "";
@@ -1485,6 +1489,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F63517A22DF3A3CA00D97E8F /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1522,6 +1534,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9D6F25AA2CFDDD3200BFA561 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F63517A32DF3A3CA00D97E8F /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F63517A22DF3A3CA00D97E8F /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 
