@@ -53,7 +53,7 @@ final class StatsViewModel: StatsViewModelProtocol {
         }
         
         return [
-            PieChartDataEntry(value: Double(Int(completedCount)), label: "Выполнено"),
+            PieChartDataEntry(value: Double(completedCount), label: "Выполнено"),
             PieChartDataEntry(value: Double(notCompletedCount), label: "Не выполнено")
         ]
     }

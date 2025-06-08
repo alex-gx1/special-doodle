@@ -95,29 +95,41 @@ final class NotificationHandler {
         content.body = task.subtitle ?? "Срок выполнения задачи приближается"
         content.sound = .default
         
-        let triggers = [
-            UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false),
-            
-            UNTimeIntervalNotificationTrigger(
-                timeInterval: max(0, timeInterval - 3600),
+        let mainTrigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+        let mainRequest = UNNotificationRequest(
+            identifier: "date-\(task.id)-main",
+            content: content,
+            trigger: mainTrigger
+        )
+        
+        notificationCenter.add(mainRequest) { error in
+            if let error = error {
+                print("❌ Ошибка основного уведомления для \(task.id): \(error.localizedDescription)")
+            } else {
+                print("✅ Основное уведомление для \(task.id) запланировано на \(mainTrigger.nextTriggerDate()?.description ?? "nil")")
+            }
+        }
+        
+        if timeInterval > 3600 {
+            let reminderTrigger = UNTimeIntervalNotificationTrigger(
+                timeInterval: timeInterval - 3600,
                 repeats: false
             )
-        ]
-        
-        for (index, trigger) in triggers.enumerated() {
-            let request = UNNotificationRequest(
-                identifier: "date-\(task.id)-\(index)",
+            let reminderRequest = UNNotificationRequest(
+                identifier: "date-\(task.id)-reminder",
                 content: content,
-                trigger: trigger
+                trigger: reminderTrigger
             )
             
-            notificationCenter.add(request) { error in
+            notificationCenter.add(reminderRequest) { error in
                 if let error = error {
-                    print("❌ Ошибка уведомления для \(task.id): \(error.localizedDescription)")
+                    print("❌ Ошибка напоминания для \(task.id): \(error.localizedDescription)")
                 } else {
-                    print("✅ Уведомление для \(task.id) запланировано на \(trigger.nextTriggerDate()?.description ?? "nil")")
+                    print("✅ Напоминание для \(task.id) запланировано на \(reminderTrigger.nextTriggerDate()?.description ?? "nil")")
                 }
             }
+        } else {
+            print("⚠️ До события \(task.id) осталось меньше часа, напоминание не создано")
         }
     }
     
