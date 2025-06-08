@@ -37,15 +37,52 @@ public class NotificationsStorage<DTO: DTODescription> {
         }
     }
     
+//    public func update(
+//        dto: DTO,
+//        completion: CompletionHandler? = nil
+//    ) {
+//        let context = CoreDataService.shared.backgroundContext
+//        context.perform { [weak self] in
+//            guard let mo = self?.fetchMO(predicate: .Notification.notification(byId: dto.id)).first else { return }
+//            mo.apply(dto: dto)
+//            CoreDataService.shared.saveContext(context: context, completion: completion)
+//        }
+//    }
+    
     public func update(
         dto: DTO,
         completion: CompletionHandler? = nil
     ) {
         let context = CoreDataService.shared.backgroundContext
-        context.perform { [weak self] in
-            guard let mo = self?.fetchMO(predicate: .Notification.notification(byId: dto.id)).first else { return }
-            mo.apply(dto: dto)
-            CoreDataService.shared.saveContext(context: context, completion: completion)
+        
+        context.perform {
+            let request = NSFetchRequest<DTO.MO>(entityName: "\(DTO.MO.self)")
+            request.predicate = NSPredicate(format: "identifier == %@", dto.id)
+            
+            do {
+                guard let mo = try context.fetch(request).first else {
+                    DispatchQueue.main.async {
+                        completion?(false)
+                    }
+                    return
+                }
+                
+                // Применяем изменения из DTO
+                mo.apply(dto: dto)
+                
+                // Сохраняем контекст
+                CoreDataService.shared.saveContext(context: context) { success in
+                    DispatchQueue.main.async {
+                        completion?(success)
+                    }
+                }
+                
+            } catch {
+                print("Failed to update object: \(error)")
+                DispatchQueue.main.async {
+                    completion?(false)
+                }
+            }
         }
     }
     

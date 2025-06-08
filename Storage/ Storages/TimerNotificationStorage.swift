@@ -13,19 +13,27 @@ public final class TimerNotificationStorage: NotificationsStorage<TimerNotificat
         ).compactMap { $0 as? TimerNotificationDTO}
     }
     
-    override public func updateOrCreate(
+//    override public func updateOrCreate(
+//        dto: TimerNotificationDTO,
+//        completion: CompletionHandler? = nil
+//    ) {
+//        super.updateOrCreate(dto: dto, completion: completion)
+//    }
+//    
+//    override public func updateCompletedDate(
+//        id: String,
+//        date: Date,
+    //        completion: CompletionHandler? = nil
+    //    ) {
+    //        super.updateCompletedDate(id: id, date: date, completion: completion)
+    //    }
+    
+    public override func update(
         dto: TimerNotificationDTO,
         completion: CompletionHandler? = nil
     ) {
-        super.updateOrCreate(dto: dto, completion: completion)
-    }
-    
-    override public func updateCompletedDate(
-        id: String,
-        date: Date,
-        completion: CompletionHandler? = nil
-    ) {
-        super.updateCompletedDate(id: id, date: date, completion: completion)
+        // Просто вызываем родительский метод update
+        super.update(dto: dto, completion: completion)
     }
     
     public func delete(id: String, completion: CompletionHandler? = nil) {

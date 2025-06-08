@@ -41,10 +41,11 @@ final class TimerScreenEditViewModel: TimerScreenEditViewModelProtocol {
         }
         
         let dto = TimerNotificationDTO(
-            id: UUID().uuidString,
+            id: model.identifier,
             title: title,
             subtitle: subtitle,
             date: currentDate,
+            completedDate: nil,
             seconds: seconds,
             work: work,
             other: other,
@@ -54,8 +55,12 @@ final class TimerScreenEditViewModel: TimerScreenEditViewModelProtocol {
             lowPriority: lowPriority
         )
         
-        storage.create(dto: dto) { success in
-            print(success ? (NotificationCenter.default.post(name: .taskDidChange, object: nil, userInfo: ["type": "timer"])) : "Ошибка при сохранении")
+        storage.update(dto: dto) { success in
+            if success {
+                NotificationCenter.default.post(name: .taskDidChange, object: nil, userInfo: ["type": "timer"])
+            } else {
+                self.showAlert(title: "Error", message: "Failed to update the task")
+            }
         }
         
         if let storeURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
@@ -64,11 +69,12 @@ final class TimerScreenEditViewModel: TimerScreenEditViewModelProtocol {
     }
     
     private let router: TimerScreenEditRouterProtocol
-    
+    let model: TimerTaskModel
     private let storage = TimerNotificationStorage()
     
-    init(router: TimerScreenEditRouterProtocol) {
+    init(router: TimerScreenEditRouterProtocol, model: TimerTaskModel) {
         self.router = router
+        self.model = model
     }
     
     func closeVC() {

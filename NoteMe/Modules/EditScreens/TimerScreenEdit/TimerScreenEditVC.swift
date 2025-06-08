@@ -5,6 +5,7 @@ protocol TimerScreenEditViewModelProtocol {
     func closeVC()
     func saveNotification(title: String, seconds: Double, subtitle: String, category: String, priority: String)
     func showAlert(title: String, message: String?)
+    var model: TimerTaskModel { get }
 }
 
 final class TimerScreenEditVC: UIViewController {
@@ -39,7 +40,7 @@ final class TimerScreenEditVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont17
-        label.text = "Create Timer Notification"
+        label.text = "Edit Timer Notification"
         return label
     }()
     
@@ -216,7 +217,7 @@ final class TimerScreenEditVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.setTitle("Create", for: .normal)
+        button.setTitle("Edit", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appBlackColor.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appYellowColor?.withAlphaComponent(0.7), for: .highlighted)
@@ -256,6 +257,36 @@ final class TimerScreenEditVC: UIViewController {
         keyBoardDownTap()
         viewButtonsTapped()
         selectedTimeBind()
+        
+        if let viewModel = viewModel as? TimerScreenEditViewModel {
+            configure(with: viewModel.model)
+        }
+    }
+    
+    private func configure(with model: TimerTaskModel) {
+        titleTextField.text = model.title
+        textView.text = model.subtitle
+        
+        let hours = Int(model.seconds) / 3600
+        let minutes = (Int(model.seconds) % 3600) / 60
+        timerTextField.text = "\(hours) hours : \(minutes) min"
+        customInputView.duration.value = model.seconds
+        
+        if model.work == "Work" {
+            categoryButtonTapped(workButton)
+        } else {
+            categoryButtonTapped(otherButton)
+        }
+        
+        if model.critical == "Critical" {
+            priorityButtonTapped(criticalButton)
+        } else if model.highPriority == "High" {
+            priorityButtonTapped(highPriorityButton)
+        } else if model.mediumPriority == "Medium" {
+            priorityButtonTapped(mediumPriorityButton)
+        } else if model.lowPriority == "Low" {
+            priorityButtonTapped(lowPriorityButton)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

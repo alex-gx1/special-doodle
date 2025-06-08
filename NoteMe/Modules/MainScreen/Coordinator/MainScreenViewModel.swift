@@ -69,15 +69,46 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         self.router = router
     }
     
-    func presentMenuPopover(from source: UIView, sourceRect: CGRect, forItemId id: String,
-                            deleteHandler: @escaping () -> Void, completeHandler: @escaping () -> Void) {
+    func presentMenuPopover(
+        from source: UIView,
+        sourceRect: CGRect,
+        forItemId id: String,
+        deleteHandler: @escaping () -> Void,
+        completeHandler: @escaping () -> Void
+    ) {
+        // Находим модель по ID
+        guard let model = allModels.first(where: { model in
+            switch model {
+            case .timer(let timerModel): return timerModel.identifier == id
+            case .date(let dateModel): return dateModel.identifier == id
+            case .location(let locationModel): return locationModel.identifier == id
+            }
+        }) else { return }
+        
         router.presentMenuPopover(
             from: source,
             sourceRect: sourceRect,
             forItemId: id,
             deleteHandler: deleteHandler,
-            completeHandler: completeHandler
+            completeHandler: completeHandler,
+            editHandler: { [weak self] in
+                self?.handleEdit(for: model)
+            }
         )
+    }
+    
+    
+    private func handleEdit(for model: NotificationModel) {
+        switch model {
+        case .timer(let timerModel):
+            router.navigateToEditTimer(with: timerModel)
+        case .date(let dateModel):
+            // Аналогично для dateModel, когда добавите соответствующий экран
+            break
+        case .location(let locationModel):
+            // Аналогично для locationModel, когда добавите соответствующий экран
+            break
+        }
     }
     
     func searchTasks(with text: String) {

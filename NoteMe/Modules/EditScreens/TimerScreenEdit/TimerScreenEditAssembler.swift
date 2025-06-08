@@ -3,11 +3,11 @@ import UIKit
 final class TimerScreenEditAssembler {
     private init() {}
     
-    static func make() -> UIViewController {
+    static func make(with model: TimerTaskModel) -> UIViewController {
         let router = TimerScreenEditRouter()
         
         let vm = TimerScreenEditViewModel(
-            router: router
+            router: router, model: model
         )
         
         let vc = TimerScreenEditVC(viewModel: vm)
