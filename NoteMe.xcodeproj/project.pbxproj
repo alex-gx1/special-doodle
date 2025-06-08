@@ -86,6 +86,18 @@
 		F635179F2DF38B0800D97E8F /* StatsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179E2DF38B0800D97E8F /* StatsAssembler.swift */; };
 		F63517A12DF38DED00D97E8F /* StatsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517A02DF38DED00D97E8F /* StatsRouter.swift */; };
 		F63517A42DF3A3CA00D97E8F /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = F63517A32DF3A3CA00D97E8F /* DGCharts */; };
+		F63517AB2DF5143800D97E8F /* TimerScreenEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517AA2DF5143800D97E8F /* TimerScreenEditVC.swift */; };
+		F63517AD2DF5144500D97E8F /* TimerScreenEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517AC2DF5144500D97E8F /* TimerScreenEditViewModel.swift */; };
+		F63517AF2DF5145400D97E8F /* TimerScreenEditAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517AE2DF5145400D97E8F /* TimerScreenEditAssembler.swift */; };
+		F63517B12DF5145E00D97E8F /* TimerScreenEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517B02DF5145E00D97E8F /* TimerScreenEditRouter.swift */; };
+		F63517B52DF51DB200D97E8F /* DateScreenEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517B42DF51DB200D97E8F /* DateScreenEditVC.swift */; };
+		F63517B72DF51DBD00D97E8F /* DateScreenEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517B62DF51DBD00D97E8F /* DateScreenEditViewModel.swift */; };
+		F63517B92DF51DC900D97E8F /* DateScreenEditAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517B82DF51DC900D97E8F /* DateScreenEditAssembler.swift */; };
+		F63517BB2DF51DEB00D97E8F /* DateScreenEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517BA2DF51DEB00D97E8F /* DateScreenEditRouter.swift */; };
+		F63517BE2DF51E2000D97E8F /* LocationScreenEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517BD2DF51E2000D97E8F /* LocationScreenEditVC.swift */; };
+		F63517C02DF51E3000D97E8F /* LocationScreenEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517BF2DF51E3000D97E8F /* LocationScreenEditViewModel.swift */; };
+		F63517C22DF51E3E00D97E8F /* LocationScreenEditAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517C12DF51E3E00D97E8F /* LocationScreenEditAssembler.swift */; };
+		F63517C42DF51E4800D97E8F /* LocationScreenEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63517C32DF51E4800D97E8F /* LocationScreenEditRouter.swift */; };
 		F65B5B362DB1B214007D2ED6 /* FullMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */; };
 		F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */; };
 		F65B5B3A2DB1B230007D2ED6 /* FullMapAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */; };
@@ -246,6 +258,18 @@
 		F635179C2DF38AF800D97E8F /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		F635179E2DF38B0800D97E8F /* StatsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsAssembler.swift; sourceTree = "<group>"; };
 		F63517A02DF38DED00D97E8F /* StatsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRouter.swift; sourceTree = "<group>"; };
+		F63517AA2DF5143800D97E8F /* TimerScreenEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerScreenEditVC.swift; sourceTree = "<group>"; };
+		F63517AC2DF5144500D97E8F /* TimerScreenEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerScreenEditViewModel.swift; sourceTree = "<group>"; };
+		F63517AE2DF5145400D97E8F /* TimerScreenEditAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerScreenEditAssembler.swift; sourceTree = "<group>"; };
+		F63517B02DF5145E00D97E8F /* TimerScreenEditRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerScreenEditRouter.swift; sourceTree = "<group>"; };
+		F63517B42DF51DB200D97E8F /* DateScreenEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateScreenEditVC.swift; sourceTree = "<group>"; };
+		F63517B62DF51DBD00D97E8F /* DateScreenEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateScreenEditViewModel.swift; sourceTree = "<group>"; };
+		F63517B82DF51DC900D97E8F /* DateScreenEditAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateScreenEditAssembler.swift; sourceTree = "<group>"; };
+		F63517BA2DF51DEB00D97E8F /* DateScreenEditRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateScreenEditRouter.swift; sourceTree = "<group>"; };
+		F63517BD2DF51E2000D97E8F /* LocationScreenEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationScreenEditVC.swift; sourceTree = "<group>"; };
+		F63517BF2DF51E3000D97E8F /* LocationScreenEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationScreenEditViewModel.swift; sourceTree = "<group>"; };
+		F63517C12DF51E3E00D97E8F /* LocationScreenEditAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationScreenEditAssembler.swift; sourceTree = "<group>"; };
+		F63517C32DF51E4800D97E8F /* LocationScreenEditRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationScreenEditRouter.swift; sourceTree = "<group>"; };
 		F65B5B352DB1B214007D2ED6 /* FullMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapVC.swift; sourceTree = "<group>"; };
 		F65B5B372DB1B222007D2ED6 /* FullMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapViewModel.swift; sourceTree = "<group>"; };
 		F65B5B392DB1B230007D2ED6 /* FullMapAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapAssembler.swift; sourceTree = "<group>"; };
@@ -540,6 +564,7 @@
 		9DF57C912D03726900B73BCF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F63517B22DF5147800D97E8F /* EditScreens */,
 				F66FEB0F2DE774CB007E5A2B /* SmallPopOverScreen */,
 				F6D8261B2DB582AA006BA35E /* SearchVC */,
 				F65B5B342DB1B201007D2ED6 /* FullMapVC */,
@@ -668,6 +693,49 @@
 				F63517A02DF38DED00D97E8F /* StatsRouter.swift */,
 			);
 			path = StatsScreen;
+			sourceTree = "<group>";
+		};
+		F63517A72DF513FE00D97E8F /* TimerScreenEdit */ = {
+			isa = PBXGroup;
+			children = (
+				F63517AA2DF5143800D97E8F /* TimerScreenEditVC.swift */,
+				F63517AC2DF5144500D97E8F /* TimerScreenEditViewModel.swift */,
+				F63517AE2DF5145400D97E8F /* TimerScreenEditAssembler.swift */,
+				F63517B02DF5145E00D97E8F /* TimerScreenEditRouter.swift */,
+			);
+			path = TimerScreenEdit;
+			sourceTree = "<group>";
+		};
+		F63517B22DF5147800D97E8F /* EditScreens */ = {
+			isa = PBXGroup;
+			children = (
+				F63517BC2DF51DF900D97E8F /* LocationScreenEdit */,
+				F63517B32DF51D8000D97E8F /* DateScreenEdit */,
+				F63517A72DF513FE00D97E8F /* TimerScreenEdit */,
+			);
+			path = EditScreens;
+			sourceTree = "<group>";
+		};
+		F63517B32DF51D8000D97E8F /* DateScreenEdit */ = {
+			isa = PBXGroup;
+			children = (
+				F63517B42DF51DB200D97E8F /* DateScreenEditVC.swift */,
+				F63517B62DF51DBD00D97E8F /* DateScreenEditViewModel.swift */,
+				F63517B82DF51DC900D97E8F /* DateScreenEditAssembler.swift */,
+				F63517BA2DF51DEB00D97E8F /* DateScreenEditRouter.swift */,
+			);
+			path = DateScreenEdit;
+			sourceTree = "<group>";
+		};
+		F63517BC2DF51DF900D97E8F /* LocationScreenEdit */ = {
+			isa = PBXGroup;
+			children = (
+				F63517BD2DF51E2000D97E8F /* LocationScreenEditVC.swift */,
+				F63517BF2DF51E3000D97E8F /* LocationScreenEditViewModel.swift */,
+				F63517C12DF51E3E00D97E8F /* LocationScreenEditAssembler.swift */,
+				F63517C32DF51E4800D97E8F /* LocationScreenEditRouter.swift */,
+			);
+			path = LocationScreenEdit;
 			sourceTree = "<group>";
 		};
 		F65B5B342DB1B201007D2ED6 /* FullMapVC */ = {
@@ -1031,6 +1099,8 @@
 				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
 				F6D826232DB582D9006BA35E /* SearchRouter.swift in Sources */,
 				9D28AFCC2D220193005DB31F /* MainScreenVC.swift in Sources */,
+				F63517B12DF5145E00D97E8F /* TimerScreenEditRouter.swift in Sources */,
+				F63517C02DF51E3000D97E8F /* LocationScreenEditViewModel.swift in Sources */,
 				9D17E8A92CFF42EA0060E5B0 /* Images.swift in Sources */,
 				9DF57C902D03718600B73BCF /* Colors.swift in Sources */,
 				9D6F25B02CFE1EE500BFA561 /* RegisterVC.swift in Sources */,
@@ -1058,14 +1128,17 @@
 				F63445B02DDD0F240040BC46 /* MainScreenAdapter.swift in Sources */,
 				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
+				F63517C42DF51E4800D97E8F /* LocationScreenEditRouter.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				F6D8261F2DB582C7006BA35E /* SearchViewModel.swift in Sources */,
 				F6A955C22DECC3D6003768A2 /* NotificationHandler.swift in Sources */,
 				9DC2EC282D0741FB005A21F3 /* Model.swift in Sources */,
 				9DF57C962D0378AD00B73BCF /* UIExtensions.swift in Sources */,
 				9D2E20D82D3A7D0900B475EE /* TabBarViewModel.swift in Sources */,
+				F63517B52DF51DB200D97E8F /* DateScreenEditVC.swift in Sources */,
 				F60232F92DA6F92700F2D0E8 /* CalendarViewModel.swift in Sources */,
 				F65B5B382DB1B222007D2ED6 /* FullMapViewModel.swift in Sources */,
+				F63517AF2DF5145400D97E8F /* TimerScreenEditAssembler.swift in Sources */,
 				F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */,
 				F6E1F1D82DA59E7600C1CAD2 /* TimerRouter.swift in Sources */,
 				9D2E20B42D384E4500B475EE /* ParametrsService.swift in Sources */,
@@ -1080,6 +1153,8 @@
 				F6E1F1D62DA59E6800C1CAD2 /* TimerAssembler.swift in Sources */,
 				F635179D2DF38AF800D97E8F /* StatsViewModel.swift in Sources */,
 				9D2835F32D1B507E009A66DA /* RegisterRouter.swift in Sources */,
+				F63517B72DF51DBD00D97E8F /* DateScreenEditViewModel.swift in Sources */,
+				F63517C22DF51E3E00D97E8F /* LocationScreenEditAssembler.swift in Sources */,
 				F60232F72DA6F91600F2D0E8 /* CalendarVC.swift in Sources */,
 				9DFEDF842D1071D000CE02C3 /* LoginViewModel.swift in Sources */,
 				9D2E20B72D385F6A00B475EE /* Container.swift in Sources */,
@@ -1089,11 +1164,15 @@
 				9D2E20C52D39A9F400B475EE /* ProfileScreenVC.swift in Sources */,
 				9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */,
 				9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */,
+				F63517B92DF51DC900D97E8F /* DateScreenEditAssembler.swift in Sources */,
 				9D2E20D62D3A7CBF00B475EE /* TabBarRouter.swift in Sources */,
 				F69039952DAACEFC00800BB4 /* Observable.swift in Sources */,
 				9D2E20CE2D39ACC900B475EE /* TabBarVC.swift in Sources */,
+				F63517BB2DF51DEB00D97E8F /* DateScreenEditRouter.swift in Sources */,
 				F6E1F1D42DA59E5400C1CAD2 /* TimerViewModel.swift in Sources */,
 				9D6F257A2CFDDC8F00BFA561 /* SceneDelegate.swift in Sources */,
+				F63517AB2DF5143800D97E8F /* TimerScreenEditVC.swift in Sources */,
+				F63517AD2DF5144500D97E8F /* TimerScreenEditViewModel.swift in Sources */,
 				9DF336032D19C1F40048C928 /* ValidationService.swift in Sources */,
 				F6E90EC72DCE72C300F6B12E /* DateTaskModel.swift in Sources */,
 				9D28AFD02D22051C005DB31F /* MainScreenAssembler.swift in Sources */,
@@ -1121,6 +1200,7 @@
 				9D2E20BB2D39667700B475EE /* AppRouter.swift in Sources */,
 				F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */,
 				9D17E8AB2CFF4BEE0060E5B0 /* Fonts.swift in Sources */,
+				F63517BE2DF51E2000D97E8F /* LocationScreenEditVC.swift in Sources */,
 				F66FEB172DE7753D007E5A2B /* SmallPopOverRouter.swift in Sources */,
 				F67A5FE62DB25C30001F63D5 /* CustomTimeKeyboard.swift in Sources */,
 				9DFEDF862D107A7D00CE02C3 /* ResetViewModel.swift in Sources */,

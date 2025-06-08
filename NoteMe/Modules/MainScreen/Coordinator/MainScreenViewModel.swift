@@ -2,13 +2,11 @@ import UIKit
 import Storage
 
 protocol MainScreenViewModelProtocol {
-    //    func loadTimerTasks(with sortDescriptors: [NSSortDescriptor])
-    //    func loadDateTasks()
     var tasksDidUpdate: (([NotificationModel]) -> Void)? { get set }
     var resetData: (() -> Void)? { get set }
     func didSelectFilter(_ filter: FilterItem)
     func model(at index: Int) -> NotificationModel?
-    //    func loadAllTasks()
+    
     //for delete methods
     func deleteDateNotification(withId id: String, completion: @escaping (Bool) -> Void)
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void)
