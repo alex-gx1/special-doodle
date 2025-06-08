@@ -18,6 +18,7 @@ protocol MainScreenRouterProtocol {
     )
     
     func navigateToEditTimer(with model: TimerTaskModel)
+    func navigateToEditDate(with model: DateTaskModel)
 }
 
 final class MainScreenRouter: MainScreenRouterProtocol {
@@ -42,7 +43,6 @@ final class MainScreenRouter: MainScreenRouterProtocol {
             }
         }
         
-        // Остальная реализация без изменений
         menuVC.modalPresentationStyle = .popover
         menuVC.preferredContentSize = CGSize(width: 100, height: 200)
         
@@ -56,9 +56,13 @@ final class MainScreenRouter: MainScreenRouterProtocol {
         root?.present(menuVC, animated: true)
     }
     
-    // Реализуем новый метод
     func navigateToEditTimer(with model: TimerTaskModel) {
         let editVC = TimerScreenEditAssembler.make(with: model)
+        root?.navigationController?.pushViewController(editVC, animated: true)
+    }
+    
+    func navigateToEditDate(with model: DateTaskModel) {
+        let editVC = DateScreenEditAssembler.make(with: model)
         root?.navigationController?.pushViewController(editVC, animated: true)
     }
 }

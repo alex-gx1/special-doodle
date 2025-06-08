@@ -5,6 +5,7 @@ protocol DateScreenEditViewModelProtocol {
     func closeVC()
     func showAlert(title: String, message: String?)
     func saveNotification(title: String, targetDate: Date, subtitle: String, category: String, priority: String)
+    var model: DateTaskModel { get }
 }
 
 final class DateScreenEditVC: UIViewController {
@@ -39,11 +40,10 @@ final class DateScreenEditVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont17
-        label.text = "Create Date Notification"
+        label.text = "Edit Date Notification"
         return label
     }()
     
-    // Existing fields (title, date, comment)
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Title"
@@ -219,7 +219,7 @@ final class DateScreenEditVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.setTitle("Create", for: .normal)
+        button.setTitle("Edit", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appBlackColor.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appYellowColor?.withAlphaComponent(0.7), for: .highlighted)
@@ -259,11 +259,42 @@ final class DateScreenEditVC: UIViewController {
         keyBoardDownTap()
         viewButtonsTapped()
         selectedTimeBind()
+        
+        if let viewModel = viewModel as? DateScreenEditViewModel {
+            configure(with: viewModel.model)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         openKeyBoardForFirstTextField()
+    }
+    
+    private func configure(with model: DateTaskModel) {
+
+        titleTextField.text = model.title
+        textView.text = model.subtitle
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM : dd : yyyy"
+        dateTextField.text = formatter.string(from: model.targetDate)
+        customInputView.selectedDate.value = model.targetDate
+        
+        if model.work == "Work" {
+            categoryButtonTapped(workButton)
+        } else {
+            categoryButtonTapped(otherButton)
+        }
+        
+        if model.critical == "Critical" {
+            priorityButtonTapped(criticalButton)
+        } else if model.highPriority == "High" {
+            priorityButtonTapped(highPriorityButton)
+        } else if model.mediumPriority == "Medium" {
+            priorityButtonTapped(mediumPriorityButton)
+        } else if model.lowPriority == "Low" {
+            priorityButtonTapped(lowPriorityButton)
+        }
     }
     
     // MARK: - Setup Methods
@@ -323,7 +354,7 @@ final class DateScreenEditVC: UIViewController {
         middleCardView.snp.makeConstraints { make in
             make.top.equalTo(topLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(400) // Increased height for new elements
+            make.height.equalTo(400)
         }
         
         // Title section

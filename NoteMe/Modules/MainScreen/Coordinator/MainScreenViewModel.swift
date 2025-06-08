@@ -103,8 +103,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         case .timer(let timerModel):
             router.navigateToEditTimer(with: timerModel)
         case .date(let dateModel):
-            // Аналогично для dateModel, когда добавите соответствующий экран
-            break
+            router.navigateToEditDate(with: dateModel)
         case .location(let locationModel):
             // Аналогично для locationModel, когда добавите соответствующий экран
             break

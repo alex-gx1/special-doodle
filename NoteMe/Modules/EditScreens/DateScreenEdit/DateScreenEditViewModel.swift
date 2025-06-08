@@ -40,10 +40,11 @@ final class DateScreenEditViewModel: DateScreenEditViewModelProtocol {
         }
         
         let dto = DateNotificationDTO(
-            id: UUID().uuidString,
+            id: model.identifier,
             title: title,
             subtitle: subtitle,
             date: currentDate,
+            completedDate: nil,
             targetDate: targetDate,
             work: work,
             other: other,
@@ -53,7 +54,7 @@ final class DateScreenEditViewModel: DateScreenEditViewModelProtocol {
             lowPriority: lowPriority
         )
         
-        storage.create(dto: dto) { success in
+        storage.update(dto: dto) { success in
             print(success ? (NotificationCenter.default.post(
                 name: .taskDidChange,
                 object: nil,
@@ -66,11 +67,12 @@ final class DateScreenEditViewModel: DateScreenEditViewModelProtocol {
     }
     
     private let router: DateScreenEditRouterProtocol
-    
+    let model: DateTaskModel
     private let storage = DateNotificationStorage()
     
-    init(router: DateScreenEditRouterProtocol) {
+    init(router: DateScreenEditRouterProtocol, model: DateTaskModel) {
         self.router = router
+        self.model = model
     }
     
     func closeVC() {
