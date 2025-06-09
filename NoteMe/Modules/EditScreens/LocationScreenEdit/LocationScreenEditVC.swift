@@ -43,7 +43,7 @@ final class LocationScreenEditVC: UIViewController {
     }
     
     private func configure(with model: LocationTaskModel) {
-
+        
         titleTextField.text = model.title
         textView.text = model.subtitle
         
