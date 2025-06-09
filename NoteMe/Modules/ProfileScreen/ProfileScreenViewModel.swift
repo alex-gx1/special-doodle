@@ -14,6 +14,17 @@ protocol ProfileScreenRouterProtocol {
         message: String?,
         onConfirm: @escaping () -> Void
     )
+    func showProgressAlert(
+        title: String,
+        message: String?,
+        completion: @escaping () -> Void
+    )
+    func showErrorAlert(
+        title: String,
+        message: String?
+    )
+    func dismissAlert(completion: @escaping () -> Void)
+    func showShareSheet(with url: URL)
     func openLoginScreen()
     func openStatsScreen()
 }
@@ -51,58 +62,110 @@ final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
         router.openStatsScreen()
     }
     
-    func exportData(completion: @escaping (URL?) -> Void) {
+    func exportData() {
+        router.showProgressAlert(
+            title: "Экспорт данных",
+            message: "Подготавливаем ваши задачи..."
+        ) { [weak self] in
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let url = self?.exportDataToCSV() else {
+                    DispatchQueue.main.async {
+                        self?.router.dismissAlert {
+                            self?.router.showErrorAlert(
+                                title: "Ошибка",
+                                message: "Не удалось экспортировать данные"
+                            )
+                        }
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self?.router.dismissAlert {
+                        self?.router.showShareSheet(with: url)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func performExport() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            let url = self?.exportDataToCSV()
+            guard let self = self else { return }
+            
+            let url = self.exportDataToCSV()
+            
             DispatchQueue.main.async {
-                completion(url)
+                if let url = url {
+                    self.router.showShareSheet(with: url)
+                } else {
+                    self.router.showErrorAlert(
+                        title: "Ошибка",
+                        message: "Не удалось экспортировать данные"
+                    )
+                }
             }
         }
     }
 }
 
 extension ProfileScreenViewModel {
+    
+    private func formatDateComponents(from date: Date) -> (full: String, day: String, month: String) {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "dd.MM.yyyy"
+           let full = formatter.string(from: date)
+           
+           formatter.dateFormat = "dd"
+           let day = formatter.string(from: date)
+           
+           formatter.dateFormat = "MM"
+           let month = formatter.string(from: date)
+           
+           return (full, day, month)
+       }
     func exportDataToCSV() -> URL? {
         let storage = AllNotficationStorage()
         let dtos = storage.fetch()
         
         var csvString = "Type,ID,Title,Subtitle,CreatedAt,CompletedDate,Work,Other,Critical,HighPriority,MediumPriority,LowPriority,"
-        
         csvString += "Seconds,TargetDate,DateString,Day,Month,URL,X,Y,Radius\n"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         for dto in dtos {
             var baseFields = ""
             
             switch dto {
             case let timerDTO as TimerNotificationDTO:
-                baseFields = "Timer,\(timerDTO.id),\(timerDTO.title),\(timerDTO.subtitle ?? ""),\(timerDTO.date),\(timerDTO.completedDate ?? Date.distantPast),"
-                baseFields += "\(timerDTO.work ?? ""),\(timerDTO.other ?? ""),\(timerDTO.critical ?? ""),\(timerDTO.highPriority ?? ""),\(timerDTO.mediumPriority ?? ""),\(timerDTO.lowPriority ?? ""),"
-                baseFields += "\(timerDTO.seconds),,,,,,,,"
+                baseFields = "Timer,\(timerDTO.id),\"\(timerDTO.title)\",\"\(timerDTO.subtitle ?? "")\","
+                baseFields += "\(dateFormatter.string(from: timerDTO.date)),\(dateFormatter.string(from: timerDTO.completedDate ?? Date.distantPast)),"
+                baseFields += "\"\(timerDTO.work ?? "")\",\"\(timerDTO.other ?? "")\",\"\(timerDTO.critical ?? "")\",\"\(timerDTO.highPriority ?? "")\",\"\(timerDTO.mediumPriority ?? "")\",\"\(timerDTO.lowPriority ?? "")\","
+                baseFields += "\(timerDTO.seconds),,,,,,,"
                 
             case let dateDTO as DateNotificationDTO:
                 let components = formatDateComponents(from: dateDTO.targetDate)
-                baseFields = "Date,\(dateDTO.id),\(dateDTO.title),\(dateDTO.subtitle ?? ""),\(dateDTO.date),\(dateDTO.completedDate ?? Date.distantPast),"
-                baseFields += "\(dateDTO.work ?? ""),\(dateDTO.other ?? ""),\(dateDTO.critical ?? ""),\(dateDTO.highPriority ?? ""),\(dateDTO.mediumPriority ?? ""),\(dateDTO.lowPriority ?? ""),"
-                baseFields += ",\(dateDTO.targetDate),\(components.full),\(components.day),\(components.month),,,,"
+                baseFields = "Date,\(dateDTO.id),\"\(dateDTO.title)\",\"\(dateDTO.subtitle ?? "")\","
+                baseFields += "\(dateFormatter.string(from: dateDTO.date)),\(dateFormatter.string(from: dateDTO.completedDate ?? Date.distantPast)),"
+                baseFields += "\"\(dateDTO.work ?? "")\",\"\(dateDTO.other ?? "")\",\"\(dateDTO.critical ?? "")\",\"\(dateDTO.highPriority ?? "")\",\"\(dateDTO.mediumPriority ?? "")\",\"\(dateDTO.lowPriority ?? "")\","
+                baseFields += ",\(dateFormatter.string(from: dateDTO.targetDate)),\"\(components.full)\",\"\(components.day)\",\"\(components.month)\",,,"
                 
             case let locationDTO as LocationNotificationDTO:
-                baseFields = "Location,\(locationDTO.id),\(locationDTO.title),\(locationDTO.subtitle ?? ""),\(locationDTO.date),\(locationDTO.completedDate ?? Date.distantPast),"
-                baseFields += "\(locationDTO.work ?? ""),\(locationDTO.other ?? ""),\(locationDTO.critical ?? ""),\(locationDTO.highPriority ?? ""),\(locationDTO.mediumPriority ?? ""),\(locationDTO.lowPriority ?? ""),"
-                baseFields += ",,,,,\(locationDTO.url ?? ""),\(locationDTO.x),\(locationDTO.y),\(locationDTO.radius)"
+                baseFields = "Location,\(locationDTO.id),\"\(locationDTO.title)\",\"\(locationDTO.subtitle ?? "")\","
+                baseFields += "\(dateFormatter.string(from: locationDTO.date)),\(dateFormatter.string(from: locationDTO.completedDate ?? Date.distantPast)),"
+                baseFields += "\"\(locationDTO.work ?? "")\",\"\(locationDTO.other ?? "")\",\"\(locationDTO.critical ?? "")\",\"\(locationDTO.highPriority ?? "")\",\"\(locationDTO.mediumPriority ?? "")\",\"\(locationDTO.lowPriority ?? "")\","
+                baseFields += ",,,,,\(locationDTO.url),\(locationDTO.x),\(locationDTO.y),\(locationDTO.radius)"
                 
             default:
                 continue
             }
             
-            let escapedFields = baseFields
-                .replacingOccurrences(of: "\"", with: "\"\"")
-                .replacingOccurrences(of: "\n", with: " ")
-            
-            csvString += escapedFields + "\n"
+            csvString += baseFields + "\n"
         }
         
         let fileName = "notifications_export_\(Date().timeIntervalSince1970).csv"
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName)
+        let path = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
         do {
             try csvString.write(to: path, atomically: true, encoding: .utf8)
@@ -111,19 +174,5 @@ extension ProfileScreenViewModel {
             print("Failed to export CSV: \(error)")
             return nil
         }
-    }
-    
-    private func formatDateComponents(from date: Date) -> (full: String, day: String, month: String) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        let full = formatter.string(from: date)
-        
-        formatter.dateFormat = "dd"
-        let day = formatter.string(from: date)
-        
-        formatter.dateFormat = "MM"
-        let month = formatter.string(from: date)
-        
-        return (full, day, month)
     }
 }

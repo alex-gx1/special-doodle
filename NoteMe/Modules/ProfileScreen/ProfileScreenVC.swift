@@ -8,7 +8,7 @@ protocol ProfileScreenViewModelProtocol {
     func showAlert(Title: String, Message: String?)
     func getUserMail() -> String
     func openStatsScreen()
-    func exportData(completion: @escaping (URL?) -> Void)
+    func exportData()
 }
 
 final class ProfileScreenVC: UIViewController {
@@ -143,40 +143,8 @@ final class ProfileScreenVC: UIViewController {
     }()
     
     @objc private func handleExport() {
-        showExportActivity()
+        viewModel.exportData()
     }
-    
-    private func showExportActivity() {
-            let alert = UIAlertController(title: "Экспорт данных", message: "Подготавливаем ваши задачи...", preferredStyle: .alert)
-            present(alert, animated: true)
-            
-            viewModel.exportData { [weak self] url in
-                alert.dismiss(animated: true) {
-                    guard let url = url else {
-                        self?.showErrorAlert(message: "ошибка экспорта данных")
-                        return
-                    }
-                    
-                    let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                    
-                    if let popover = activityVC.popoverPresentationController {
-                        popover.sourceView = self?.view
-                        popover.sourceRect = CGRect(x: (self?.view.bounds.midX ?? 0),
-                                              y: (self?.view.bounds.midY ?? 0),
-                                              width: 0, height: 0)
-                        popover.permittedArrowDirections = []
-                    }
-                    
-                    self?.present(activityVC, animated: true)
-                }
-            }
-        }
-        
-        private func showErrorAlert(message: String) {
-            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
     
     private lazy var statsImageView: UIImageView = {
         let imageView = UIImageView()
