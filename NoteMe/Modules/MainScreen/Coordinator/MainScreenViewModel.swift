@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 import Storage
 
 protocol MainScreenViewModelProtocol {
@@ -193,13 +194,21 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
         
         dateStorage.updateCompletedDate(id: id, date: Date()) { [weak self] success in
-            
-            if success, let index = self?.allModels.firstIndex(where: { model in
-                if case .date(let dateModel) = model {
-                    return dateModel.identifier == id
+            DispatchQueue.main.async {
+                guard success else {
+                    completion(false)
+                    return
                 }
-                return false
-            }), case .date(let dateModel) = self?.allModels[index] {
+                
+                guard let index = self?.allModels.firstIndex(where: { model in
+                    if case .date(let dateModel) = model {
+                        return dateModel.identifier == id
+                    }
+                    return false
+                }), case .date(let dateModel) = self?.allModels[index] else {
+                    completion(false)
+                    return
+                }
                 
                 let updatedModel = DateTaskModel(
                     identifier: dateModel.identifier,
@@ -220,10 +229,24 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 )
                 
                 self?.allModels[index] = .date(updatedModel)
+                
+                let center = UNUserNotificationCenter.current()
+                let identifiers = [
+                    "date-\(id)-main",
+                    "date-\(id)-reminder"
+                ]
+                center.removePendingNotificationRequests(withIdentifiers: identifiers)
+                
                 self?.tasksDidUpdate?(self?.allModels ?? [])
+                NotificationCenter.default.post(
+                    name: .taskDidChange,
+                    object: nil,
+                    userInfo: ["type": "date"]
+                )
+                
+                print("Задача \(id) завершена, уведомления удалены")
+                completion(true)
             }
-            
-            completion(success)
         }
     }
     
@@ -231,12 +254,21 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
         
         timerStorage.updateCompletedDate(id: id, date: Date()) { [weak self] success in
-            if success, let index = self?.allModels.firstIndex(where: { model in
-                if case .timer(let timerModel) = model {
-                    return timerModel.identifier == id
+            DispatchQueue.main.async {
+                guard success else {
+                    completion(false)
+                    return
                 }
-                return false
-            }), case .timer(let timerModel) = self?.allModels[index] {
+                
+                guard let index = self?.allModels.firstIndex(where: { model in
+                    if case .timer(let timerModel) = model {
+                        return timerModel.identifier == id
+                    }
+                    return false
+                }), case .timer(let timerModel) = self?.allModels[index] else {
+                    completion(false)
+                    return
+                }
                 
                 let updatedModel = TimerTaskModel(
                     identifier: timerModel.identifier,
@@ -254,10 +286,23 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 )
                 
                 self?.allModels[index] = .timer(updatedModel)
+                
+                let center = UNUserNotificationCenter.current()
+                let notificationId = "timer-\(id)"
+                
+                center.removePendingNotificationRequests(withIdentifiers: [notificationId])
+                center.removeDeliveredNotifications(withIdentifiers: [notificationId])
+                
                 self?.tasksDidUpdate?(self?.allModels ?? [])
+                NotificationCenter.default.post(
+                    name: .taskDidChange,
+                    object: nil,
+                    userInfo: ["type": "timer"]
+                )
+                
+                print("Таймер \(id) завершен, уведомления удалены")
+                completion(true)
             }
-            
-            completion(success)
         }
     }
     
@@ -265,12 +310,21 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
         
         locationStorage.updateCompletedDate(id: id, date: Date()) { [weak self] success in
-            if success, let index = self?.allModels.firstIndex(where: { model in
-                if case .location(let locationModel) = model {
-                    return locationModel.identifier == id
+            DispatchQueue.main.async {
+                guard success else {
+                    completion(false)
+                    return
                 }
-                return false
-            }), case .location(let locationModel) = self?.allModels[index] {
+                
+                guard let index = self?.allModels.firstIndex(where: { model in
+                    if case .location(let locationModel) = model {
+                        return locationModel.identifier == id
+                    }
+                    return false
+                }), case .location(let locationModel) = self?.allModels[index] else {
+                    completion(false)
+                    return
+                }
                 
                 let updatedModel = LocationTaskModel(
                     identifier: locationModel.identifier,
@@ -291,10 +345,30 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                 )
                 
                 self?.allModels[index] = .location(updatedModel)
+                
+                let locationManager = CLLocationManager()
+                let notificationCenter = UNUserNotificationCenter.current()
+                
+                let regionIdentifier = "region-\(id)"
+                for region in locationManager.monitoredRegions
+                where region.identifier == regionIdentifier {
+                    locationManager.stopMonitoring(for: region)
+                }
+                
+                let notificationId = "location-\(id)"
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [notificationId])
+                notificationCenter.removeDeliveredNotifications(withIdentifiers: [notificationId])
+                
                 self?.tasksDidUpdate?(self?.allModels ?? [])
+                NotificationCenter.default.post(
+                    name: .taskDidChange,
+                    object: nil,
+                    userInfo: ["type": "location"]
+                )
+                
+                print("Гео-задача \(id) завершена, регион и уведомления удалены")
+                completion(true)
             }
-            
-            completion(success)
         }
     }
     
@@ -309,6 +383,21 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
                         return false
                     }
                     self?.tasksDidUpdate?(self?.allModels ?? [])
+                    
+                    let center = UNUserNotificationCenter.current()
+                    let identifiers = [
+                        "date-\(id)-main",
+                        "date-\(id)-reminder"
+                    ]
+                    center.removePendingNotificationRequests(withIdentifiers: identifiers)
+                    
+                    NotificationCenter.default.post(
+                        name: .taskDidChange,
+                        object: nil,
+                        userInfo: ["type": "date"]
+                    )
+                    
+                    print("Уведомления для задачи \(id) удалены")
                 }
                 completion(success)
             }
@@ -318,16 +407,33 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     func deleteTimerNotification(withId id: String, completion: @escaping (Bool) -> Void) {
         timerStorage.delete(id: id) { [weak self] success in
             DispatchQueue.main.async {
-                if success {
-                    self?.allModels.removeAll { model in
-                        if case .timer(let timerModel) = model {
-                            return timerModel.identifier == id
-                        }
-                        return false
-                    }
-                    self?.tasksDidUpdate?(self?.allModels ?? [])
+                guard success else {
+                    completion(false)
+                    return
                 }
-                completion(success)
+                
+                self?.allModels.removeAll { model in
+                    if case .timer(let timerModel) = model {
+                        return timerModel.identifier == id
+                    }
+                    return false
+                }
+                
+                let center = UNUserNotificationCenter.current()
+                let notificationId = "timer-\(id)"
+                
+                center.removePendingNotificationRequests(withIdentifiers: [notificationId])
+                
+                self?.tasksDidUpdate?(self?.allModels ?? [])
+                
+                NotificationCenter.default.post(
+                    name: .taskDidChange,
+                    object: nil,
+                    userInfo: ["type": "timer"]
+                )
+                
+                print("Таймер и уведомления для \(id) удалены")
+                completion(true)
             }
         }
     }
@@ -335,20 +441,44 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
     func deleteLocationNotification(withId id: String, completion: @escaping (Bool) -> Void) {
         locationStorage.delete(id: id) { [weak self] success in
             DispatchQueue.main.async {
-                if success {
-                    if let url = self?.getLocationImageUrl(for: id) {
-                        self?.deleteImageIfNeeded(url: url)
-                    }
-                    
-                    self?.allModels.removeAll { model in
-                        if case .location(let locationModel) = model {
-                            return locationModel.identifier == id
-                        }
-                        return false
-                    }
-                    self?.tasksDidUpdate?(self?.allModels ?? [])
+                guard success else {
+                    completion(false)
+                    return
                 }
-                completion(success)
+                
+                if let url = self?.getLocationImageUrl(for: id) {
+                    self?.deleteImageIfNeeded(url: url)
+                }
+                
+                self?.allModels.removeAll { model in
+                    if case .location(let locationModel) = model {
+                        return locationModel.identifier == id
+                    }
+                    return false
+                }
+                
+                let locationManager = CLLocationManager()
+                let regionIdentifier = "region-\(id)"
+                for region in locationManager.monitoredRegions {
+                    if region.identifier == regionIdentifier {
+                        locationManager.stopMonitoring(for: region)
+                    }
+                }
+                
+                let center = UNUserNotificationCenter.current()
+                let notificationId = "location-\(id)"
+                center.removePendingNotificationRequests(withIdentifiers: [notificationId])
+                
+                self?.tasksDidUpdate?(self?.allModels ?? [])
+                
+                NotificationCenter.default.post(
+                    name: .taskDidChange,
+                    object: nil,
+                    userInfo: ["type": "location"]
+                )
+                
+                print("Локация, регион и уведомления для \(id) удалены")
+                completion(true)
             }
         }
     }
