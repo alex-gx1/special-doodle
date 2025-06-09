@@ -76,7 +76,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         deleteHandler: @escaping () -> Void,
         completeHandler: @escaping () -> Void
     ) {
-        // Находим модель по ID
+        
         guard let model = allModels.first(where: { model in
             switch model {
             case .timer(let timerModel): return timerModel.identifier == id
@@ -97,7 +97,6 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         )
     }
     
-    
     private func handleEdit(for model: NotificationModel) {
         switch model {
         case .timer(let timerModel):
@@ -105,8 +104,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         case .date(let dateModel):
             router.navigateToEditDate(with: dateModel)
         case .location(let locationModel):
-            // Аналогично для locationModel, когда добавите соответствующий экран
-            break
+            router.navigateToEditLocation(with: locationModel)
         }
     }
     

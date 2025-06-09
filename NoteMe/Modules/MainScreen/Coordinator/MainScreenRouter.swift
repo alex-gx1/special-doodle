@@ -19,6 +19,7 @@ protocol MainScreenRouterProtocol {
     
     func navigateToEditTimer(with model: TimerTaskModel)
     func navigateToEditDate(with model: DateTaskModel)
+    func navigateToEditLocation(with model: LocationTaskModel)
 }
 
 final class MainScreenRouter: MainScreenRouterProtocol {
@@ -63,6 +64,11 @@ final class MainScreenRouter: MainScreenRouterProtocol {
     
     func navigateToEditDate(with model: DateTaskModel) {
         let editVC = DateScreenEditAssembler.make(with: model)
+        root?.navigationController?.pushViewController(editVC, animated: true)
+    }
+    
+    func navigateToEditLocation(with model: LocationTaskModel) {
+        let editVC = LocationScreenEditAssembler.make(with: model)
         root?.navigationController?.pushViewController(editVC, animated: true)
     }
 }
