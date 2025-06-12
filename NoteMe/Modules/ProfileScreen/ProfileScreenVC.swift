@@ -134,7 +134,7 @@ final class ProfileScreenVC: UIViewController {
     private lazy var exportButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.export, for: .normal)
-        button.setTitle(" Export", for: .normal)
+        button.setTitle(" Экспорт в .csv", for: .normal)
         button.contentHorizontalAlignment = .left
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.titleLabel?.font = UIFont.appFont15

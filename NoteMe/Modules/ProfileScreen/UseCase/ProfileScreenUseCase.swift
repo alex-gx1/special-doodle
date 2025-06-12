@@ -15,6 +15,6 @@ struct ProfileScreenServiceUseCase: ProfileScreenServiceProtocol {
     }
     
     func getUserMail() -> String {
-        return service.getUserMail() ?? "Error"
+        return service.getUserMail() ?? "Ошибка получения данных!"
     }
 }

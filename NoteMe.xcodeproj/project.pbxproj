@@ -79,6 +79,9 @@
 		F60233032DA6F96600F2D0E8 /* LocationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */; };
 		F60233052DA6F97100F2D0E8 /* LocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60233042DA6F97100F2D0E8 /* LocationRouter.swift */; };
 		F605B1B62DA45B8C00B330E6 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */; };
+		F627B9D12DFA8CAD00247C57 /* FirebaseBackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F627B9D02DFA8CAD00247C57 /* FirebaseBackupService.swift */; };
+		F627B9D62DFA90E400247C57 /* BackupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F627B9D52DFA90E400247C57 /* BackupModel.swift */; };
+		F627B9D82DFB0D0700247C57 /* Date+optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = F627B9D72DFB0D0700247C57 /* Date+optional.swift */; };
 		F63445AE2DDD0BF60040BC46 /* MainScreenSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */; };
 		F63445B02DDD0F240040BC46 /* MainScreenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */; };
 		F635179B2DF38AE400D97E8F /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179A2DF38AE400D97E8F /* StatsVC.swift */; };
@@ -252,6 +255,9 @@
 		F60233022DA6F96600F2D0E8 /* LocationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAssembler.swift; sourceTree = "<group>"; };
 		F60233042DA6F97100F2D0E8 /* LocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRouter.swift; sourceTree = "<group>"; };
 		F605B1B52DA45B8C00B330E6 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
+		F627B9D02DFA8CAD00247C57 /* FirebaseBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBackupService.swift; sourceTree = "<group>"; };
+		F627B9D52DFA90E400247C57 /* BackupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupModel.swift; sourceTree = "<group>"; };
+		F627B9D72DFB0D0700247C57 /* Date+optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+optional.swift"; sourceTree = "<group>"; };
 		F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenSections.swift; sourceTree = "<group>"; };
 		F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAdapter.swift; sourceTree = "<group>"; };
 		F635179A2DF38AE400D97E8F /* StatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
@@ -524,6 +530,7 @@
 		9DC2EC242D073FCF005A21F3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F627B9CF2DFA8C5300247C57 /* Firebase */,
 				F6A955C02DECC39E003768A2 /* NotificationHandler */,
 				9D2E20B52D385F4F00B475EE /* Container */,
 				9DC2EC252D073FF7005A21F3 /* AuthService.swift */,
@@ -663,6 +670,24 @@
 				F6E1F1CE2DA5884800C1CAD2 /* MenuPopOverRouter.swift */,
 			);
 			path = PopOverScreen;
+			sourceTree = "<group>";
+		};
+		F627B9CF2DFA8C5300247C57 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				F627B9D42DFA90CC00247C57 /* Models */,
+				F627B9D02DFA8CAD00247C57 /* FirebaseBackupService.swift */,
+				F627B9D72DFB0D0700247C57 /* Date+optional.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		F627B9D42DFA90CC00247C57 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F627B9D52DFA90E400247C57 /* BackupModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F63445AC2DDD0B990040BC46 /* Sections */ = {
@@ -1095,6 +1120,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F627B9D12DFA8CAD00247C57 /* FirebaseBackupService.swift in Sources */,
 				9D6A68132D1E05CD0036D9A3 /* OnboardingSecondVC.swift in Sources */,
 				9D6A680E2D1DD7EA0036D9A3 /* OnboardingAssembler.swift in Sources */,
 				F6D826232DB582D9006BA35E /* SearchRouter.swift in Sources */,
@@ -1129,6 +1155,7 @@
 				9D2E20BE2D3996A900B475EE /* AuthScreen.swift in Sources */,
 				9DF336062D19C4D00048C928 /* Foundation.swift in Sources */,
 				F63517C42DF51E4800D97E8F /* LocationScreenEditRouter.swift in Sources */,
+				F627B9D62DFA90E400247C57 /* BackupModel.swift in Sources */,
 				9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */,
 				F6D8261F2DB582C7006BA35E /* SearchViewModel.swift in Sources */,
 				F6A955C22DECC3D6003768A2 /* NotificationHandler.swift in Sources */,
@@ -1161,6 +1188,7 @@
 				9DAA627B2D16121B008FA250 /* ResetAssembler.swift in Sources */,
 				9D6A68192D1E06300036D9A3 /* OnboardingSecondRouter.swift in Sources */,
 				9D6F25782CFDDC8F00BFA561 /* AppDelegate.swift in Sources */,
+				F627B9D82DFB0D0700247C57 /* Date+optional.swift in Sources */,
 				9D2E20C52D39A9F400B475EE /* ProfileScreenVC.swift in Sources */,
 				9DFEDF802D10626400CE02C3 /* RegisterViewModel.swift in Sources */,
 				9D2835F12D1B48E0009A66DA /* ResetRouter.swift in Sources */,
