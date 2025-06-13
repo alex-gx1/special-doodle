@@ -25,30 +25,30 @@ public class NotificationsStorage<DTO: DTODescription> {
             .compactMap { $0.toDTO() }
     }
     
+    public func createDTOs(
+    dtos: [any DTODescription],
+    completion: CompletionHandler? = nil
+    ) {
+        let context = CoreDataService.shared.backgroundContext
+        context.perform {
+            let mos = dtos.map {
+                $0.createMO(context: context)
+            }
+            CoreDataService.shared.saveContext(context: context, completion: completion)
+        }
+    }
+    
     public func create(
         dto: DTO,
         completion: CompletionHandler? = nil
     ) {
         let context = CoreDataService.shared.backgroundContext
         context.perform {
-            let mo = DTO.MO(context: context)
-            mo.apply(dto: dto)
+            let mo = dto.createMO(context: context)
             CoreDataService.shared.saveContext(context: context, completion: completion)
         }
     }
-    
-//    public func update(
-//        dto: DTO,
-//        completion: CompletionHandler? = nil
-//    ) {
-//        let context = CoreDataService.shared.backgroundContext
-//        context.perform { [weak self] in
-//            guard let mo = self?.fetchMO(predicate: .Notification.notification(byId: dto.id)).first else { return }
-//            mo.apply(dto: dto)
-//            CoreDataService.shared.saveContext(context: context, completion: completion)
-//        }
-//    }
-    
+        
     public func update(
         dto: DTO,
         completion: CompletionHandler? = nil
@@ -67,10 +67,8 @@ public class NotificationsStorage<DTO: DTODescription> {
                     return
                 }
                 
-                // Применяем изменения из DTO
                 mo.apply(dto: dto)
                 
-                // Сохраняем контекст
                 CoreDataService.shared.saveContext(context: context) { success in
                     DispatchQueue.main.async {
                         completion?(success)
@@ -135,6 +133,21 @@ public class NotificationsStorage<DTO: DTODescription> {
         }
     }
     
+//    public func delete(
+//        predicate: NSPredicate,
+//        completion: CompletionHandler? = nil
+//    ) {
+//        let context = CoreDataService.shared.backgroundContext
+//        context.perform { [weak self] in
+//            guard let self = self else { return }
+//            let objects = self.fetchMO(predicate: predicate)
+//            for object in objects {
+//                context.delete(object)
+//            }
+//            CoreDataService.shared.saveContext(context: context, completion: completion)
+//        }
+//    }
+    
     public func delete(
         predicate: NSPredicate,
         completion: CompletionHandler? = nil
@@ -142,10 +155,17 @@ public class NotificationsStorage<DTO: DTODescription> {
         let context = CoreDataService.shared.backgroundContext
         context.perform { [weak self] in
             guard let self = self else { return }
+            
+            // Получаем объекты через существующий метод fetchMO
             let objects = self.fetchMO(predicate: predicate)
+            
+            // Удаляем объекты
             for object in objects {
-                context.delete(object)
+                // Всегда получаем свежую ссылку на объект в текущем контексте
+                let objectInContext = context.object(with: object.objectID)
+                context.delete(objectInContext)
             }
+            
             CoreDataService.shared.saveContext(context: context, completion: completion)
         }
     }

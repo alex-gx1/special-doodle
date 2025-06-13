@@ -1,5 +1,6 @@
 import Foundation
 import FirebaseAuth
+import Storage
 
 protocol LoginAuthServiceProtocol {
     func signIn(
@@ -33,13 +34,16 @@ final class LoginViewModel: LoginViewModelProtocol {
     
     private let parametersService: ParametersService
     
+    private let backupService: FirebaseBackupService
+    
     var shouldShowAlert: Closure<String>?
     
-    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol, router: LoginRouterProtocol, parametersService: ParametersService) {
+    init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol, router: LoginRouterProtocol, parametersService: ParametersService, backupService: FirebaseBackupService) {
         self.authService = service
         self.validationService = validationService
         self.router = router
         self.parametersService = parametersService
+        self.backupService = backupService
     }
     
     func loginUser(email: String?, password: String?, completion: @escaping (Result<String, Error>) -> Void) {
@@ -49,6 +53,7 @@ final class LoginViewModel: LoginViewModelProtocol {
             case .success:
                 self.parametersService.set(value: true, for: .isUserLogin)
                 completion(.success("Successfully logged in!"))
+                //TODO: start load backup
             case .failure(let error):
                 completion(.failure(error))
             }

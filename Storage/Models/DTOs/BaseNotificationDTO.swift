@@ -68,4 +68,10 @@ public struct  BaseNotificationDTO: DTODescription {
             lowPriority: mo.lowPriority
         )
     }
+    
+    public func createMO(context: NSManagedObjectContext) -> BaseNotificationMO? {
+        let mo = BaseNotificationMO(context: context)
+        mo.apply(dto: self)
+        return mo
+    }
 }

@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDYnJqO8cgYenhLf4YTAm2m8Qqv56hgBPI</string>
+	<string>AIzaSyCslfcbnXsAPaAyblFsQa22VZa3yPZ24TE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>344793172770</string>
+	<string>1095268468277</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>NoteMe.NoteMe</string>
+	<string>NoteMeNoteMe</string>
 	<key>PROJECT_ID</key>
-	<string>noteme-220f1</string>
+	<string>noteme-ad1cd</string>
 	<key>STORAGE_BUCKET</key>
-	<string>noteme-220f1.firebasestorage.app</string>
+	<string>noteme-ad1cd.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:344793172770:ios:e24bcb8ccc1bc87d48737b</string>
+	<string>1:1095268468277:ios:d6853a6e2a1e82e69c137c</string>
+	<key>DATABASE_URL</key>
+	<string>https://noteme-ad1cd-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

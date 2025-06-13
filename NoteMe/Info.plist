@@ -23,6 +23,8 @@
 	<array>
 		<string>location</string>
 		<string>fetch</string>
+		<string>processing</string>
+		<string>external-accessory</string>
 	</array>
 </dict>
 </plist>

@@ -19,6 +19,8 @@ public protocol DTODescription {
     var lowPriority: String? { get set }
     
     static func fromMO(_ mo: MO) -> Self?
+    
+    func createMO(context: NSManagedObjectContext) -> MO?
 }
 
 public protocol MODescription: NSManagedObject, NSFetchRequestResult {

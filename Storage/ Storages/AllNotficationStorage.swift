@@ -1,4 +1,6 @@
 import CoreData
 
-public final class AllNotficationStorage: NotificationsStorage<BaseNotificationDTO> {}
+public final class AllNotficationStorage: NotificationsStorage<BaseNotificationDTO> {
+
+}
 

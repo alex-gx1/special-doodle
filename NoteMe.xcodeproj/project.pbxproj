@@ -54,7 +54,6 @@
 		9D6F25AE2CFDFEF200BFA561 /* AppTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25AD2CFDFEF200BFA561 /* AppTextField.swift */; };
 		9D6F25B02CFE1EE500BFA561 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25AF2CFE1EE500BFA561 /* RegisterVC.swift */; };
 		9D6F25B22CFE2EBF00BFA561 /* ResetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F25B12CFE2EBF00BFA561 /* ResetVC.swift */; };
-		9DAA62772D15B9CD008FA250 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DAA62762D15B9CD008FA250 /* GoogleService-Info.plist */; };
 		9DAA62792D15E654008FA250 /* LoginAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA62782D15E654008FA250 /* LoginAssembler.swift */; };
 		9DAA627B2D16121B008FA250 /* ResetAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA627A2D16121B008FA250 /* ResetAssembler.swift */; };
 		9DAA627D2D16122C008FA250 /* RegisterAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA627C2D16122C008FA250 /* RegisterAssembler.swift */; };
@@ -82,6 +81,7 @@
 		F627B9D12DFA8CAD00247C57 /* FirebaseBackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F627B9D02DFA8CAD00247C57 /* FirebaseBackupService.swift */; };
 		F627B9D62DFA90E400247C57 /* BackupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F627B9D52DFA90E400247C57 /* BackupModel.swift */; };
 		F627B9D82DFB0D0700247C57 /* Date+optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = F627B9D72DFB0D0700247C57 /* Date+optional.swift */; };
+		F627B9E02DFBE08A00247C57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F627B9DF2DFBE08A00247C57 /* GoogleService-Info.plist */; };
 		F63445AE2DDD0BF60040BC46 /* MainScreenSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */; };
 		F63445B02DDD0F240040BC46 /* MainScreenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */; };
 		F635179B2DF38AE400D97E8F /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635179A2DF38AE400D97E8F /* StatsVC.swift */; };
@@ -230,7 +230,6 @@
 		9D6F25AD2CFDFEF200BFA561 /* AppTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTextField.swift; sourceTree = "<group>"; };
 		9D6F25AF2CFE1EE500BFA561 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		9D6F25B12CFE2EBF00BFA561 /* ResetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetVC.swift; sourceTree = "<group>"; };
-		9DAA62762D15B9CD008FA250 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DAA62782D15E654008FA250 /* LoginAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAssembler.swift; sourceTree = "<group>"; };
 		9DAA627A2D16121B008FA250 /* ResetAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetAssembler.swift; sourceTree = "<group>"; };
 		9DAA627C2D16122C008FA250 /* RegisterAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssembler.swift; sourceTree = "<group>"; };
@@ -258,6 +257,7 @@
 		F627B9D02DFA8CAD00247C57 /* FirebaseBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBackupService.swift; sourceTree = "<group>"; };
 		F627B9D52DFA90E400247C57 /* BackupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupModel.swift; sourceTree = "<group>"; };
 		F627B9D72DFB0D0700247C57 /* Date+optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+optional.swift"; sourceTree = "<group>"; };
+		F627B9DF2DFBE08A00247C57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F63445AD2DDD0BF60040BC46 /* MainScreenSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenSections.swift; sourceTree = "<group>"; };
 		F63445AF2DDD0F240040BC46 /* MainScreenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAdapter.swift; sourceTree = "<group>"; };
 		F635179A2DF38AE400D97E8F /* StatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
@@ -521,8 +521,8 @@
 				9DF57C922D0374EC00B73BCF /* Utils */,
 				9DF57C8E2D03713D00B73BCF /* Const */,
 				9D17E8A42CFF42610060E5B0 /* СustomUI */,
-				9DAA62762D15B9CD008FA250 /* GoogleService-Info.plist */,
 				9D6F25882CFDDC9100BFA561 /* Info.plist */,
+				F627B9DF2DFBE08A00247C57 /* GoogleService-Info.plist */,
 			);
 			path = NoteMe;
 			sourceTree = "<group>";
@@ -1102,7 +1102,7 @@
 			files = (
 				9D6F25872CFDDC9100BFA561 /* LaunchScreen.storyboard in Resources */,
 				9D6F25842CFDDC9100BFA561 /* Assets.xcassets in Resources */,
-				9DAA62772D15B9CD008FA250 /* GoogleService-Info.plist in Resources */,
+				F627B9E02DFBE08A00247C57 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1427,7 +1427,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "NoteMe.AKNoteMe-";
+				PRODUCT_BUNDLE_IDENTIFIER = NoteMeNoteMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1456,7 +1456,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "NoteMe.AKNoteMe-";
+				PRODUCT_BUNDLE_IDENTIFIER = NoteMeNoteMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1470,6 +1470,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1495,6 +1496,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = qwe.Storage;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1513,6 +1515,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1538,6 +1541,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = qwe.Storage;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;

@@ -9,6 +9,7 @@ protocol ProfileScreenViewModelProtocol {
     func getUserMail() -> String
     func openStatsScreen()
     func exportData()
+    func importData()
 }
 
 final class ProfileScreenVC: UIViewController {
@@ -142,8 +143,23 @@ final class ProfileScreenVC: UIViewController {
         return button
     }()
     
+    private lazy var importButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Images.export, for: .normal)
+        button.setTitle(" импорт", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setTitleColor(Colors.appBlackColor, for: .normal)
+        button.titleLabel?.font = UIFont.appFont15
+        button.addTarget(self, action: #selector(handleImport), for: .touchUpInside)
+        return button
+    }()
+    
     @objc private func handleExport() {
         viewModel.exportData()
+    }
+    
+    @objc private func handleImport() {
+        viewModel.importData()
     }
     
     private lazy var statsImageView: UIImageView = {
@@ -191,6 +207,10 @@ final class ProfileScreenVC: UIViewController {
         globalCardView.addSubview(accountLabel)
         
         globalCardView.addSubview(mailCardView)
+        
+        globalCardView.addSubview(importButton)
+        
+       
         
         mailCardView.addSubview(labelForMailCardView)
         
@@ -257,6 +277,12 @@ final class ProfileScreenVC: UIViewController {
             make.top.equalTo(settingsLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(186)
+        }
+        
+        importButton.snp.makeConstraints { make in
+            make.top.equalTo(bottomCardView.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(30)
         }
         
         switchContainer.snp.makeConstraints { make in

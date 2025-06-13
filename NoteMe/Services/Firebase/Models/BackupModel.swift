@@ -1,10 +1,3 @@
-//
-//  BackupModels.swift
-//  NoteMe
-//
-//  Created by Алексей Кононенко on 12.06.25.
-//
-
 import Foundation
 import Storage
 
@@ -14,7 +7,7 @@ enum BackupErrors: Error {
 
 struct BackupModel: Codable {
     
-    private let dto: any DTODescription
+    let dto: any DTODescription
     
     enum CodingKeys: CodingKey {
         //base
