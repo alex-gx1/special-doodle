@@ -9,8 +9,6 @@ protocol LoginAuthServiceProtocol {
         completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
-//сохранять после успешного логина в parametrsService что юзер залогинился
-
 protocol LoginValidateServiceProtocol {
     func validateEmail(_ email: String?) -> Bool
 }
@@ -38,6 +36,17 @@ final class LoginViewModel: LoginViewModelProtocol {
     
     var shouldShowAlert: Closure<String>?
     
+    let storage = AllNotficationStorage()
+    
+    func importData() {
+        
+        let backupService = FirebaseBackupService(storage: storage)
+        
+        backupService.loadBackup { [weak self] dtos in
+            self?.storage.createDTOs(dtos: dtos )
+        }
+    }
+    
     init(service: LoginAuthServiceProtocol, validationService: LoginValidateServiceProtocol, router: LoginRouterProtocol, parametersService: ParametersService, backupService: FirebaseBackupService) {
         self.authService = service
         self.validationService = validationService
@@ -53,7 +62,7 @@ final class LoginViewModel: LoginViewModelProtocol {
             case .success:
                 self.parametersService.set(value: true, for: .isUserLogin)
                 completion(.success("Успешная авторизация!"))
-                //TODO: start load backup
+                self.importData()
             case .failure(let error):
                 completion(.failure(error))
             }

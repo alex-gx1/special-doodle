@@ -8,6 +8,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     private var viewModel: MainScreenViewModelProtocol
     
     private let tableView = UITableView()
+    
     private lazy var adapter = MainScreenAdapter(tableView: tableView)
     
     private var selectedIndex: Int = 0
@@ -171,9 +172,41 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         )
     }
     
+//    @objc private func handleTaskCreatedNotification() {
+//        selectedIndex = FilterItem.allCases.firstIndex(of: .all) ?? 0
+//        collectionView.reloadData()
+//        
+//        searchStackView.isHidden = false
+//        searchStackView.alpha = 1
+//        isSearchVisible = true
+//        
+//        tableView.snp.remakeConstraints { make in
+//            make.top.equalTo(searchStackView.snp.bottom).offset(0)
+//            make.leading.trailing.equalToSuperview().inset(16)
+//            make.bottom.equalToSuperview()
+//        }
+//        
+//        viewModel.didSelectFilter(.all)
+//    }
+    
     @objc private func handleTaskCreatedNotification() {
+        
         selectedIndex = FilterItem.allCases.firstIndex(of: .all) ?? 0
+        
+        viewModel.loadAllTasks(with: [viewModel.currentSortDescriptor()])
+        
+        viewModel.didSelectFilter(.all)
+        
         collectionView.reloadData()
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(item: self.selectedIndex, section: 0)
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            
+            if let cell = self.collectionView.cellForItem(at: indexPath) as? FilterCell {
+                cell.isSelected = true
+            }
+        }
         
         searchStackView.isHidden = false
         searchStackView.alpha = 1
@@ -184,9 +217,8 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview()
         }
-        
-        viewModel.didSelectFilter(.all)
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

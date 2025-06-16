@@ -36,6 +36,7 @@ final class FirebaseBackupService {
                 )
         }
     }
+        
     func loadBackup(completion: @escaping ([any DTODescription]) -> Void) {
         guard let userId else { return }
         ref

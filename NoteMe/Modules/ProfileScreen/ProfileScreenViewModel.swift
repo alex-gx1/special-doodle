@@ -32,135 +32,126 @@ protocol ProfileScreenRouterProtocol {
 final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
     
     let storage = AllNotficationStorage()
+    
     func importData() {
         
         let backupService = FirebaseBackupService(storage: storage)
         
         backupService.loadBackup { [weak self] dtos in
             self?.storage.createDTOs(dtos: dtos )
-        }}
-
-private let router: ProfileScreenRouterProtocol
-private let authService: ProfileScreenServiceProtocol
-private let parametersService: ParametersService
-
-
-init(router: ProfileScreenRouterProtocol, authService: ProfileScreenServiceProtocol, parametersService: ParametersService) {
-    self.router = router
-    self.authService = authService
-    self.parametersService = parametersService
-}
-
-func getUserMail() -> String {
-    return authService.getUserMail()
-}
-
-//    func showAlert(Title: String, Message: String?) {
-//        router.showAlert(
-//            title: Title,
-//            message: Message,
-//            onConfirm: { [weak self] in
-//                self?.authService.signOut()
-//                self?.parametersService.set(value: false, for: .isUserLogin)
-//                self?.router.openLoginScreen()
-//            }
-//        )
-//    }
-func showAlert(Title: String, Message: String?) {
-    router.showAlert(
-        title: Title,
-        message: Message,
-        onConfirm: { [weak self] in
-            guard let self = self else { return }
-            
-            
-            self.router.showProgressAlert(
-                title: "Сохранение данных",
-                message: "Пожалуйста, подождите..."
-            ) {
-                
-                let storage = AllNotficationStorage()
-                let firebaseService = FirebaseBackupService(storage: storage)
+        }
+    }
+    
+    private let router: ProfileScreenRouterProtocol
+    private let authService: ProfileScreenServiceProtocol
+    private let parametersService: ParametersService
+    
+    
+    init(router: ProfileScreenRouterProtocol, authService: ProfileScreenServiceProtocol, parametersService: ParametersService) {
+        self.router = router
+        self.authService = authService
+        self.parametersService = parametersService
+    }
+    
+    func getUserMail() -> String {
+        return authService.getUserMail()
+    }
+    
+    func showAlert(Title: String, Message: String?) {
+        router.showAlert(
+            title: Title,
+            message: Message,
+            onConfirm: { [weak self] in
+                guard let self = self else { return }
                 
                 
-                firebaseService.backupAllData { success in
-                    DispatchQueue.main.async {
-                        self.router.dismissAlert {
-                            if success {
-                                storage.delete(predicate: NSPredicate(value: true))
-                                
-                                self.authService.signOut()
-                                self.parametersService.set(value: false, for: .isUserLogin)
-                                self.router.openLoginScreen()
-                            } else {
-                                
-                                self.router.showAlert(
-                                    title: "Внимание",
-                                    message: "Не удалось сохранить данные. Выйти без сохранения?",
-                                    onConfirm: {
-                                        self.authService.signOut()
-                                        self.parametersService.set(value: false, for: .isUserLogin)
-                                        self.router.openLoginScreen()
-                                    }
-                                )
+                self.router.showProgressAlert(
+                    title: "Сохранение данных",
+                    message: "Пожалуйста, подождите..."
+                ) {
+                    
+                    let storage = AllNotficationStorage()
+                    let firebaseService = FirebaseBackupService(storage: storage)
+                    
+                    
+                    firebaseService.backupAllData { success in
+                        DispatchQueue.main.async {
+                            self.router.dismissAlert {
+                                if success {
+                                    storage.delete(predicate: NSPredicate(value: true))
+                                    
+                                    self.authService.signOut()
+                                    self.parametersService.set(value: false, for: .isUserLogin)
+                                    self.router.openLoginScreen()
+                                } else {
+                                    
+                                    self.router.showAlert(
+                                        title: "Внимание",
+                                        message: "Не удалось сохранить данные. Выйти без сохранения?",
+                                        onConfirm: {
+                                            self.authService.signOut()
+                                            self.parametersService.set(value: false, for: .isUserLogin)
+                                            self.router.openLoginScreen()
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    )
-}
-
-func openStatsScreen() {
-    router.openStatsScreen()
-}
-
-func exportData() {
-    router.showProgressAlert(
-        title: "Экспорт данных",
-        message: "Подготавливаем ваши задачи..."
-    ) { [weak self] in
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let url = self?.exportDataToCSV() else {
+        )
+    }
+    
+    func openStatsScreen() {
+        router.openStatsScreen()
+    }
+    
+    func exportData() {
+        router.showProgressAlert(
+            title: "Экспорт данных",
+            message: "Подготавливаем ваши задачи..."
+        ) { [weak self] in
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let url = self?.exportDataToCSV() else {
+                    DispatchQueue.main.async {
+                        self?.router.dismissAlert {
+                            self?.router.showErrorAlert(
+                                title: "Ошибка",
+                                message: "Не удалось экспортировать данные"
+                            )
+                        }
+                    }
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     self?.router.dismissAlert {
-                        self?.router.showErrorAlert(
-                            title: "Ошибка",
-                            message: "Не удалось экспортировать данные"
-                        )
+                        self?.router.showShareSheet(with: url)
                     }
                 }
-                return
             }
+        }
+    }
+    
+    private func performExport() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            let url = self.exportDataToCSV()
             
             DispatchQueue.main.async {
-                self?.router.dismissAlert {
-                    self?.router.showShareSheet(with: url)
+                if let url = url {
+                    self.router.showShareSheet(with: url)
+                } else {
+                    self.router.showErrorAlert(
+                        title: "Ошибка",
+                        message: "Не удалось экспортировать данные"
+                    )
                 }
             }
         }
     }
-}
-
-private func performExport() {
-    DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-        guard let self = self else { return }
-        
-        let url = self.exportDataToCSV()
-        
-        DispatchQueue.main.async {
-            if let url = url {
-                self.router.showShareSheet(with: url)
-            } else {
-                self.router.showErrorAlert(
-                    title: "Ошибка",
-                    message: "Не удалось экспортировать данные"
-                )
-            }
-        }
-    }
-}
 }
 
 extension ProfileScreenViewModel {

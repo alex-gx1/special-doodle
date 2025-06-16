@@ -3,7 +3,6 @@ import SnapKit
 import FirebaseAuth
 import Firebase
 
-
 protocol ProfileScreenViewModelProtocol {
     func showAlert(Title: String, Message: String?)
     func getUserMail() -> String
@@ -143,17 +142,6 @@ final class ProfileScreenVC: UIViewController {
         return button
     }()
     
-    private lazy var importButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Images.export, for: .normal)
-        button.setTitle(" Импорт", for: .normal)
-        button.contentHorizontalAlignment = .left
-        button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.titleLabel?.font = UIFont.appFont15
-        button.addTarget(self, action: #selector(handleImport), for: .touchUpInside)
-        return button
-    }()
-    
     @objc private func handleExport() {
         viewModel.exportData()
     }
@@ -183,12 +171,6 @@ final class ProfileScreenVC: UIViewController {
     }()
     
     private lazy var separator3: UIView = {
-        let view = UIView()
-        view.backgroundColor = Colors.appGreyColor
-        return view
-    }()
-    
-    private lazy var separator4: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.appGreyColor
         return view
@@ -236,10 +218,6 @@ final class ProfileScreenVC: UIViewController {
         
         bottomCardView.addSubview(separator3)
         
-        bottomCardView.addSubview(separator4)
-        
-        bottomCardView.addSubview(importButton)
-        
         globalCardView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -282,7 +260,7 @@ final class ProfileScreenVC: UIViewController {
         bottomCardView.snp.makeConstraints { make in
             make.top.equalTo(settingsLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(226)
+            make.height.equalTo(186)
         }
         
         switchContainer.snp.makeConstraints { make in
@@ -321,27 +299,27 @@ final class ProfileScreenVC: UIViewController {
             make.height.equalTo(1)
         }
         
-        importButton.snp.makeConstraints { make in
-            make.top.equalTo(separator3.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(30)
-        }
-        
-        separator4.snp.makeConstraints { make in
-            make.top.equalTo(importButton.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(1)
-        }
+//        importButton.snp.makeConstraints { make in
+//            make.top.equalTo(separator3.snp.bottom).offset(6)
+//            make.horizontalEdges.equalToSuperview().inset(16)
+//            make.height.equalTo(30)
+//        }
+//        
+//        separator4.snp.makeConstraints { make in
+//            make.top.equalTo(importButton.snp.bottom).offset(6)
+//            make.horizontalEdges.equalToSuperview().inset(16)
+//            make.height.equalTo(1)
+//        }
         
         logoutButton.snp.makeConstraints { make in
-            make.top.equalTo(separator4.snp.bottom).offset(6)
+            make.top.equalTo(separator3.snp.bottom).offset(6)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(30)
         }
     }
     
     @objc func handleLogout() {
-        viewModel.showAlert(Title: "Are you shure about that ?", Message: "You will be sent to the login page")
+        viewModel.showAlert(Title: "Подтвердите действие.", Message: "Вы будете перенаправлены на страницу авторизации.")
     }
     
     @objc func handleStats() {

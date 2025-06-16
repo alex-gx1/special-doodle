@@ -59,7 +59,7 @@ final class TimerScreenEditViewModel: TimerScreenEditViewModelProtocol {
             if success {
                 NotificationCenter.default.post(name: .taskDidChange, object: nil, userInfo: ["type": "timer"])
             } else {
-                self.showAlert(title: "Error", message: "Failed to update the task")
+                self.showAlert(title: "Ошибка", message: "Не удалось обновить данные")
             }
         }
         

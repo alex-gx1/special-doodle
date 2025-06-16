@@ -27,6 +27,10 @@ protocol MainScreenViewModelProtocol {
     //for search
     func searchTasks(with text: String)
     func clearSearch()
+    
+    //for update
+    func loadAllTasks(with sortDescriptors: [NSSortDescriptor])
+    func currentSortDescriptor() -> NSSortDescriptor
 }
 
 final class MainScreenViewModel: MainScreenViewModelProtocol {
@@ -60,7 +64,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         didSelectFilter(currentFilter)
     }
     
-    private func currentSortDescriptor() -> NSSortDescriptor {
+    public func currentSortDescriptor() -> NSSortDescriptor {
         return isAscending ?
         NSSortDescriptor.Notification.byDateAscending :
         NSSortDescriptor.Notification.byDate
@@ -802,6 +806,7 @@ final class MainScreenViewModel: MainScreenViewModelProtocol {
         case .date:
             loadDateTasks(with: [sortDescriptor])
         case .all:
+            print("Вызван loadAllTasks")
             loadAllTasks(with: [sortDescriptor])
         case .location:
             loadLocationTasks(with: [sortDescriptor])
