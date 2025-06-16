@@ -68,7 +68,7 @@ final class FullMapVC: UIViewController {
     
     private lazy var searchTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Search"
+        textField.placeholder = "Поиск"
         textField.borderStyle = .none
         textField.font = .systemFont(ofSize: 16)
         textField.clearButtonMode = .whileEditing
@@ -78,7 +78,7 @@ final class FullMapVC: UIViewController {
     
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         return button
@@ -89,11 +89,12 @@ final class FullMapVC: UIViewController {
         mapView.showsUserLocation = true
         mapView.isRotateEnabled = false
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        //        if #available(iOS 17.0, *) {
-        //            mapView.showsUserTrackingButton = true
-        //        } else {
-        //            // Fallback on earlier versions
-        //        }
+        mapView.clipsToBounds = true
+        if #available(iOS 17.0, *) {
+            mapView.showsUserTrackingButton = true
+        } else {
+            // Fallback on earlier versions
+        }
         return mapView
     }()
     
@@ -114,7 +115,7 @@ final class FullMapVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.setTitle("Select", for: .normal)
+        button.setTitle("Выбрать", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appBlackColor.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appYellowColor?.withAlphaComponent(0.7), for: .highlighted)
@@ -129,7 +130,7 @@ final class FullMapVC: UIViewController {
         button.layer.borderWidth = 2.5
         button.backgroundColor = Colors.appBlackColor
         button.setTitleColor(Colors.appYellowColor, for: .normal)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appYellowColor?.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appBlackColor.withAlphaComponent(0.7), for: .highlighted)
@@ -206,7 +207,7 @@ final class FullMapVC: UIViewController {
         }
         
         mapView.snp.makeConstraints { make in
-            make.top.equalTo(searchContainer.snp.bottom)
+            make.top.equalTo(searchContainer.snp.bottom).inset(-10)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }

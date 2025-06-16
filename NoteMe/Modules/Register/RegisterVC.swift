@@ -9,7 +9,6 @@ protocol RegisterViewModelProtocol: AnyObject {
     func validatePasswords(password: String?, repeatPassword: String?) -> Bool
     func register(email: String, password: String)
     var shouldShowAlert: Closure<String>? {get set}
-    
     //navigation
     func back()
 }
@@ -41,15 +40,15 @@ final class RegisterVC: UIViewController, AuthScreen {
     }()
     
     private lazy var emailField: AppTextField = {
-        return AppTextField(title: "E-mail", placeholder: "Enter E-mail")
+        return AppTextField(title: "E-mail", placeholder: "Введите E-mail")
     }()
     
     private lazy var passwordField: AppTextField = {
-        return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
+        return AppTextField(title: "Пароль", placeholder: "Введите пароль", isSecure: true)
     }()
     
     private lazy var repeatPassword: AppTextField = {
-        return AppTextField(title: "Repeat Password", placeholder: "Enter Password",isSecure: true)
+        return AppTextField(title: "Повторите пароль", placeholder: "Введите пароль",isSecure: true)
     }()
     
     //bottom card and elements
@@ -65,7 +64,7 @@ final class RegisterVC: UIViewController, AuthScreen {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Register", for: .normal)
+        button.setTitle("Регистрация", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         return button
@@ -73,7 +72,7 @@ final class RegisterVC: UIViewController, AuthScreen {
     
     private lazy var haveAccountButton: UIButton = {
         let button = UIButton()
-        let title = "I have an Account"
+        let title = "У меня уже есть аккаунт"
         let attributedString = NSAttributedString(
             string: title,
             attributes: [
@@ -113,7 +112,7 @@ final class RegisterVC: UIViewController, AuthScreen {
     
     private func bind(){
         viewModel.shouldShowAlert = { [weak self] message in
-            self?.showAlert(title: "Error", message: message)
+            self?.showAlert(title: "Ошибка", message: message)
         }
     }
     
@@ -220,7 +219,7 @@ final class RegisterVC: UIViewController, AuthScreen {
         viewModel.register(email: email, password: password)
         
         guard viewModel.validatePasswords(password: password, repeatPassword: repeatPassword) else {
-            showAlert(title: "Error", message: "Passwords do not match.")
+            showAlert(title: "Ошибка", message: "Пароли не совпадают.")
             return
         }
         

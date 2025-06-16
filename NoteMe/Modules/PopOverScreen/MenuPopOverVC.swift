@@ -28,13 +28,13 @@ final class MenuPopoverVC: UIViewController {
     }
     
     private func setupButtons() {
-        let timerBtn = makeStyledButton(title: "Timer", image: Images.timerButton, showSeparator: true) {
+        let timerBtn = makeStyledButton(title: "Таймер", image: Images.timerButton, showSeparator: true) {
             self.viewModel.openTimerScreen()
         }
-        let locationBtn = makeStyledButton(title: "Location", image: Images.locationButton, showSeparator: true) {
+        let locationBtn = makeStyledButton(title: "Локация", image: Images.locationButton, showSeparator: true) {
             self.viewModel.openLocationScreen()
         }
-        let calendarBtn = makeStyledButton(title: "Calendar", image: Images.calendarButton, showSeparator: false) {
+        let calendarBtn = makeStyledButton(title: "Дата", image: Images.calendarButton, showSeparator: false) {
             self.viewModel.openCalenderScreen()
         }
         

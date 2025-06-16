@@ -36,7 +36,7 @@ final class OnboardingVC: UIViewController, OnboardingScreens {
     
     private lazy var textWelcome: UILabel = {
         let view = UILabel()
-        view.text = "Welcome!"
+        view.text = "Приветствуем!"
         view.textAlignment = .center
         view.font = .appBoldFont25
         return view
@@ -53,7 +53,7 @@ final class OnboardingVC: UIViewController, OnboardingScreens {
     
     private lazy var textInCardView: UILabel = {
         let view = UILabel()
-        view.text = "NoteMe is an application, which notify you about everything!"
+        view.text = "NoteMe это приложение, которое уведомляет вас обо всем!"
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
         view.font = UIFont.appBoldFont13
@@ -65,7 +65,7 @@ final class OnboardingVC: UIViewController, OnboardingScreens {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Дальше", for: .normal)
         button.titleLabel?.font = .appBoldFont17
         button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return button

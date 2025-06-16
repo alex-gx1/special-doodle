@@ -15,9 +15,9 @@ final class TabBarAssembler {
         
         let profileScreen = ProfileScreenAssembler.make()
         
-        mainScreen.tabBarItem = UITabBarItem(title: "Main", image: Images.homeTabBar, tag: 0)
+        mainScreen.tabBarItem = UITabBarItem(title: "Главная", image: Images.homeTabBar, tag: 0)
         
-        profileScreen.tabBarItem = UITabBarItem(title: "Profile", image: Images.profileTabBar, tag: 2)
+        profileScreen.tabBarItem = UITabBarItem(title: "Профиль", image: Images.profileTabBar, tag: 2)
         
         tabBar.viewControllers = [mainScreen, profileScreen]
         

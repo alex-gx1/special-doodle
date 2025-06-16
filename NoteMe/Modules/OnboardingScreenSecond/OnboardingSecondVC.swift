@@ -37,12 +37,11 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
     
     private lazy var textDifTypes: UILabel = {
         let view = UILabel()
-        view.text = "Different types!"
+        view.text = "Разные задачи!"
         view.textAlignment = .center
         view.font = .appBoldFont25
         return view
     }()
-    
     
     //middle card and elements
     private lazy var cardView: UIView = {
@@ -56,12 +55,12 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
     private lazy var textInCardView: UILabel = {
         let view = UILabel()
         view.text = """
-        NoteMe is an application, which notify you about everything!
+        NoteMe это приложение, которое уведомляет вас обо всем!
         
-        You can use 3 types of notifications:
-        • Calendar - choose the date, when you want to receive notification.
-        • Location - choose the region and notification will come after you enter it.
-        • Timer - set timer and after selected period you will receive the notification.
+        Вы можете использовать 3 типа задач:
+        • Дата - выберете дату, чтобы получить уведомление.
+        • Локация - выберете регион и уведомление придет, когда вы зайдете в него.
+        • Таймер - установите таймер и по истечению выбранного периода вы получите уведомление.
         """
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
@@ -80,7 +79,7 @@ final class OnboardingSecondVC: UIViewController, OnboardingScreens {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Готово", for: .normal)
         button.titleLabel?.font = .appBoldFont17
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button

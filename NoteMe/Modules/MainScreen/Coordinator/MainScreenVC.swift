@@ -48,7 +48,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
     
     private lazy var searchTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Search tasks"
+        textField.placeholder = "Поиск задач"
         textField.borderStyle = .none
         textField.font = .systemFont(ofSize: 16)
         textField.clearButtonMode = .whileEditing
@@ -68,7 +68,7 @@ final class MainScreenVC: UIViewController, LocationTaskCellDelegate, TimerTaskC
         
     private lazy var cancelSearchButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.isHidden = true
         return button

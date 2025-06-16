@@ -53,7 +53,6 @@ final class LocationVC: UIViewController {
     }
     
     // MARK: - UI Components
-    
     private lazy var globalCardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -72,13 +71,13 @@ final class LocationVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont17
-        label.text = "Create Location Notification"
+        label.text = "Создание задачи с локацией"
         return label
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Title"
+        label.text = "Название"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -86,7 +85,7 @@ final class LocationVC: UIViewController {
     
     private lazy var titleTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Enter your Title"
+        tf.placeholder = "Введите название задачи"
         tf.borderStyle = .none
         tf.font = UIFont.appFont15
         tf.keyboardType = .default
@@ -105,7 +104,7 @@ final class LocationVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont15
-        label.text = "Comment"
+        label.text = "Подзадача"
         return label
     }()
     
@@ -124,7 +123,7 @@ final class LocationVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont15
-        label.text = "Location"
+        label.text = "Локация"
         return label
     }()
     
@@ -147,7 +146,7 @@ final class LocationVC: UIViewController {
     // Category Section
     private lazy var categoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "Category"
+        label.text = "Категория"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -163,7 +162,7 @@ final class LocationVC: UIViewController {
     
     private lazy var otherButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Other", for: .normal)
+        button.setTitle("Другое", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont15
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.backgroundColor = Colors.appYellowColor
@@ -174,7 +173,7 @@ final class LocationVC: UIViewController {
     
     private lazy var workButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Work", for: .normal)
+        button.setTitle("Работа", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont15
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -186,7 +185,7 @@ final class LocationVC: UIViewController {
     // Priority Section
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
-        label.text = "Priority"
+        label.text = "Приоритет"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -202,7 +201,7 @@ final class LocationVC: UIViewController {
     
     private lazy var criticalButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Critical", for: .normal)
+        button.setTitle("Критичный", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -213,7 +212,7 @@ final class LocationVC: UIViewController {
     
     private lazy var highPriorityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("High", for: .normal)
+        button.setTitle("Высокий", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -224,7 +223,7 @@ final class LocationVC: UIViewController {
     
     private lazy var mediumPriorityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Medium", for: .normal)
+        button.setTitle("Средний", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appYellowColor
@@ -235,7 +234,7 @@ final class LocationVC: UIViewController {
     
     private lazy var lowPriorityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Low", for: .normal)
+        button.setTitle("Низкий", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -250,7 +249,7 @@ final class LocationVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.setTitle("Create", for: .normal)
+        button.setTitle("Создать", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appBlackColor.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appYellowColor?.withAlphaComponent(0.7), for: .highlighted)
@@ -265,7 +264,7 @@ final class LocationVC: UIViewController {
         button.layer.borderWidth = 2.5
         button.backgroundColor = Colors.appBlackColor
         button.setTitleColor(Colors.appYellowColor, for: .normal)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appYellowColor?.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appBlackColor.withAlphaComponent(0.7), for: .highlighted)
@@ -424,22 +423,22 @@ final class LocationVC: UIViewController {
         let subtitle = textView.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
         if title.isEmpty {
-            viewModel.showAlert(title: "Error", message: "Title can't be empty.")
+            viewModel.showAlert(title: "Ошибка", message: "Название не может быть пустым.")
             return
         }
         if subtitle.isEmpty {
-            viewModel.showAlert(title: "Error", message: "Comment can't be empty.")
+            viewModel.showAlert(title: "Ошибка", message: "Подзадача не может быть пустой.")
             return
         }
         
         guard let image = locationMapUIImage.image else {
-            viewModel.showAlert(title: "Error", message: "No map image found.")
+            viewModel.showAlert(title: "Ошибка", message: "Картинка не найдена.")
             return
         }
         
         let fileName = UUID().uuidString + ".png"
         guard let imagePath = viewModel.saveImageToDocuments(image, fileName: fileName) else {
-            viewModel.showAlert(title: "Error", message: "Failed to save image.")
+            viewModel.showAlert(title: "Ошибка", message: "Не удалось сохранить фотокарточку.")
             return
         }
         

@@ -1,16 +1,16 @@
 import UIKit
 
 enum FilterItem: String, CaseIterable {
-    case all = "All"
-    case active = "Active"
-    case completed = "Completed"
-    case date = "Date"
-    case location = "Location"
-    case timer = "Timer"
-    case work = "Work"
-    case other = "Other"
-    case critical = "Critical"
-    case high = "High"
-    case medium = "Medium"
-    case low = "Low"
+    case all = "Все"
+    case active = "Активные"
+    case completed = "Завершенные"
+    case date = "Дата"
+    case location = "Локация"
+    case timer = "Таймер"
+    case work = "Работа"
+    case other = "Другое"
+    case critical = "Критичный"
+    case high = "Высокий"
+    case medium = "Средний"
+    case low = "Низкий"
 }

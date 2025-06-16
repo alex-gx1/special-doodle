@@ -22,13 +22,13 @@ final class SmallPopOverVC: UIViewController {
     }
     
     private func setupButtons() {
-        let editBtn = makeStyledButton(title: "Edit", image: Images.editIcon, showSeparator: true) {
+        let editBtn = makeStyledButton(title: "Редактировать", image: Images.editIcon, showSeparator: true) {
             self.viewModel.editAction()
         }
-        let doneBtn = makeStyledButton(title: "Done", image: Images.doneIcon, showSeparator: true) {
+        let doneBtn = makeStyledButton(title: "Выполнено", image: Images.doneIcon, showSeparator: true) {
             self.viewModel.doneAction()
         }
-        let deleteBtn = makeStyledButton(title: "Delete", image: Images.deleteIcon, showSeparator: false) {
+        let deleteBtn = makeStyledButton(title: "Удалить", image: Images.deleteIcon, showSeparator: false) {
             self.viewModel.deleteAction()
         }
         

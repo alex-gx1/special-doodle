@@ -20,7 +20,6 @@ final class TimerVC: UIViewController {
     }()
     
     // MARK: - UI Components
-    
     private lazy var globalCardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -39,13 +38,13 @@ final class TimerVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont17
-        label.text = "Create Timer Notification"
+        label.text = "Создание задачи с таймером"
         return label
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Title"
+        label.text = "Название задачи"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -53,7 +52,7 @@ final class TimerVC: UIViewController {
     
     private lazy var titleTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Enter your Title"
+        tf.placeholder = "Введите название задачи"
         tf.borderStyle = .none
         tf.font = UIFont.appFont15
         tf.autocorrectionType = .no
@@ -69,7 +68,7 @@ final class TimerVC: UIViewController {
     
     private lazy var timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "Timer"
+        label.text = "Таймер"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -95,7 +94,7 @@ final class TimerVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont15
-        label.text = "Comment"
+        label.text = "Подзадача"
         return label
     }()
     
@@ -113,7 +112,7 @@ final class TimerVC: UIViewController {
     // Category Buttons
     private lazy var categoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "Category"
+        label.text = "Категория"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -129,7 +128,7 @@ final class TimerVC: UIViewController {
     
     private lazy var otherButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Other", for: .normal)
+        button.setTitle("Другое", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont15
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.backgroundColor = Colors.appYellowColor
@@ -140,7 +139,7 @@ final class TimerVC: UIViewController {
     
     private lazy var workButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Work", for: .normal)
+        button.setTitle("Работа", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont15
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -152,7 +151,7 @@ final class TimerVC: UIViewController {
     // Priority Buttons
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
-        label.text = "Priority"
+        label.text = "Приоритет"
         label.font = UIFont.appBoldFont15
         label.textColor = Colors.appBlackColor
         return label
@@ -168,7 +167,7 @@ final class TimerVC: UIViewController {
     
     private lazy var criticalButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Critical", for: .normal)
+        button.setTitle("Критичный", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -179,7 +178,7 @@ final class TimerVC: UIViewController {
     
     private lazy var highPriorityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("High", for: .normal)
+        button.setTitle("Высокий", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -190,7 +189,7 @@ final class TimerVC: UIViewController {
     
     private lazy var mediumPriorityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Medium", for: .normal)
+        button.setTitle("Средний", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appYellowColor
@@ -201,7 +200,7 @@ final class TimerVC: UIViewController {
     
     private lazy var lowPriorityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Low", for: .normal)
+        button.setTitle("Низкий", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont13
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Colors.appGreyColor
@@ -216,7 +215,7 @@ final class TimerVC: UIViewController {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.setTitle("Create", for: .normal)
+        button.setTitle("Создать", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appBlackColor.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appYellowColor?.withAlphaComponent(0.7), for: .highlighted)
@@ -231,7 +230,7 @@ final class TimerVC: UIViewController {
         button.layer.borderWidth = 2.5
         button.backgroundColor = Colors.appBlackColor
         button.setTitleColor(Colors.appYellowColor, for: .normal)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.setTitleColor(Colors.appYellowColor?.withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundColor(Colors.appBlackColor.withAlphaComponent(0.7), for: .highlighted)
@@ -440,15 +439,15 @@ final class TimerVC: UIViewController {
         let seconds = customInputView.duration.value
         
         if title.isEmpty {
-            viewModel.showAlert(title: "Error", message: "Title can't be empty.")
+            viewModel.showAlert(title: "Ошибка", message: "Название задачи не может быть пустым.")
             return
         }
         if subtitle.isEmpty {
-            viewModel.showAlert(title: "Error", message: "Comment can't be empty.")
+            viewModel.showAlert(title: "Ошибка", message: "Подзадача не может быть пустой.")
             return
         }
         if seconds == 0 {
-            viewModel.showAlert(title: "Error", message: "Please select a time.")
+            viewModel.showAlert(title: "Ошибка", message: "Выберете время.")
             return
         }
         

@@ -23,7 +23,7 @@ final class ResetVC: UIViewController, AuthScreen {
     
     private lazy var textWelcomeBack: UILabel = {
         let view = UILabel()
-        view.text = "Reset Password"
+        view.text = "Смена пароля"
         view.textAlignment = .center
         view.font = UIFont.appBoldFont25
         return view
@@ -39,7 +39,7 @@ final class ResetVC: UIViewController, AuthScreen {
     }()
     
     private lazy var emailField: AppTextField = {
-        return AppTextField(title: "We will send you a reset password link.", placeholder:"Enter E-mail")
+        return AppTextField(title: "Мы отправим вам ссылку для сброса пароля.", placeholder:"Введите E-mail")
     }()
     
     //bottom card and elements
@@ -48,7 +48,7 @@ final class ResetVC: UIViewController, AuthScreen {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(Colors.appBlackColor, for: .normal)
-        button.setTitle("Reset", for: .normal)
+        button.setTitle("Сбросить", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         return button
@@ -61,7 +61,7 @@ final class ResetVC: UIViewController, AuthScreen {
         button.layer.borderWidth = 2.5
         button.backgroundColor = Colors.appBlackColor
         button.setTitleColor(Colors.appYellowColor, for: .normal)
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Отмена", for: .normal)
         button.titleLabel?.font = UIFont.appBoldFont17
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
@@ -92,7 +92,7 @@ final class ResetVC: UIViewController, AuthScreen {
     
     private func bind(){
         viewModel.shouldShowAlert = { [weak self] message in
-            self?.showAlert(title: "Error", message: message)
+            self?.showAlert(title: "Ошибка", message: message)
         }
     }
     

@@ -52,7 +52,7 @@ final class LoginViewModel: LoginViewModelProtocol {
             switch result {
             case .success:
                 self.parametersService.set(value: true, for: .isUserLogin)
-                completion(.success("Successfully logged in!"))
+                completion(.success("Успешная авторизация!"))
                 //TODO: start load backup
             case .failure(let error):
                 completion(.failure(error))
@@ -63,7 +63,7 @@ final class LoginViewModel: LoginViewModelProtocol {
     
     func login(email: String, password: String) {
         guard validationService.validateEmail(email) else {
-            router.showAlert(title: "Error", message: "Invalid email  format.")
+            router.showAlert(title: "Ошибка", message: "Неправильный формат E-mail.")
             return
         }
         
@@ -73,7 +73,7 @@ final class LoginViewModel: LoginViewModelProtocol {
                 case .success(_):
                     self?.openOnboardingModule()
                 case .failure(let error):
-                    self?.router.showAlert(title: "Error", message: error.localizedDescription)
+                    self?.router.showAlert(title: "Ошибка", message: error.localizedDescription)
                 }
             }
         }

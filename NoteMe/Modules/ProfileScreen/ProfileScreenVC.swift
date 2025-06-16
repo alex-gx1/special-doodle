@@ -44,7 +44,7 @@ final class ProfileScreenVC: UIViewController {
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont15
         label.textAlignment = .center
-        label.text = "Account"
+        label.text = "Аккаунт"
         return label
     }()
     
@@ -60,7 +60,7 @@ final class ProfileScreenVC: UIViewController {
         let label = UILabel()
         label.textColor = Colors.appGreyColor
         label.font = UIFont.appFont15
-        label.text = "Your e-mail:"
+        label.text = "Ваш e-mail:"
         return label
     }()
     
@@ -76,7 +76,7 @@ final class ProfileScreenVC: UIViewController {
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appBoldFont15
         label.textAlignment = .center
-        label.text = "Settings"
+        label.text = "Настройки"
         return label
     }()
     
@@ -99,7 +99,7 @@ final class ProfileScreenVC: UIViewController {
     
     private lazy var switchLabel: UILabel = {
         let label = UILabel()
-        label.text = "Notifications"
+        label.text = "Нотификации"
         label.textColor = Colors.appBlackColor
         label.font = UIFont.appFont15
         return label
@@ -146,7 +146,7 @@ final class ProfileScreenVC: UIViewController {
     private lazy var importButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.export, for: .normal)
-        button.setTitle(" импорт", for: .normal)
+        button.setTitle(" Импорт", for: .normal)
         button.contentHorizontalAlignment = .left
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.titleLabel?.font = UIFont.appFont15
@@ -174,7 +174,7 @@ final class ProfileScreenVC: UIViewController {
     private lazy var statsButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.stats, for: .normal)
-        button.setTitle(" Stats", for: .normal)
+        button.setTitle(" Диаграммы", for: .normal)
         button.contentHorizontalAlignment = .left
         button.setTitleColor(Colors.appBlackColor, for: .normal)
         button.titleLabel?.font = UIFont.appFont15
@@ -188,10 +188,16 @@ final class ProfileScreenVC: UIViewController {
         return view
     }()
     
+    private lazy var separator4: UIView = {
+        let view = UIView()
+        view.backgroundColor = Colors.appGreyColor
+        return view
+    }()
+    
     private lazy var logoutButton: UIButton = {
         let button = UIButton()
         button.setImage(Images.logout, for: .normal)
-        button.setTitle(" Logout", for: .normal)
+        button.setTitle(" Выход", for: .normal)
         button.contentHorizontalAlignment = .left
         button.setTitleColor(Colors.appRedColor, for: .normal)
         button.titleLabel?.font = UIFont.appFont15
@@ -207,10 +213,6 @@ final class ProfileScreenVC: UIViewController {
         globalCardView.addSubview(accountLabel)
         
         globalCardView.addSubview(mailCardView)
-        
-        globalCardView.addSubview(importButton)
-        
-       
         
         mailCardView.addSubview(labelForMailCardView)
         
@@ -233,6 +235,10 @@ final class ProfileScreenVC: UIViewController {
         bottomCardView.addSubview(statsButton)
         
         bottomCardView.addSubview(separator3)
+        
+        bottomCardView.addSubview(separator4)
+        
+        bottomCardView.addSubview(importButton)
         
         globalCardView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -276,13 +282,7 @@ final class ProfileScreenVC: UIViewController {
         bottomCardView.snp.makeConstraints { make in
             make.top.equalTo(settingsLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(186)
-        }
-        
-        importButton.snp.makeConstraints { make in
-            make.top.equalTo(bottomCardView.snp.bottom).offset(16)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(30)
+            make.height.equalTo(226)
         }
         
         switchContainer.snp.makeConstraints { make in
@@ -321,8 +321,20 @@ final class ProfileScreenVC: UIViewController {
             make.height.equalTo(1)
         }
         
-        logoutButton.snp.makeConstraints { make in
+        importButton.snp.makeConstraints { make in
             make.top.equalTo(separator3.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(30)
+        }
+        
+        separator4.snp.makeConstraints { make in
+            make.top.equalTo(importButton.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(1)
+        }
+        
+        logoutButton.snp.makeConstraints { make in
+            make.top.equalTo(separator4.snp.bottom).offset(6)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(30)
         }

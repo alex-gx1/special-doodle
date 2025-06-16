@@ -25,7 +25,7 @@ final class LoginVC: UIViewController, AuthScreen {
     //label welcome back
     private lazy var textWelcomeBack: UILabel = {
         let view = UILabel()
-        view.text = "Welcome back!"
+        view.text = "С возвращением!"
         view.textAlignment = .center
         view.font = .appBoldFont25
         return view
@@ -41,11 +41,11 @@ final class LoginVC: UIViewController, AuthScreen {
     }()
     
     private lazy var emailField: AppTextField = {
-        return AppTextField(title: "E-mail", placeholder: "Enter E-mail")
+        return AppTextField(title: "E-mail", placeholder: "Введите E-mail")
     }()
     
     private lazy var passwordField: AppTextField = {
-        return AppTextField(title: "Password", placeholder: "Enter Password", isSecure: true)
+        return AppTextField(title: "Пароль", placeholder: "Введите Password", isSecure: true)
     }()
     
     private lazy var forgotPasswordButton: UIButton = {
@@ -55,7 +55,7 @@ final class LoginVC: UIViewController, AuthScreen {
             .foregroundColor: Colors.appGreyColor!,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
-        let attributedTitle = NSAttributedString(string: "Forgot Password", attributes: attributes)
+        let attributedTitle = NSAttributedString(string: "Забыл пароль", attributes: attributes)
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(forgotTapped(sender:)), for: .touchUpInside)
@@ -75,7 +75,7 @@ final class LoginVC: UIViewController, AuthScreen {
         button.layer.cornerRadius = 5
         button.backgroundColor = Colors.appYellowColor
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Login", for: .normal)
+        button.setTitle("Авторизация", for: .normal)
         button.titleLabel?.font = .appBoldFont17
         button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
@@ -83,7 +83,7 @@ final class LoginVC: UIViewController, AuthScreen {
     
     private lazy var newAccountButton: UIButton = {
         let button = UIButton()
-        let title = "New Account"
+        let title = "Новый аккаунт"
         let attributedString = NSAttributedString(
             string: title,
             attributes: [
@@ -124,7 +124,7 @@ final class LoginVC: UIViewController, AuthScreen {
     
     private func bind(){
         viewModel.shouldShowAlert = { [weak self] message in
-            self?.showAlert(title: "Error", message: message)
+            self?.showAlert(title: "Ошибка", message: message)
         }
     }
     
