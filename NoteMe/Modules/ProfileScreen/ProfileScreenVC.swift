@@ -9,6 +9,9 @@ protocol ProfileScreenViewModelProtocol {
     func openStatsScreen()
     func exportData()
     func importData()
+    
+    func setNotificationsEnabled(_ enabled: Bool)
+    func areNotificationsEnabled() -> Bool
 }
 
 final class ProfileScreenVC: UIViewController {
@@ -30,6 +33,7 @@ final class ProfileScreenVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         labelForUserMail.text = viewModel.getUserMail()
+        toggleSwitch.isOn = viewModel.areNotificationsEnabled()
     }
     
     private lazy var globalCardView: UIView = {
@@ -106,10 +110,14 @@ final class ProfileScreenVC: UIViewController {
     
     private lazy var toggleSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = true
         toggle.onTintColor = Colors.appYellowColor
+        toggle.addTarget(self, action: #selector(notificationSwitchChanged), for: .valueChanged)
         return toggle
     }()
+    
+    @objc private func notificationSwitchChanged() {
+        viewModel.setNotificationsEnabled(toggleSwitch.isOn)
+    }
     
     private lazy var switchContainer: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [notificationImageView, switchLabel, toggleSwitch ])
@@ -298,19 +306,7 @@ final class ProfileScreenVC: UIViewController {
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(1)
         }
-        
-//        importButton.snp.makeConstraints { make in
-//            make.top.equalTo(separator3.snp.bottom).offset(6)
-//            make.horizontalEdges.equalToSuperview().inset(16)
-//            make.height.equalTo(30)
-//        }
-//        
-//        separator4.snp.makeConstraints { make in
-//            make.top.equalTo(importButton.snp.bottom).offset(6)
-//            make.horizontalEdges.equalToSuperview().inset(16)
-//            make.height.equalTo(1)
-//        }
-        
+
         logoutButton.snp.makeConstraints { make in
             make.top.equalTo(separator3.snp.bottom).offset(6)
             make.horizontalEdges.equalToSuperview().inset(16)

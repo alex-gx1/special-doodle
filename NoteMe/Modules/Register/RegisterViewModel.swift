@@ -59,13 +59,13 @@ final class RegisterViewModel: RegisterViewModelProtocol {
     
     func register(email: String, password: String) {
         guard validationService.validateEmail(email) else {
-            router.showAlert(title: "Error", message: "Invalid email format!")
+            router.showAlert(title: "Ошибка", message: "Неправильный email формат!")
             
             return
         }
         
         guard validationService.validatePasswordStrength(password) else {
-            router.showAlert(title: "Error", message: "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.")
+            router.showAlert(title: "Ошибка", message: "Пароль должен быть в длину не менее 8 симвволов, соержать маленькие и заглавные буквы, а также спецсимволы.")
             return
         }
         
@@ -73,9 +73,9 @@ final class RegisterViewModel: RegisterViewModelProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    self?.router.showAlert(title: "Success", message: "You have been successfuly registrated!")
+                    self?.router.showAlert(title: "Успешно", message: "Вы зарегестрировались!")
                 case .failure(let error):
-                    self?.router.showAlert(title: "Error", message: error.localizedDescription)
+                    self?.router.showAlert(title: "Ошибка", message: error.localizedDescription)
                 }
             }
         }
@@ -91,7 +91,7 @@ enum ValidationError: Error {
     var localizedDescription: String {
         switch self {
         case .emptyFields:
-            return "Email and Password must not be empty."
+            return "Email и пароль не должны быть пустыми."
         }
     }
 }

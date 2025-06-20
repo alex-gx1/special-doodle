@@ -29,7 +29,23 @@ protocol ProfileScreenRouterProtocol {
     func openStatsScreen()
 }
 
-final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
+final class ProfileScreenViewModel: ProfileScreenViewModelProtocol {
+    
+    private let notificationManager = NotificationManager.shared
+    private let parametersService: ParametersService
+    
+    func setNotificationsEnabled(_ enabled: Bool) {
+        parametersService.set(value: enabled, for: .notificationsEnabled)
+        if enabled {
+            notificationManager.checkNotificationsImmediately()
+        } else {
+            notificationManager.cancelAllNotifications()
+        }
+    }
+
+    func areNotificationsEnabled() -> Bool {
+        return parametersService.getBool(for: .notificationsEnabled)
+    }
     
     let storage = AllNotficationStorage()
     
@@ -44,7 +60,6 @@ final class ProfileScreenViewModel: ProfileScreenViewModelProtocol{
     
     private let router: ProfileScreenRouterProtocol
     private let authService: ProfileScreenServiceProtocol
-    private let parametersService: ParametersService
     
     
     init(router: ProfileScreenRouterProtocol, authService: ProfileScreenServiceProtocol, parametersService: ParametersService) {

@@ -24,7 +24,7 @@ final class RegisterVC: UIViewController, AuthScreen {
     
     private lazy var textWelcomeBack: UILabel = {
         let view = UILabel()
-        view.text = "Nice to meet you!"
+        view.text = "Рады вас видеть!"
         view.textAlignment = .center
         view.font = UIFont.appBoldFont25
         return view

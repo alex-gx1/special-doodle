@@ -14,6 +14,11 @@ final class NotificationManager: NSObject {
         setupLocationManager()
     }
     
+    func cancelAllNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        print("Все уведомления отменены")
+    }
+    
     private func setupLocationManager() {
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true

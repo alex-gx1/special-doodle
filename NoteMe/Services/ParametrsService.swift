@@ -5,6 +5,7 @@ final class ParametersService {
     enum Key: String {
         case isUserLogin
         case isFinishedOnBoarding
+        case notificationsEnabled
     }
     
     func set(value: Any, for key: Key) {

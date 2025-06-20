@@ -28,7 +28,7 @@ final class AlertBuilder {
             onOk()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { _ in
             onCancel?()
         }
         
