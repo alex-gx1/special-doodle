@@ -511,13 +511,39 @@ final class DateScreenEditVC: UIViewController {
         [otherButton, workButton].forEach { button in
             button.backgroundColor = button == sender ? Colors.appYellowColor : Colors.appGreyColor
         }
-        selectedCategory = sender.title(for: .normal) ?? "Other"
+        if let buttonTitle = sender.title(for: .normal) {
+            switch buttonTitle {
+            case "Другое":
+                selectedCategory = "Other"
+            case "Работа":
+                selectedCategory = "Work"
+            default:
+                selectedCategory = "Other"
+            }
+        } else {
+            selectedCategory = "Other"
+        }
     }
     
     @objc private func priorityButtonTapped(_ sender: UIButton) {
         [criticalButton, highPriorityButton, mediumPriorityButton, lowPriorityButton].forEach { button in
             button.backgroundColor = button == sender ? Colors.appYellowColor : Colors.appGreyColor
         }
-        selectedPriority = sender.title(for: .normal) ?? "Medium"
+        if let buttonTitle = sender.title(for: .normal) {
+            switch buttonTitle {
+            case "Критичный":
+                selectedPriority = "Critical"
+            case "Высокий":
+                selectedPriority = "High"
+            case "Средний":
+                selectedPriority = "Medium"
+            case "Низкий":
+                selectedPriority = "Low"
+            default:
+                selectedPriority = "Medium"
+            }
+        } else {
+            selectedPriority = "Medium"
+        }
     }
 }
